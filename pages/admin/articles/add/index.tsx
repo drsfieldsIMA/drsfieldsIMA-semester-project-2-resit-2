@@ -44,7 +44,7 @@ export default function AddArticlePage({props}:any) {
 
 		const formData = new FormData();
 
-    const formElements = formElement?.elements;
+    const formElements = formElement.elements;
 
 		console.log("formElements",formElements)
 
