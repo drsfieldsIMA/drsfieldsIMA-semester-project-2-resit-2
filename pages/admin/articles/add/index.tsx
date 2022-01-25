@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { parseCookies  } from 'nookies';
 import { Box, Button, Container,MenuItem,InputLabel, Grid, Link, TextField, Typography,Input,Select } from '@mui/material';
 import { API_MONGOOSE_URL, API_URL } from 'pages/comps/config';
-import FormError from 'pages/comps/common/formError';
+import FormError from '../../../../pages/comps/common/FormError';
 
 const schema = yup.object().shape({
 	title: yup.string().required("Title is required"),
