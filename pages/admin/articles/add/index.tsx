@@ -35,16 +35,13 @@ export default function AddArticlePage({props}:any) {
 		setSubmitting(true);
 		setServerError(null);
 
-		const cookies = parseCookies()
-		console.log("cookies",cookies)
-	//	const http = useAxios(jwt);
-	 const jwt=cookies.jwt
+	const cookies = parseCookies()
+	 const jwt=cookies?.jwt
 	 const request = new XMLHttpRequest();
 	//	console.log("data",data);
-
 		const formData = new FormData();
 
-    const formElements = formElement?.elements;
+    const formElements = formElement.elements;
 
 		console.log("formElements",formElements)
 
@@ -72,31 +69,32 @@ export default function AddArticlePage({props}:any) {
 	data["category"] = category;
 	data["slug"] = data["title"].replaceAll(' ', '_');
 
-	console.log("data =====>",data)
 
 	try {
-	const add = await fetch(`${API_MONGOOSE_URL}/articles`, {
-		method: "POST",
-		headers: {
-			 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTVmMjZjNWNkOGY2MDAxNjE1YWU4ZCIsImlhdCI6MTY0MzEwNTMyMSwiZXhwIjoxNjQ1Njk3MzIxfQ._BHP_NAFaBQDea6FZamkiL321yKtO9v1dTBW5Nc0_Mo`,
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(data)
-})
-
-console.log("add fetch==>",add)
-
-const addResponse = await add.json()
-console.log("sent file successfull?==>",addResponse)
-
-		} catch (error) {
-			console.log("error", error);
-			setServerError(error.toString());
-		} finally {
-			setSubmitting(false);
+		const add = await fetch(`${API_MONGOOSE_URL}/articles`, {
+			method: "POST",
+			headers: {
+				 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTVmMjZjNWNkOGY2MDAxNjE1YWU4ZCIsImlhdCI6MTY0MzEwNTMyMSwiZXhwIjoxNjQ1Njk3MzIxfQ._BHP_NAFaBQDea6FZamkiL321yKtO9v1dTBW5Nc0_Mo`,
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
 		}
+		)
+			console.log("add fetch==>",add)
+	
+			const addResponse = await add.json()
+			console.log("sent file successfull?==>",addResponse)
+			console.log("data =====>",data)
+		  //router.push("/admin");
+	} catch (error) {
+		console.log("error", error);
+		setServerError(error.toString());
+	} finally {
+		setSubmitting(false);
 	}
+}
+
 
 	return (
     <>
