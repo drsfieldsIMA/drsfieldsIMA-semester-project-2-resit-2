@@ -115,9 +115,13 @@
         })
       //		AuthProvider(response.data)
       //		history.push("/dashboard");
-      } catch (error) {
-        setLoginError(error.toString());
-      } finally {
+      } catch (error: unknown) {
+                if (error instanceof Error) {
+                      console.error(error.message); // It's an Error instance.
+                    } else {
+                      console.error("🤷‍♂️"); // Who knows?
+                    }
+        }finally {
       setTimeout(() => {
           router.push("/admin/articles/add");
         }, 2000); 
@@ -166,9 +170,9 @@
               name="username"
               placeholder="username"
               className="formInput"
-              onChange={validateName}
               type="text"
               {...register('username')}
+              onChange={validateName}
             />
             
   
@@ -179,7 +183,7 @@
   
           <div>
             <input
-              name="password"
+            name="password"
               placeholder="password"
               {...register('password')}
               onChange={validatePassword}
