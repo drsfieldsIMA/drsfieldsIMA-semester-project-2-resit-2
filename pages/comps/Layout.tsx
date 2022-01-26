@@ -28,13 +28,13 @@ export default function Layout({title,keywords,descrip,children}:(QueryParams)) 
 }
 
 type HeadingParams = {
-  color: string;
-  size:string;
+  color?: string;
+  size?:string;
   content?:string;
   };
 
 
-export function Heading({ color="white" ,size = "1", content }:(HeadingParams)):any{
+export function Heading({ color,size, content }:(HeadingParams)):any{
 	const VariableHeading:(string | any)= `h${size}`;
 	return<VariableHeading  style={{ color }} >{content}</VariableHeading>}
 
