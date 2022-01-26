@@ -24,6 +24,7 @@ export default function AddArticlePage({props}:any) {
 	const [title, setTitle] = useState<any>();
 	const [slug, setSlug] = useState<any>();
   const [content, setContent] = useState<any>();
+
 	const { register, handleSubmit, control, setError, formState: { errors }  }  = useForm({
 		resolver: yupResolver(schema),
 		defaultValues:{
@@ -52,7 +53,6 @@ export default function AddArticlePage({props}:any) {
 
 	async function onSubmit() {
 		setSubmitting(true); 
-		setServerError(null);
 
 	const cookies = parseCookies();
 	 const jwt=cookies?.jwt;
@@ -86,8 +86,8 @@ export default function AddArticlePage({props}:any) {
 			if (add.status === 200) {
 				alert('Success article uploaded')
 			}
-	} catch (error) {
-		setServerError(error?.toString());
+	} catch (errors) {
+    setServerError("error")
 	} finally {
 		setSubmitting(false);
 	}
