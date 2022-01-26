@@ -52,7 +52,6 @@ export default function AddArticlePage({props}:any) {
 	}
 
 	async function onSubmit(data:any) {
-		event.preventDefault();
 		setSubmitting(true); 
 		setServerError(null);
 
@@ -60,7 +59,7 @@ export default function AddArticlePage({props}:any) {
 	 const jwt=cookies?.jwt;
 
 	  let formData = new FormData();
-	  const	slug = title.replaceAll(' ', '_');
+	  const	slug = title?.replaceAll(' ', '_');
 
 	formData={
   	title:title,
