@@ -167,7 +167,6 @@
         <fieldset disabled={submitting}>
           <div>
             <input
-              name="username"
               placeholder="username"
               className="formInput"
               type="text"
@@ -183,9 +182,8 @@
   
           <div>
             <input
-            name="password"
               placeholder="password"
-              {...register('password')}
+            {...register('password')}
               onChange={validatePassword}
               type="password"
             />
