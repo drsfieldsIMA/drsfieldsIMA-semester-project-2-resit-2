@@ -22,6 +22,7 @@ export default function AddArticlePage({props}:any) {
 	const [serverError, setServerError] = useState(null);
   const [category, setCategory] = useState(null);
 	const [title, setTitle] = useState<any>();
+	const [slug, setSlug] = useState<any>();
   const [content, setContent] = useState<any>();
 	const { register, handleSubmit, control, setError, formState: { errors }  }  = useForm({
 		resolver: yupResolver(schema),
@@ -49,26 +50,27 @@ export default function AddArticlePage({props}:any) {
 	const filehandler=(event:any)	=> {
 	}
 
-	async function onSubmit(data:any) {
+	async function onSubmit() {
 		setSubmitting(true); 
 		setServerError(null);
 
 	const cookies = parseCookies();
 	 const jwt=cookies?.jwt;
 
-	  let formData = new FormData();
+	  let data= {};
 	//	slug = title?.replaceAll(' ', '_');
-		   const slug =title?.replace(/\s+/g,  '_');
+		   const slugString =title?.replace(/\s+/g,  '_');
+			 setSlug(slugString)
 	  
 
-	formData={
+	data={
   	title:title,
 	 description:title,
 	  content:content,
 	 slug:slug,
 	 section_category:category
 	}
-	console.log("formData===>",formData); 
+	console.log("formData===>",data); 
 
 	try {
 		const add = await fetch(`${API_MONGOOSE_URL}/articles`, {
@@ -77,7 +79,7 @@ export default function AddArticlePage({props}:any) {
 				 'Authorization': `Bearer ${jwt}`,
 					'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(formData)
+			body: JSON.stringify(data)
 		});
 		
 			const addResponse = await add.json()
@@ -85,7 +87,7 @@ export default function AddArticlePage({props}:any) {
 				alert('Success article uploaded')
 			}
 	} catch (error) {
-		setServerError(add?.error?.toString());
+		setServerError(error?.toString());
 	} finally {
 		setSubmitting(false);
 	}
