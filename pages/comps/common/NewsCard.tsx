@@ -12,6 +12,14 @@ import ButtonLink from "./ButtonLink"
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 
+type ButtonLinkParams = {
+  className?: any;
+  href?:any;
+  hrefAs?:any;
+  label?:any;
+};
+
+
 const NewsCard=(props) => {
   console.log("props==>",props)
   const card = props.card;
@@ -29,13 +37,14 @@ const NewsCard=(props) => {
 				</Typography>
 				</Grid>
 				<Grid key={card.id} item xs={6} sm={7} md={9}>
-				<ButtonLink href={`/${card.author?.name}`} label={`${card.author?.name}`} className={"btn-secondary"} > </ButtonLink> 
+				
+				<ButtonLink href={`/${card.author?.name}`} label={`${card.author?.name}`} className="btn-secondary" > </ButtonLink> 
 				</Grid>
 				<Grid key={card.id} item xs={12} sm={4} md={3}>
-				<ButtonLink href={`/${card.category.name}`} label={`${card.category.name}`} className={"btn-primary"}> </ButtonLink> 
+				<ButtonLink href={`/${card.category.name}`} label={`${card.category.name}`} className="btn-primary"> </ButtonLink> 
         </Grid>
 				<Grid key={card.id} item xs={12} sm={8}  md={9}>
-				<Typography variant="p" color="text.primary" className="std-size__font">
+				<Typography variant="body1" color="text.primary" className="std-size__font">
           {card.description}
 				</Typography>
 				</Grid>

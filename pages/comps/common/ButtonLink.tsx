@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import Button from '@material-ui/core/Button'
 
-const ButtonLink = ({ className, href, hrefAs, children, prefetch,label }) => (
-  <Link href={href} as={hrefAs} prefetch>
+type ButtonLinkParams = {
+  className?: any;
+  href?:any;
+  hrefAs?:any;
+  label?:any;
+};
+
+
+const ButtonLink:any = ({ className, href, hrefAs,label}:(ButtonLinkParams)) => (
+  <Link href={href} as={hrefAs}>
     <a className={className}>
       {label}
     </a>
