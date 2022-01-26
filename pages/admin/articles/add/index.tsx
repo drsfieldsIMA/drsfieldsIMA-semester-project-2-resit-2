@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 
 export default function AddArticlePage({props}:any) {
 	const [submitting, setSubmitting] = useState(false);
-	const [serverError, setServerError] = useState(null);
+	const [serverError, setServerError] = useState<any>();;
   const [category, setCategory] = useState(null);
 	const [title, setTitle] = useState<any>();
 	const [slug, setSlug] = useState<any>();
