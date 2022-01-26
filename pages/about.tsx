@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Layout from "./comps/Layout"
 
-export default function about() {
+export default function About() {
   return (
     <div>
       <Layout>

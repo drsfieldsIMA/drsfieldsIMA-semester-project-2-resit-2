@@ -9,9 +9,8 @@ import useDeviceSize from './DeviceSize';
 import Link from 'next/link'
 import theme from "../../theme/theme"
 
-export const Header = () =>  {
-   const router=useRouter()
-    console.log("theme===>", theme)
+const Header:any = () =>  {
+  const router=useRouter()
   const [toggleMenu, setToggleMenu] = useState(false)
   
   const [width,height]=useDeviceSize();
@@ -67,3 +66,5 @@ export const Header = () =>  {
 Header.propTypes = {
   onSidebarOpen: PropTypes.func
 };
+
+export default Header; 

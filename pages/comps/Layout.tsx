@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
-import { Header } from './navigation/Header'
+import  Header  from './navigation/Header'
 import PropTypes from "prop-types";
-
 
 type QueryParams = {
   title: string;
