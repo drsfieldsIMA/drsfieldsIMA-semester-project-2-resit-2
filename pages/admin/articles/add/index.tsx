@@ -52,7 +52,6 @@ export default function AddArticlePage({props}:any) {
 	}
 
 	async function onSubmit(data:any) {
-		event.preventDefault();
 		setSubmitting(true); 
 		setServerError(null);
 
