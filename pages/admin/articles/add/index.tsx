@@ -1,13 +1,15 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React from 'react'
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { parseCookies  } from 'nookies';
 import { Box, Button, Container,MenuItem,InputLabel, Grid, Link, TextField, Typography,Input,Select } from '@mui/material';
 import { API_MONGOOSE_URL, API_URL } from 'pages/comps/config';
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import FormError from '../../../../pages/comps/common/FormError';
+import ReactSelect from "react-select";
+import { Router } from 'react-router';
 
 const schema = yup.object().shape({
 	title: yup.string().required("Title is required"),
@@ -19,77 +21,72 @@ export default function AddArticlePage({props}:any) {
 	const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState(null);
   const [category, setCategory] = useState(null);
-
-	const { register, handleSubmit, setError, formState: { errors }  }  = useForm({
+	const [title, setTitle] = useState(null);
+  const [content, setContent] = useState(null);
+	const { register, handleSubmit, control, setError, formState: { errors }  }  = useForm({
 		resolver: yupResolver(schema),
+		defaultValues:{
+			title: '',
+			content:'',
+			description:'',
+		slug:'',
+      category: { value: "science", label: "Science" }
+		}
 	});
-
-	const handleChange = (event:any) => {
-		setCategory(event.target.value);
+ 
+	const handleCategory= (event:any) => {
+		console.log("category==>",event)
+		setCategory(event.value);
 	}
 
-	
-	async function onSubmit() {
-		console.log("submit")
-		const formElement = document.querySelector('form');
-		setSubmitting(true);
+	const handleTitle= (event:any) => {
+		setTitle(event.target.value);
+	}
+
+	const handleContent= (event:any) => {
+		setContent(event.target.value);
+	}
+
+	const filehandler=(event:any)	=> {
+		console.log("files ==>",event.target.files[0])	
+	}
+
+	async function onSubmit(data:any) {
+		event.preventDefault();
+		setSubmitting(true); 
 		setServerError(null);
 
-	const cookies = parseCookies()
-	 const jwt=cookies?.jwt
-	 const request = new XMLHttpRequest();
-	//	console.log("data",data);
-		const formData = new FormData();
+	const cookies = parseCookies();
+	 const jwt=cookies?.jwt;
 
-    const formElements = formElement.elements;
+	  let formData = new FormData();
+	  const	slug = title.replaceAll(' ', '_');
 
-		console.log("formElements",formElements)
-
- const	data = {};
-
-	for (let i = 0; i < formElements.length; i++) {
-		console.log("i",formElements[i])
-		const currentElement = formElements[i];
-		if (!['submit', 'file'].includes(currentElement.type) && i > 0) {
-			data[currentElement.name] = currentElement.value;
-		} else if (currentElement.type === 'file') {
-			for (let i = 0; i < currentElement.files.length; i++) {
-				const file = currentElement.files[i];
-				console.log("file",file)
-				console.log("current Element",currentElement.name)
-				formData.append(`files.${currentElement.name}`, file,file.name);
-		//		data[`files.${currentElement.name}`]=file;
-				console.log("formdata0",formData)
-			}
-		}
+	formData={
+  	title:title,
+	 description:title,
+	content:content,
+	 slug:slug,
+	 section_category:category
 	}
-  
-	console.log("data",data)
-	data["content"] = data["description"];
-	data["category"] = category;
-	data["slug"] = data["title"].replaceAll(' ', '_');
-
+	console.log("formData===>",formData); 
 
 	try {
 		const add = await fetch(`${API_MONGOOSE_URL}/articles`, {
 			method: "POST",
 			headers: {
-				 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTVmMjZjNWNkOGY2MDAxNjE1YWU4ZCIsImlhdCI6MTY0MzEwNTMyMSwiZXhwIjoxNjQ1Njk3MzIxfQ._BHP_NAFaBQDea6FZamkiL321yKtO9v1dTBW5Nc0_Mo`,
-					'Accept': 'application/json',
+				 'Authorization': `Bearer ${jwt}`,
 					'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(data)
-		}
-		)
-			console.log("add fetch==>",add)
-	
+			body: JSON.stringify(formData)
+		});
+		
 			const addResponse = await add.json()
-			console.log("sent file successfull?==>",addResponse)
-			console.log("data =====>",data)
-		  //router.push("/admin");
+			if (add.status === 200) {
+				alert('Success article uploaded')
+			}
 	} catch (error) {
-		console.log("error", error);
-		setServerError(error.toString());
+		setServerError(add?.error?.toString());
 	} finally {
 		setSubmitting(false);
 	}
@@ -111,51 +108,54 @@ export default function AddArticlePage({props}:any) {
         <Container    sx={{
           backgroundColor:'white',
 					maxWidth:"800"}} >
-			<form>
-				{serverError && <FormError>{serverError}</FormError>}
-				<fieldset className="form__fieldset" disabled={submitting}>
-				<Grid container  className="form__fieldset__grid"  rowSpacing={7} columnSpacing={{ xs: 1, sm: 1, md: 2, lg:3 }} marginTop={{xs:1, sm:2,md:3}}>
-				<Grid   item  xs={12} md={12}>
-				<label style={{
-          color:'black',
-        }} className="form-label" >Title</label>
-						<Input {...register('title', { required: true })} placeholder="Title e.g. local author publishes to a worldwi....." className="formInput" name="title"  />
-						{errors.title && <FormError>{errors.title.message}</FormError>}
-				<label style={{
-          color:'black',
-        }} className="form-label"  >Description</label>
-						<textarea {...register('content', { required: true })}  placeholder="Content e.g. This local author has secured a publisher....." className="formInput__content"  style={{width:500,height:90}} name="description" />
-					<InputLabel id="demo-simple-select-label" className="form-label">Category</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={category}
-    label="category"
-    onChange={handleChange}
-		placeholder='Category of story e.g sport, science, culture.........'
-		className="form-input__dropdown"
-  >
-    <MenuItem value={"science"}>Science</MenuItem>
-    <MenuItem value={"sport"}>Sport</MenuItem>
-    <MenuItem value={"culture"}>Culture</MenuItem>
-		<MenuItem value={"nature"}>Nature</MenuItem>
-		<MenuItem value={"business"}>Business</MenuItem>
-  			</Select>
-				</Grid>
+			
+			
+						<form onSubmit={onSubmit} >
+							{serverError && <FormError>{serverError}</FormError>}
+							<fieldset className="form__fieldset" disabled={submitting}>
 
-				</Grid>
 
-					<div style={{marginBottom:30}}>
-					<label htmlFor="filePicker" style={{ background:"cream", padding:"5px 10px" }}>
-					Upload image
-					</label>
-					<input  id="filePicker" type="file"  name="Image" />
-					</div>
-            <div className="form-input">
-					<Button onClick={onSubmit} type="submit" style={{marginLeft:"30px"}} className="btn-primary">{submitting ? "Submitting..." : "Submit"}</Button>
-					</div>
+						<Grid container  className="form__fieldset__grid"  rowSpacing={7} columnSpacing={{ xs: 1, sm: 1, md: 2, lg:3 }} marginTop={{xs:1, sm:2,md:3}}>
+						<Grid   item  xs={12} md={12}>
+				
+				    	<label>Title</label>
+					 	   <Input {...register('title', { required: true })} placeholder="Title e.g. local author publishes to a worldwi....." className="formInput" name="title" onChange={handleTitle}   />
+						
+						   <label>Content</label>
+						   <textarea {...register('content', { required: true })}  placeholder="Content e.g. This local author has secured a publisher....." className="formInput__content"  style={{width:500,height:90}} name="description" onChange={handleContent} />
+					
+					     					 <label>Category</label>
+													<div className="controller-dropdown">
+													<Controller
+													  id="controller-dropdown__menu"
+														name="category"
+														control={control}
+														render={({ field:onChange }) => (
+																		<ReactSelect
+																		onChange={handleCategory}
+																		isClearable
+																		options={[
+																				{ value: "science", label: "science" },
+																				{ value: "sport", label: "sport" },
+																				{ value: "culture", label: "culture" },
+																				{ value: "nature", label: "nature" }
+																									]}
+																								/>
+																							)}
+																			/>
+																</div>
+								</Grid>
+								</Grid>
+
+								<div className="form-input">
+								<Button type="submit" style={{marginLeft:"30px"}} className="btn-primary">{submitting ? "Submitting..." : "Submit"}</Button>
+								</div>
+				
+				
 				</fieldset>
 			</form>
+			
+			
 			</Container>
 			</Box>
      </>

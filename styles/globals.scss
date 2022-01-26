@@ -193,6 +193,19 @@ a {
 	justify-content: center;
 	text-align: center;
 }
+
+.controller-dropdown {
+	display: block;
+	position: relative;
+	max-width: 700px !important;
+	min-width: 60%;
+	margin-left: 130px;
+}
+
+#controller-dropdown__menu {
+	border: #04ceb4 2px solid;
+}
+
 .single-image {
 	display: block !important;
 	position: relative !important;
@@ -449,7 +462,7 @@ main {
 input[type="text"] {
 	padding: 5px 12px;
 	font-size: 1.25em;
-	min-width: 672px;
+	min-width: 73% !important;
 	max-width: 700px;
 	height: 40px;
 	border: 1px solid $green;
@@ -482,7 +495,15 @@ input[type="text"] {
 	display: block;
 	margin: 0 auto;
 	background: white;
+	margin-top: 1.5rem;
 }
+
+.form-input button {
+	display: block;
+	position: relative;
+	margin: 0 auto !important;
+}
+
 .form-input__dropdown {
 	width: 200px !important;
 	display: block;
