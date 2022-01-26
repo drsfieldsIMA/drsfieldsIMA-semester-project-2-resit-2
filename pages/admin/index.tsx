@@ -9,8 +9,8 @@ import useLocalStorage from "../comps/config/useLocalStorage";
 import { parseCookies  } from 'nookies';
 import { API_URL } from '../comps/config'
 
-export default function AdminIndex({news}) {
- const articles=news;
+export default function AdminIndex({news}:any) {
+ const articles:any=news;
 	return (
 		<>
 				<Heading content="Admin Page" />
@@ -20,7 +20,7 @@ export default function AdminIndex({news}) {
     <Heading size="3" content="Articles" />
 		<div>
       <ul className="whiteText">
-	{articles && articles.map((item) => (
+	{articles && articles.map((item:any) => (
 			<a key={item.Slug} className="single-article">	<h3 key={item.slug}>{item.slug}</h3> </a>
   ))} 
 		</ul>
@@ -31,7 +31,7 @@ export default function AdminIndex({news}) {
 
 export async function getStaticProps() {
   const  res = await fetch(`${API_URL}/articles`);
-  const news  = await res.json();
+  const news:any  = await res.json();
 	return {
     props: {news}, // will be passed to the page component as props
   }
@@ -39,4 +39,5 @@ export async function getStaticProps() {
 
 AdminIndex.propTypes = {
 	children: PropTypes.node,
+	news: PropTypes.any,
 };

@@ -12,20 +12,17 @@ import { API_URL,API_MONGOOSE_URL } from './comps/config'
 import { useQuery } from "react-query";
 import theme from './theme/theme';
 import { ThemeProvider } from '@material-ui/core'
+import { AnyObject } from 'yup/lib/object'
+import PropTypes from "prop-types";
 
-const Home: NextPage = ({news}) => {
-  console.log("news==>",news)
-  
-console.log("news==>",news)
-
-   const sportNews = news.filter(item => item.category?.name ==="sport");
-   const scienceNews = news.filter(item => ((item.category?.name ==="science") || (item.category?.name ==="nature" )));
-   const cultureNews= news.filter(item => ((item.category?.name ==="culture")));
-   const natureNews= news.filter(item => ((item.category?.name ==="nature")));
+const Home: NextPage = ({news}:any) => {
+   const sportNews = news.filter((item: { category: { name: string } }) => item.category?.name ==="sport");
+   const scienceNews = news.filter((item: { category: { name: string } }) => ((item.category?.name ==="science") || (item.category?.name ==="nature" )));
+   const cultureNews= news.filter((item: { category: { name: string } })=> ((item.category?.name ==="culture")));
+   const natureNews= news.filter((item: { category: { name: string } }) => ((item.category?.name ==="nature")));
    
    // sort by value
-  console.log("Sciencenews",scienceNews)
-  scienceNews.sort(function(a, b) {
+  scienceNews.sort(function(a: { createdAt: string | number | Date; length: number }, b: { createdAt: string | number | Date; length: number }) {
     const keyA = new Date(a.createdAt),
     keyB = new Date(b.createdAt);
   
@@ -39,7 +36,7 @@ console.log("news==>",news)
   });
 
 
-   const headlineNews = news.filter(item => item.category?.name ==="news");
+   const headlineNews = news.filter((item: { category: { name: string } }) => item.category?.name ==="news");
  
   
   return (
@@ -47,7 +44,7 @@ console.log("news==>",news)
       <main>
       <h1 >Headlines and Science</h1>
   <Grid container spacing={2} px={2} marginLeft={0}>
-    {scienceNews.slice(0, 4).map((item):any=>( 
+    {scienceNews.slice(0, 4).map((item:any)=>( 
       <Grid key={item.id} item xs={12}  sm={6} md={6}  lg={6} xl={4}>
 										 <NewsCard key={item.id}  card={item}/>
     </Grid>
@@ -56,7 +53,7 @@ console.log("news==>",news)
 
 <h2>Sport News</h2>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-  {sportNews.map((item):any=>( 
+  {sportNews.map((item:any)=>( 
     <Grid key={item.id} item xs={6}>
 										 <NewsCard key={item.id}  card={item}/>
   </Grid>))}
@@ -64,7 +61,7 @@ console.log("news==>",news)
 
 <h3>Cultural and Musical Highlights</h3>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-  {cultureNews.map((item):any=>( 
+  {cultureNews.map((item:any)=>( 
     <Grid key={item.id} item xs={6}>
 										 <NewsCard key={item.id}  card={item}/>
   </Grid>))}
@@ -72,7 +69,7 @@ console.log("news==>",news)
 
 <h3>Nature and gardening news</h3>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-  {natureNews.map((item):any=>( 
+  {natureNews.map((item:any)=>( 
     <Grid key={item.id} item xs={6}>
 										 <NewsCard key={item.id}  card={item}/>
   </Grid>))}
@@ -101,12 +98,18 @@ export async function getStaticProps() {
 
   //const  res=await fetch(`${API_URL}/api/news`);
   const  res=await fetch(`${API_MONGOOSE_URL}/articles`);
-  const news =await res.json();
+  const news:AnyObject =await res.json();
 return          {
   props: {news},
 }
   
 }
+
+Home.propTypes = {
+	item: PropTypes.any,
+	news: PropTypes.any,
+};
+
 
 
 export default Home
