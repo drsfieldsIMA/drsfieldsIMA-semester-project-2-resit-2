@@ -59,7 +59,7 @@ export default function AddArticlePage({props}:any) {
 	 const jwt=cookies?.jwt;
 
 	  let formData = new FormData();
-	  const	slug = title.replaceAll(' ', '_');
+	  const	slug = title?.replaceAll(' ', '_');
 
 	formData={
   	title:title,
