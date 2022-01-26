@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-export default function singleSport() {
+export default function SingleSport() {
   const router=useRouter();
   console.log("router===>",router.query.slug)
   return (

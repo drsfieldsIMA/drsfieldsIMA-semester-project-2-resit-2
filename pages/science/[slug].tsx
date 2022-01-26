@@ -2,10 +2,10 @@ import { useRouter } from 'next/router'
 import { API_URL,API_MONGOOSE_URL } from '../comps/config'
 import Link from 'next/link';
 import Image from 'next/image';
-import { Box,Card,Stack, Divider,Item } from '@mui/material';
+import { Box,Card,Stack, Divider} from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-export default function singleScience({single}) {
+export default function SingleScience({single}) {
   const maxL=single.content.length
   console.log("maxL",maxL)
   const one = single.content.slice(1,2);
@@ -13,7 +13,7 @@ export default function singleScience({single}) {
   const two = single.content.slice(2,maxL);
   return (
     <>
-    <img marginTop={0} src={single.image?.url} width={200} height={600} className="single-image"></img>
+    <Image  src={single.image?.url} width={200} height={600} alt={single.title} className="single-image"></Image>
 <Box>
       <Card className="singleNews">
       <h1>{single.title}</h1>

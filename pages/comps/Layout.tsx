@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { Header } from './navigation/Header'
 import PropTypes from "prop-types";
 
-export default function Layout({title,keywords,descrip,children}) {
+
+type QueryParams = {
+  title: string;
+  keywords:string;
+  descrip:string;
+  children:any;
+  };
+
+export default function Layout({title,keywords,descrip,children}:(QueryParams)) {
   return (
     <div>
       <Head>
@@ -19,15 +27,22 @@ export default function Layout({title,keywords,descrip,children}) {
   )
 }
 
-export function Heading({ color="white" ,size = "1", content }) {
-	const VariableHeading = `h${size}`;
-	return<VariableHeading  style={{ color }} >{content}</VariableHeading>;
-		}
+type HeadingParams = {
+  color: string;
+  size:string;
+  content?:string;
+  };
+
+
+export function Heading({ color="white" ,size = "1", content }:(HeadingParams)):any{
+	const VariableHeading:(string | any)= `h${size}`;
+	return<VariableHeading  style={{ color }} >{content}</VariableHeading>}
 
 Heading.propTypes = {
 	size: PropTypes.string,
 	content: PropTypes.string.isRequired,
-	color:PropTypes.string
+	color:PropTypes.string,
+  VariableHeading:PropTypes.node
 };
 
 Layout.defaultProps={
