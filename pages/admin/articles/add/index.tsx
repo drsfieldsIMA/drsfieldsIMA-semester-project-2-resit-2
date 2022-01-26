@@ -21,8 +21,8 @@ export default function AddArticlePage({props}:any) {
 	const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState(null);
   const [category, setCategory] = useState(null);
-	const [title, setTitle] = useState("unknown title");
-  const [content, setContent] = useState("unknown-slug");
+	const [title, setTitle] = useState<any>();
+  const [content, setContent] = useState<any>();
 	const { register, handleSubmit, control, setError, formState: { errors }  }  = useForm({
 		resolver: yupResolver(schema),
 		defaultValues:{
@@ -57,16 +57,14 @@ export default function AddArticlePage({props}:any) {
 	 const jwt=cookies?.jwt;
 
 	  let formData = new FormData();
-		if (title){
 	//	slug = title?.replaceAll(' ', '_');
-		   slug =title?.replace(/\s+/g,  '_');
-		}
+		   const slug =title?.replace(/\s+/g,  '_');
 	  
 
 	formData={
   	title:title,
 	 description:title,
-	content:content,
+	  content:content,
 	 slug:slug,
 	 section_category:category
 	}
