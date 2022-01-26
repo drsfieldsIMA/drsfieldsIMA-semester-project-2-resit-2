@@ -128,7 +128,6 @@ export default function AddArticlePage({props}:any) {
 					     					 <label>Category</label>
 													<div className="controller-dropdown">
 													<Controller
-													  id="controller-dropdown__menu"
 														name="category"
 														control={control}
 														render={({ field:onChange }) => (
