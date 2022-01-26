@@ -21,21 +21,20 @@ export default function AddArticlePage({props}:any) {
 	const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState(null);
   const [category, setCategory] = useState(null);
-	const [title, setTitle] = useState(null);
-  const [content, setContent] = useState(null);
+	const [title, setTitle] = useState("unknown title");
+  const [content, setContent] = useState("unknown-slug");
 	const { register, handleSubmit, control, setError, formState: { errors }  }  = useForm({
 		resolver: yupResolver(schema),
 		defaultValues:{
-			title: '',
+			title: "unknown title",
 			content:'',
 			description:'',
-		slug:'',
+	   	slug:"unknown-slug",
       category: { value: "science", label: "Science" }
 		}
 	});
  
 	const handleCategory= (event:any) => {
-		console.log("category==>",event)
 		setCategory(event.value);
 	}
 
@@ -48,7 +47,6 @@ export default function AddArticlePage({props}:any) {
 	}
 
 	const filehandler=(event:any)	=> {
-		console.log("files ==>",event.target.files[0])	
 	}
 
 	async function onSubmit(data:any) {
