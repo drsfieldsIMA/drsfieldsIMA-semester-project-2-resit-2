@@ -1,6 +1,7 @@
 import { maxWidth } from "@mui/system";
 import { createTheme } from "@mui/material";
-const theme = createTheme({
+
+const theme:any = createTheme({
   breakpoints: {
     values: {
       xs: 360,

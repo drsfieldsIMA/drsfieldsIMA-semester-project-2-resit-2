@@ -8,7 +8,7 @@ import Layout from './comps/Layout'
 import NewsCard from './comps/common/NewsCard'
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import { API_URL,API_MONGOOSE_URL } from './comps/config'
+import API_URL,{API_MONGOOSE_URL } from './comps/config'
 import { useQuery } from "react-query";
 import theme from './theme/theme';
 import { ThemeProvider } from '@material-ui/core'
