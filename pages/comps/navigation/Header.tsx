@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect,useState } from 'react';
 import useDeviceSize from './DeviceSize';
 import Link from 'next/link'
-import theme from "../../theme/theme"
+import theme from "../../../theme/theme"
 
 const Header:any = () =>  {
   const router=useRouter()

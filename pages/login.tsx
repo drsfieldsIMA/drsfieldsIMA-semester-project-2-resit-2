@@ -8,7 +8,7 @@
   import NextLink from 'next/link';
   import { yupResolver } from "@hookform/resolvers/yup";
   import axios from "axios";
-  import API_URL,{API_MONGOOSE_URL, EXT_LOGIN } from './comps/config/index'
+  import API_URL,{API_MONGOOSE_URL, EXT_LOGIN } from '../utils/index'
   import router from "next/router";
   import nookies from 'nookies';
   import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';

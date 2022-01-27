@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { parseCookies  } from 'nookies';
 import { Box, Button, Container,MenuItem,InputLabel, Grid, Link, TextField, Typography,Input,Select } from '@mui/material';
-import API_URL ,{ API_MONGOOSE_URL}from 'pages/comps/config';
+import API_URL ,{ API_MONGOOSE_URL}from "../../../../utils/index";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import FormError from '../../../../pages/comps/common/FormError';
 import ReactSelect from "react-select";

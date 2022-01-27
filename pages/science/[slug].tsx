@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import API_URL,{API_MONGOOSE_URL } from '../comps/config'
+import API_URL,{API_MONGOOSE_URL } from '../../utils/index'
 import Link from 'next/link';
 import Image from 'next/image';
 import { Box,Card,Stack, Divider} from '@mui/material';
