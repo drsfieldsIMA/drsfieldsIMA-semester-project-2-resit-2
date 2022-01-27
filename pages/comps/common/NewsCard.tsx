@@ -73,8 +73,8 @@ const NewsCard: any = ({ article }): any => {
 							</Grid>
 							<Grid key={cardArticle.id} item xs={12} sm={4} md={3}>
 								<ButtonLink
-									href={`/${cardArticle.category.name}`}
-									label={`${cardArticle.category.name}`}
+									href={`/${cardArticle.category?.name}`}
+									label={`${cardArticle.category?.name}`}
 									className='btn-primary'>
 									{" "}
 								</ButtonLink>
