@@ -12,7 +12,6 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import API_URL, { API_MONGOOSE_URL } from "../utils/index";
 import { useQuery } from "react-query";
-import UseDebounce from "../utils/useDebounce";
 import SearchArticles from "../utils/SearchArticles";
 import ArticlesSearchResult from "./comps/ArticlesSearchResults";
 import Dropdown from "./comps/navigation/Dropdown";
