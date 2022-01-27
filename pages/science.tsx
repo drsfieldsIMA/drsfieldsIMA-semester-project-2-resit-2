@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
 import NewsCard from 'pages/comps/common/NewsCard'
-import { API_URL } from 'pages/comps/config'
+import  API_URL from 'pages/comps/config'
 import Hero from './comps/common/Hero'
 
 export default function Science({news}) {
