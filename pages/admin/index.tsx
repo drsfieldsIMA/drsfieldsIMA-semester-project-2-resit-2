@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useLocalStorage from "../comps/config/useLocalStorage";
 import { parseCookies  } from 'nookies';
-import { API_URL } from '../comps/config'
+import API_URL from '../comps/config'
 
 type HeadingParams = {
   color?: string;
