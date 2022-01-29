@@ -1,15 +1,16 @@
 /** @format */
 
 import { ALL_ARTICLE_ENTRIES } from "../constants/articleEntries";
+import { ArticleParams } from "../pages/search";
 
-const SearchArticles = (query: string): Promise<string[]> => {
+const SearchArticles = (query: Array<string>): Promise<string[]> => {
 	return new Promise((resolve) => {
-		const matchingArticles = ALL_ARTICLE_ENTRIES.filter(
-			({ title: string, content: string, category: string, author: string }) =>
-				title.toLowerCase().includes(query.toLowerCase()) ||
-				content.toLowerCase().includes(query.toLowerCase()) ||
-				category.toLowerCase().includes(query.toLowerCase()) ||
-				author.toLowerCase().includes(query.toLowerCase())
+		const matchingArticles: string[] = ALL_ARTICLE_ENTRIES.filter(
+			({ title, content, category, author }) =>
+				title.toLowerCase().includes(query[0].toLowerCase()) ||
+				content.toLowerCase().includes(query[1].toLowerCase()) ||
+				category.toLowerCase().includes(query[2].toLowerCase()) ||
+				author.toLowerCase().includes(query[3].toLowerCase())
 		).map(({ title }) => title);
 		// Artificial timeout for demonstration purposes
 		setTimeout(() => {

@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 import API_URL, { API_MONGOOSE_URL } from "../../../../utils/index";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import FormError from "../../../../pages/comps/common/FormError";
+import FormError from "../../../../comps/common/FormError";
 import ReactSelect from "react-select";
 import { Router } from "react-router";
 

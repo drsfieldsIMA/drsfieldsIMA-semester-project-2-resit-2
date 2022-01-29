@@ -21,8 +21,8 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect } from "react";
-import AuthContext, { AuthProvider } from "./comps/config/AuthContext";
-import useLocalStorage from "./comps/config/useLocalStorage";
+import AuthContext, { AuthProvider } from "../comps/config/AuthContext";
+import useLocalStorage from "../comps/config/useLocalStorage";
 
 const url = API_URL + EXT_LOGIN;
 
@@ -123,7 +123,7 @@ export default function LoginForm() {
 				path: "/",
 			});
 			//		AuthProvider(response.data)
-			//		history.push("/dashboard");
+			router.push("/admin/articles/add");
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error(error.message); // It's an Error instance.
@@ -188,6 +188,7 @@ export default function LoginForm() {
 							<div>
 								<input
 									placeholder='password'
+									className='formInput'
 									{...register("password")}
 									onChange={validatePassword}
 									type='password'

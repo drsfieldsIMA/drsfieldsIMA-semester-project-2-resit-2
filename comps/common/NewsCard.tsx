@@ -10,7 +10,6 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
 import Hero from "./Hero";
-import ButtonLink from "./ButtonLink";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
@@ -27,22 +26,23 @@ type CardArticleParams = {
 	content?: string;
 	id?: string;
 	image?: any;
-	category?: any;
+	category?: Array<string>;
 	slug?: string;
 	author?: any;
 	createdAt?: any;
 	description?: string;
+	section_article?: string;
 };
 
-const NewsCard: any = ({ article }): any => {
-	const cardArticle: any = article;
+const NewsCard = ({ article }: { article: CardArticleParams }) => {
+	const cardArticle: CardArticleParams = article;
 
 	return (
 		<Card className='news-card' sx={{ width: 210, height: 400, marginLeft: 0 }}>
 			<CardContent>
 				<Link
 					key={cardArticle.id}
-					href={`/${cardArticle.category?.name}/${cardArticle.slug}`}>
+					href={`/${cardArticle.section_article}/${cardArticle.slug}`}>
 					<a>
 						<Hero
 							title={cardArticle.title}
@@ -64,20 +64,26 @@ const NewsCard: any = ({ article }): any => {
 								</Typography>
 							</Grid>
 							<Grid key={cardArticle.id} item xs={6} sm={7} md={9}>
-								<ButtonLink
-									href={`/${cardArticle.author?.name}`}
-									label={`${cardArticle.author?.name}`}
-									className='btl-secondary'>
-									{" "}
-								</ButtonLink>
+								<Link href={`/${cardArticle.author}`} key={cardArticle.id}>
+									<a key={cardArticle.slug}>
+										<Button
+											href={`/${cardArticle.author}`}
+											className='btn-primary'>
+											{`${cardArticle.author?.name}`}
+										</Button>
+									</a>
+								</Link>
 							</Grid>
 							<Grid key={cardArticle.id} item xs={12} sm={4} md={3}>
-								<ButtonLink
-									href={`/${cardArticle.category?.name}`}
-									label={`${cardArticle.category?.name}`}
-									className='btn-primary'>
-									{" "}
-								</ButtonLink>
+								<Link href={`/${cardArticle.slug}`} key={cardArticle.id}>
+									<a key={cardArticle.slug}>
+										<Button
+											href={`/${cardArticle.section_article}`}
+											className='btn-primary'>
+											{`${cardArticle.section_article}`}
+										</Button>
+									</a>
+								</Link>
 							</Grid>
 							<Grid key={cardArticle.id} item xs={12} sm={8} md={9}>
 								<Typography
@@ -96,7 +102,13 @@ const NewsCard: any = ({ article }): any => {
 };
 
 NewsCard.propTypes = {
-	article: PropTypes.any,
+	props: PropTypes.node,
+	articles: PropTypes.node,
+	category: PropTypes.arrayOf(PropTypes.string),
+	image: PropTypes.arrayOf(PropTypes.string),
+	title: PropTypes.string,
+	section_article: PropTypes.string,
+	content: PropTypes.string,
 };
 
 export default NewsCard;

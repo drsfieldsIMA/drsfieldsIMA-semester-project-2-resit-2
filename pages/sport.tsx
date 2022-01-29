@@ -4,9 +4,11 @@ import React from "react";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 import Link from "next/link";
-import NewsCard from "pages/comps/common/NewsCard";
+import NewsCard from "comps/common/NewsCard";
 import API_URL from "../utils/index";
-import Hero from "./comps/common/Hero";
+import Hero from "../comps/common/Hero";
+import PropTypes from "prop-types";
+import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 
 export default function Sport({ news }: any) {
 	return (
@@ -35,7 +37,7 @@ export default function Sport({ news }: any) {
 						<Grid item xs={6} key={item.id}>
 							<Link href={`/sport/${item.slug}`}>
 								<a>
-									<NewsCard card={item} />
+									<NewsCard article={item} />
 								</a>
 							</Link>
 						</Grid>
@@ -48,9 +50,17 @@ export default function Sport({ news }: any) {
 
 export async function getStaticProps() {
 	//const  res=await fetch(`${API_URL}/api/news`);
-	const res = await fetch(`${API_URL}/articles`);
-	const news = await res.json();
+	// const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	// const news = await res.json();
+	const articles = ALL_ARTICLE_ENTRIES;
+	const news = articles.filter((item) => item.category === "sport");
 	return {
 		props: { news },
 	};
 }
+
+Sport.propTypes = {
+	item: PropTypes.any,
+	news: PropTypes.any,
+	title: PropTypes.string,
+};

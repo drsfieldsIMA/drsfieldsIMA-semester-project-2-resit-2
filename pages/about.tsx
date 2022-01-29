@@ -1,14 +1,18 @@
-import Link from "next/link"
-import Layout from "./comps/Layout"
+/** @format */
+
+import Link from "next/link";
+import Layout from "../comps/Layout";
 
 export default function About() {
-  return (
-    <div>
-      <Layout>
-     <h1>About</h1>    
-     <Link href="/">Index</Link>
-     <p>App that displays positive news stories for our entropic existence</p>
-     </Layout>  
-    </div>
-  )
+	return (
+		<div>
+			<Layout>
+				<h1>About</h1>
+				<Link href='/'>Index</Link>
+				<p>
+					App that displays positive news stories for our entropic existence
+				</p>
+			</Layout>
+		</div>
+	);
 }

@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "noImplicitAny": false,
     "paths": {
-      "@/components/*":["components/*"],
+      "@/comps/*":["comps/*"],
       "@/styles/*":["styles/*"]
     }
   },

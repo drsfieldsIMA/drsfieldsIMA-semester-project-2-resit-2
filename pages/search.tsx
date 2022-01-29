@@ -6,27 +6,37 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
-import Layout from "./comps/Layout";
-import NewsCard from "./comps/common/NewsCard";
+import Layout from "../comps/Layout";
+import NewsCard from "../comps/common/NewsCard";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import API_URL, { API_MONGOOSE_URL } from "../utils/index";
 import { useQuery } from "react-query";
 import SearchArticles from "../utils/SearchArticles";
-import ArticlesSearchResult from "./comps/ArticlesSearchResults";
-import Dropdown from "./comps/navigation/Dropdown";
+import ArticlesSearchResult from "../comps/ArticlesSearchResults";
+import Dropdown from "../comps/navigation/Dropdown";
 import { MultiSelect } from "react-multi-select-component";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
+import useDebounce from "../utils/useDebounce";
+import { boolean } from "yup/lib/locale";
 
-const searchCategories = (query: Array): Promise<string[]> => {
+export type ArticleParams = {
+	id: Array<string> | string;
+	title: Array<string> | string;
+	slug: Array<string> | string;
+	date: Array<string> | string;
+	time: Array<string> | string;
+	image: Array<string> | string;
+	content: Array<string> | string;
+	category: Array<string> | string;
+	author: Array<string> | string;
+};
+
+const searchCategories = (query: Array<string>): Promise<string[]> => {
 	return new Promise((resolve) => {
-		const matchingCategories = ALL_ARTICLE_ENTRIES.filter(
+		const matchingCategories: string[] = ALL_ARTICLE_ENTRIES.filter(
 			({ title, content, category, author }) =>
-				category.toLowerCase().includes(query[0].value.toLowerCase()) ||
-				category.toLowerCase().includes(query[1]?.value.toLowerCase()) ||
-				category.toLowerCase().includes(query[2]?.value.toLowerCase()) ||
-				category.toLowerCase().includes(query[3]?.value.toLowerCase()) ||
-				category.toLowerCase().includes(query[4]?.value.toLowerCase())
+				category.toLowerCase().includes(title.toLowerCase())
 		).map(({ title }) => title);
 		// Artificial timeout for demonstration purposes
 		setTimeout(() => {
@@ -52,7 +62,7 @@ const Search: NextPage = ({ news }: any) => {
 		setSearchValue(selected);
 	};
 
-	const debounedSearchValue = UseDebounce(searchValue, 900);
+	const debounedSearchValue = useDebounce(searchValue, 900);
 
 	const { isLoading, isError, isSuccess, data } = useQuery(
 		["searchCategories", debounedSearchValue],
@@ -62,7 +72,7 @@ const Search: NextPage = ({ news }: any) => {
 		}
 	);
 
-	const renderResult = () => {
+	const renderResult = (data) => {
 		if (isLoading) {
 			return <div className='search-message'> Loading... </div>;
 		}
@@ -88,7 +98,7 @@ const Search: NextPage = ({ news }: any) => {
 				onChange={handleChange}
 				labelledBy={"Select"}
 			/>
-			{renderResult()}
+			{renderResult(news)}
 		</div>
 	);
 };

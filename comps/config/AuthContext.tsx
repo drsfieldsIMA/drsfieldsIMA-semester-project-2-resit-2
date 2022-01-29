@@ -20,10 +20,10 @@ const AuthContext = React.createContext([null, () => {}]);
 export const useAuth = () => React.useContext(AuthContext);
 
 type Props = {
-	children: any;
+	children: ReactNode;
 };
 
-export function AuthProvider({ children }: any) {
+export function AuthProvider({ children }: Props) {
 	const [auth, setAuth] = useLocalStorage("auth", null);
 	return (
 		<>
