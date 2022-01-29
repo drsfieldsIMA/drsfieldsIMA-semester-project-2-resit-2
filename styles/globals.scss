@@ -72,44 +72,44 @@ h4 {
 @media only screen and (max-width: $breakpoint_md) {
 	html,
 	body {
-		font-size: $font-size-md;
+		font-size: $font-size-md !important;
 	}
 
 	.std-size__font {
-		font-size: $font-size-md;
+		font-size: $font-size-md !important;
 	}
 }
 
 @media only screen and (max-width: $breakpoint_lg) {
 	html,
 	body {
-		font-size: $font-size-lg;
+		font-size: $font-size-lg !important;
 	}
 
 	.std-size__font {
-		font-size: $font-size-lg;
+		font-size: $font-size-lg !important;
 	}
 }
 
 @media only screen and (max-width: $breakpoint_xl) {
 	html,
 	body {
-		font-size: $font-size-xl;
+		font-size: $font-size-xl !important;
 	}
 
 	.std-size__font {
-		font-size: $font-size-xl;
+		font-size: $font-size-xl !important;
 	}
 }
 
 @media only screen and (max-width: $breakpoint_xxl) {
 	html,
 	body {
-		font-size: $font-size-xxl;
+		font-size: $font-size-xxl !important;
 	}
 
 	.std-size__font {
-		font-size: $font-size-xxl;
+		font-size: $font-size-xxl !important;
 	}
 }
 
@@ -127,6 +127,10 @@ h3 {
 
 h3 {
 	font-size: 1.5rem;
+}
+
+h4 {
+	font-size: 1.15rem !important;
 }
 
 a {
@@ -173,9 +177,9 @@ a {
 }
 
 .login-btn {
-	background-color: $green;
+	background-color: $green !important;
 	&:hover {
-		background-color: #f2f0e4;
+		background-color: #f2f0e4 !important;
 	}
 }
 
