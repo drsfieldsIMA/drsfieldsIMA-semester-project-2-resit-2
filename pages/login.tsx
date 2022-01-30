@@ -200,7 +200,7 @@ export default function LoginForm() {
 									{focusMessagePassword}
 								</div>
 							</div>
-							<Button type='submit'>
+							<Button type='submit' className='login-btn'>
 								{submitting ? "Logging in..." : "Login"}
 							</Button>
 						</fieldset>

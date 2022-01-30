@@ -68,7 +68,7 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 									<a key={cardArticle.slug}>
 										<Button
 											href={`/${cardArticle.author}`}
-											className='btn-primary'>
+											className='lun__btn-primary'>
 											{`${cardArticle.author?.name}`}
 										</Button>
 									</a>
@@ -79,7 +79,7 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 									<a key={cardArticle.slug}>
 										<Button
 											href={`/${cardArticle.section_article}`}
-											className='btn-primary'>
+											className='lun__btn-secondary'>
 											{`${cardArticle.section_article}`}
 										</Button>
 									</a>

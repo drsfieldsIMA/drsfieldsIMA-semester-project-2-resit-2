@@ -178,6 +178,7 @@ a {
 
 .login-btn {
 	background-color: $green !important;
+	color: #000002 !important;
 	&:hover {
 		background-color: #f2f0e4 !important;
 	}
@@ -382,27 +383,36 @@ main {
 	background: linear-gradient(45deg, $cream, white);
 }
 
-.btn-primary {
-	background-color: $primary_yellow;
-	border: $dark 2px solid;
-	border-radius: 5px;
-	color: #000002;
+.lun__btn-primary {
+	background-color: $green !important;
+	border: $dark 2px solid !important;
+	border-radius: 4px !important;
+	color: #001d3b !important;
 	padding: 9px 14px 9px 14px;
 	&:hover {
-		background-color: #04ceb4;
+		background-color: #f2f0e4 !important;
 		transform: scale(1.03);
 		box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
 			0 8px 32px -8px hsla(0, 0%, 0%, 0.14),
 			0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+		color: #001d3b !important;
 	}
 }
 
-.btn-secondary {
-	background-color: #000080;
-	color: white;
+.lun__btn-secondary {
+	background-color: $secondary_yellow !important;
+	color: #000002 !important;
 	border: $dark 2px solid;
 	border-radius: 5px;
 	padding: 9px 14px 9px 14px;
+	&:hover {
+		background-color: #f2f0e4 !important;
+		transform: scale(1.03);
+		box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
+			0 8px 32px -8px hsla(0, 30%, 25%, 0.14),
+			0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+		color: #001d3b !important;
+	}
 }
 
 .form__fieldset {
