@@ -1,5 +1,5 @@
 /** @format */
-
+import React from "react";
 import type { NextPage } from "next";
 import { useState } from "react";
 import Head from "next/head";
@@ -53,8 +53,17 @@ const Home: NextPage = ({ news }: any) => {
 		(item: { category: { name: string } }) => item.category?.name === "news"
 	);
 
+	const target = React.createRef();
+
 	return (
 		<ThemeProvider theme={theme}>
+			<Head>
+				<title>Level up news || homepage</title>
+				<meta
+					name='google-site-verification'
+					content='wenrVQYITXvXIH9sNnSmiBaOZ941XPPzAvnupQrq6RQ'
+				/>
+			</Head>
 			<main>
 				<h1>Headlines and Science</h1>
 				<Grid container spacing={2} px={2} marginLeft={0}>
