@@ -127,7 +127,7 @@ export async function getStaticProps() {
 
 Home.propTypes = {
 	item: PropTypes.any,
-	news: PropTypes.any,
+	news: PropTypes.array,
 	title: PropTypes.string,
 	section_category: PropTypes.string,
 };

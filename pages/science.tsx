@@ -8,14 +8,18 @@ import NewsCard from "../comps/common/NewsCard";
 import API_URL, { API_MONGOOSE_URL } from "../utils/index";
 import Hero from "../comps/common/Hero";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
+import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
 
 export default function Science({ news }) {
-	const scienceNews = news.filter((item) => item.category?.name === "science");
+	const scienceNews = news.filter(
+		(item) => item.section_category === "science"
+	);
 	console.log("science news==>", scienceNews);
 	return (
 		<>
 			<Head>
-				<title>ScienceNews App</title>
+				<title>Science News</title>
 				<meta name='description' content='Welcome to the Science news"'></meta>
 			</Head>
 
@@ -34,7 +38,7 @@ export default function Science({ news }) {
 
 			<Grid container spacing={2} px={2} marginLeft={0}>
 				{scienceNews.map((item): any => (
-					<Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+					<Grid item xs={6} key={item.id}>
 						<Link key={item.id} href={`/sport/${item.slug}`}>
 							<a>
 								<NewsCard key={item.id} article={item} />
@@ -43,17 +47,25 @@ export default function Science({ news }) {
 					</Grid>
 				))}
 			</Grid>
+			<Button>Load More </Button>
 		</>
 	);
 }
 
 export async function getStaticProps() {
-	//const  res=await fetch(`${API_URL}/api/news`);
-	// const res = await fetch(`${API_MONGOOSE_URL}/articles`);
-	// const news = await res.json();
-	const articles = ALL_ARTICLE_ENTRIES;
-	const news = articles.filter((item) => item.category === "science");
+	//const res = await fetch(`${API_URL}/api/news`);
+	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+
+	const articles: Array<string> = await res.json();
+	const news: Array<string> = articles;
 	return {
 		props: { news },
 	};
 }
+
+Science.propTypes = {
+	item: PropTypes.any,
+	news: PropTypes.array,
+	title: PropTypes.string,
+	section_category: PropTypes.string,
+};
