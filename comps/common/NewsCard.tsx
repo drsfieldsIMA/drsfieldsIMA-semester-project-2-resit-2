@@ -31,7 +31,7 @@ type CardArticleParams = {
 	author?: any;
 	createdAt?: any;
 	description?: string;
-	section_article?: string;
+	section_category?: string;
 };
 
 const NewsCard = ({ article }: { article: CardArticleParams }) => {
@@ -42,7 +42,7 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 			<CardContent>
 				<Link
 					key={cardArticle.id}
-					href={`/${cardArticle.section_article}/${cardArticle.slug}`}>
+					href={`/${cardArticle.section_category}/${cardArticle.slug}`}>
 					<a>
 						<Hero
 							title={cardArticle.title}
@@ -78,9 +78,9 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 								<Link href={`/${cardArticle.slug}`} key={cardArticle.id}>
 									<a key={cardArticle.slug}>
 										<Button
-											href={`/${cardArticle.section_article}`}
+											href={`/${cardArticle.section_category}`}
 											className='lun__btn-secondary'>
-											{`${cardArticle.section_article}`}
+											{`${cardArticle.section_category}`}
 										</Button>
 									</a>
 								</Link>
@@ -107,7 +107,7 @@ NewsCard.propTypes = {
 	category: PropTypes.arrayOf(PropTypes.string),
 	image: PropTypes.arrayOf(PropTypes.string),
 	title: PropTypes.string,
-	section_article: PropTypes.string,
+	section_category: PropTypes.string,
 	content: PropTypes.string,
 };
 
