@@ -9,6 +9,7 @@ type QueryParams = {
 	title: string;
 	keywords: string;
 	descrip: string;
+	google-s-v:string;
 	children: any;
 };
 
@@ -16,6 +17,7 @@ export default function Layout({
 	title,
 	keywords,
 	descrip,
+	google-s-v,
 	children,
 }: QueryParams) {
 	return (
@@ -24,10 +26,7 @@ export default function Layout({
 				<title>{title}</title>
 				<meta name='description' content={descrip}></meta>
 				<meta name='keywords' content={keywords}></meta>
-				<meta
-					name='google-site-verification'
-					content='wenrVQYITXvXIH9sNnSmiBaOZ941XPPzAvnupQrq6RQ'
-				/>
+				<meta name='google-site-verification' content={google-s-v}> </meta>
 			</Head>
 			<Header></Header>
 			<div className='container'>{children}</div>
@@ -58,4 +57,5 @@ Layout.defaultProps = {
 	descrip:
 		"Be informed about local news, leverage positive information and your increase your profile",
 	keywords: "Current affairs, Local News, Science, Sport, Politics, events ",
+	google-s-v:"wenrVQYITXvXIH9sNnSmiBaOZ941XPPzAvnupQrq6RQ",
 };
