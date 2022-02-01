@@ -214,13 +214,25 @@ a {
 .single-image {
 	display: block !important;
 	position: relative !important;
-	height: 450px !important;
+	height: 360px !important;
 	width: auto !important;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	margin: 0 50px !important;
+	margin: 0 20% !important;
+}
+
+.single-image__title {
+	display: block;
+	position: absolute;
+	color: $primary_yellow;
+	background-color: #000080;
+	padding: 14px;
+	z-index: 60000;
+	margin: 0 27%;
+	font-size: 2.05rem;
+	opacity: 0.7;
 }
 
 .singleNews-para {
@@ -229,6 +241,23 @@ a {
 	column-gap: 5%;
 	text-align: justify;
 	margin: 0 auto;
+}
+
+.reading-progress-bar__container {
+	position: sticky;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 14px;
+	z-index: 1000000;
+}
+
+.reading-progress-bar {
+	position: sticky;
+	height: 14px;
+	top: 0;
+	margin-left: 0;
+	background-color: $activegreen;
 }
 
 #filePicker {
