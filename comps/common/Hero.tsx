@@ -3,7 +3,7 @@
 import Typography from "@mui/material/Typography";
 
 const Hero = (props) => {
-	console.log("props==>", props.imageSrc);
+	//console.log("props==>", props.imageSrc);
 	return props.classString == "hero_banner" ? (
 		<div
 			className='hero hero_banner'

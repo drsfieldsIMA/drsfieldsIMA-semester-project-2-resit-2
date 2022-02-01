@@ -10,9 +10,9 @@ import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 
 export default function SingleScience({ single }) {
 	const maxL = single.content.length;
-	console.log("maxL", maxL);
+	//	console.log("maxL", maxL);
 	const one = single.content.slice(1, 2);
-	console.log("maxL", one);
+	//	console.log("maxL", one);
 	const two = single.content.slice(2, maxL);
 	return (
 		<>

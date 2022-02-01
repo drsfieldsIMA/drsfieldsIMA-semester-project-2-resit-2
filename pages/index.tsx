@@ -17,19 +17,24 @@ import { ThemeProvider } from "@material-ui/core";
 import { AnyObject } from "yup/lib/object";
 import PropTypes from "prop-types";
 
+type NewsParams = {
+	id: string;
+	title: string;
+	content: string;
+	section_category: string;
+	category: Array<string>;
+	author: Array<string>;
+	image: Array<string>;
+	createdAt: Array<string>;
+};
+
 const Home: NextPage = ({ news }: any) => {
-	const sportNews = news.filter(
-		(item: { section_category: string }) => item?.section_category === "sport"
-	);
-	const scienceNews = news.filter(
-		(item: { section_category: string }) => item?.section_category === "nature"
-	);
+	const sportNews = news.filter((item) => item.section_category === "sport");
+	const scienceNews = news.filter((item) => item.section_category === "nature");
 	const cultureNews = news.filter(
-		(item: { section_category: string }) => item?.section_category === "culture"
+		(item) => item.section_category === "culture"
 	);
-	const natureNews = news.filter(
-		(item: { section_category: string }) => item?.section_category === "nature"
-	);
+	const natureNews = news.filter((item) => item.section_category === "nature");
 
 	// sort by value
 	scienceNews.sort(function (
@@ -48,21 +53,12 @@ const Home: NextPage = ({ news }: any) => {
 		return 0;
 	});
 
-	const headlineNews = news.filter(
-		(item: { section_category: string }) => item?.section_category === "news"
-	);
+	const headlineNews = news.filter((item) => item.section_category === "news");
 
 	const target = React.createRef();
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Head>
-				<title>Level up news || homepage</title>
-				<meta
-					name='google-site-verification'
-					content='wenrVQYITXvXIH9sNnSmiBaOZ941XPPzAvnupQrq6RQ'
-				/>
-			</Head>
 			<main>
 				<h1>Headlines and Science</h1>
 				<Grid container spacing={2} px={2} marginLeft={0}>
@@ -119,7 +115,7 @@ const Home: NextPage = ({ news }: any) => {
 export async function getStaticProps() {
 	//const  res=await fetch(`${API_URL}/api/news`);
 	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
-	const news: Array<string> = await res.json();
+	const news: NewsParams = await res.json();
 	return {
 		props: { news },
 	};
@@ -127,9 +123,13 @@ export async function getStaticProps() {
 
 Home.propTypes = {
 	item: PropTypes.any,
-	news: PropTypes.array,
+	news: PropTypes.arrayOf(PropTypes.object),
+	scienceNews: PropTypes.arrayOf(PropTypes.string),
+	sportNews: PropTypes.arrayOf(PropTypes.string),
+	articles: PropTypes.arrayOf(PropTypes.string),
 	title: PropTypes.string,
 	section_category: PropTypes.string,
+	children: PropTypes.string,
 };
 
 export default Home;

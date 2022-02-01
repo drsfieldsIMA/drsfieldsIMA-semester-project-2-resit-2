@@ -15,7 +15,7 @@ export default function Science({ news }) {
 	const scienceNews = news.filter(
 		(item) => item.section_category === "science"
 	);
-	console.log("science news==>", scienceNews);
+	//	console.log("science news==>", scienceNews);
 	return (
 		<>
 			<Head>

@@ -58,7 +58,7 @@ const Search: NextPage = ({ news }: any) => {
 	const [searchValue, setSearchValue] = useState([]);
 
 	const handleChange = (selected) => {
-		console.log("selected==>", selected);
+		//console.log("selected==>", selected);
 		setSearchValue(selected);
 	};
 

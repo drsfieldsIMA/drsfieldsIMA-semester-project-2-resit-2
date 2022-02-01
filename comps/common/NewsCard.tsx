@@ -75,7 +75,9 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 								</Link>
 							</Grid>
 							<Grid key={cardArticle.id} item xs={12} sm={4} md={3}>
-								<Link href={`/${cardArticle.slug}`} key={cardArticle.id}>
+								<Link
+									href={`/${cardArticle.section_category}/${cardArticle.slug}`}
+									key={cardArticle.id}>
 									<a key={cardArticle.slug}>
 										<Button
 											href={`/${cardArticle.section_category}`}

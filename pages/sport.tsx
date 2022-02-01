@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 
 export default function Sport({ news }: any) {
-	console.log("NEWS===>", news);
+	//	console.log("NEWS===>", news);
 	return (
 		<>
 			<Head>
@@ -52,7 +52,7 @@ export default function Sport({ news }: any) {
 export async function getStaticProps() {
 	//const res = await fetch(`${API_URL}/api/news`);
 	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
-	console.log("RES===>", res);
+	//	console.log("RES===>", res);
 	const articles: Array<string> = await res.json();
 	//const articles = ALL_ARTICLE_ENTRIES;
 	//console.log("ARTICLES===>", articles);
