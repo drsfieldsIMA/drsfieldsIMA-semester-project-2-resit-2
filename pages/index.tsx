@@ -19,17 +19,16 @@ import PropTypes from "prop-types";
 
 const Home: NextPage = ({ news }: any) => {
 	const sportNews = news.filter(
-		(item: { category: { name: string } }) => item.category?.name === "sport"
+		(item: { section_category: string }) => item?.section_category === "sport"
 	);
 	const scienceNews = news.filter(
-		(item: { category: { name: string } }) =>
-			item.category?.name === "science" || item.category?.name === "nature"
+		(item: { section_category: string }) => item?.section_category === "nature"
 	);
 	const cultureNews = news.filter(
-		(item: { category: { name: string } }) => item.category?.name === "culture"
+		(item: { section_category: string }) => item?.section_category === "culture"
 	);
 	const natureNews = news.filter(
-		(item: { category: { name: string } }) => item.category?.name === "nature"
+		(item: { section_category: string }) => item?.section_category === "nature"
 	);
 
 	// sort by value
@@ -50,7 +49,7 @@ const Home: NextPage = ({ news }: any) => {
 	});
 
 	const headlineNews = news.filter(
-		(item: { category: { name: string } }) => item.category?.name === "news"
+		(item: { section_category: string }) => item?.section_category === "news"
 	);
 
 	const target = React.createRef();
@@ -120,7 +119,7 @@ const Home: NextPage = ({ news }: any) => {
 export async function getStaticProps() {
 	//const  res=await fetch(`${API_URL}/api/news`);
 	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
-	const news: AnyObject = await res.json();
+	const news: Array<string> = await res.json();
 	return {
 		props: { news },
 	};
@@ -130,6 +129,7 @@ Home.propTypes = {
 	item: PropTypes.any,
 	news: PropTypes.any,
 	title: PropTypes.string,
+	section_category: PropTypes.string,
 };
 
 export default Home;
