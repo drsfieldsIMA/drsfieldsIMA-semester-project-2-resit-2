@@ -9,9 +9,9 @@ import API_URL, { API_MONGOOSE_URL } from "../utils/index";
 import Hero from "../comps/common/Hero";
 import PropTypes from "prop-types";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export default function Sport({ news }: any) {
-	//	console.log("NEWS===>", news);
+export default function SportPage({ news }: any) {
 	return (
 		<>
 			<Head>
@@ -23,19 +23,17 @@ export default function Sport({ news }: any) {
 				title='Here is your sport news'
 				imageSrc='/images/hero.jpg'
 				classString='hero_banner'
+				desc='A picture of various sports equipment'
 			/>
 
 			<div>
 				<h2>Sport Index Page</h2>
-				<Link href='/'>
-					<a>Home</a>
-				</Link>
 			</div>
 
 			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-				{news.map((item): any => {
-					return "sport" === item.section_category ? (
-						<Grid item xs={6} key={item.id}>
+				{news.map((item, index): any => {
+					return "sport" === item.category ? (
+						<Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={4}>
 							<Link href={`/sport/${item.slug}`}>
 								<a>
 									<NewsCard article={item} />
@@ -50,19 +48,15 @@ export default function Sport({ news }: any) {
 }
 
 export async function getStaticProps() {
-	//const res = await fetch(`${API_URL}/api/news`);
 	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
-	//	console.log("RES===>", res);
 	const articles: Array<string> = await res.json();
-	//const articles = ALL_ARTICLE_ENTRIES;
-	//console.log("ARTICLES===>", articles);
 	const news: Array<string> = articles;
 	return {
 		props: { news },
 	};
 }
 
-Sport.propTypes = {
+SportPage.propTypes = {
 	item: PropTypes.any,
 	news: PropTypes.array,
 	title: PropTypes.string,

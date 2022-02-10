@@ -20,14 +20,14 @@ import {
 	TextField,
 	Typography,
 	Input,
+	Select,
 } from "@mui/material";
 import API_URL, { API_MONGOOSE_URL } from "../../../../utils/index";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import FormError from "../../../../comps/common/FormError";
 import ReactSelect from "react-select";
 import { Router } from "react-router";
-import Select from "react-select";
-import { useAuth } from "@/comps/config/AuthContext";
+import DeletePostButton from "./DeletePostButton";
 
 const schema = yup.object().shape({
 	title: yup.string().required("Title is required"),
@@ -35,14 +35,15 @@ const schema = yup.object().shape({
 	category: yup.string().required("Category is required"),
 });
 
-export default function AddArticlePage({ props }: any) {
-	const auth = useAuth();
+export default function EditArticlePage({ single }: any) {
+	//console.log("Single Edit==>", props);
+	const articleID = single.id;
 	const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState<any>();
-	const [category, setCategory] = useState<string>();
-	const [title, setTitle] = useState<string>();
-	const [slug, setSlug] = useState<string>();
-	const [content, setContent] = useState<string>();
+	const [category, setCategory] = useState(null);
+	const [title, setTitle] = useState(single.title);
+	const [slug, setSlug] = useState(single.slug);
+	const [content, setContent] = useState(single.content);
 
 	const {
 		register,
@@ -60,46 +61,31 @@ export default function AddArticlePage({ props }: any) {
 
 	const handleTitle = (event: any) => {
 		setTitle(event.target.value);
-		const slugString = title?.replace(/\s+/g, "_");
-		setSlug(slugString);
 	};
 
 	const handleContent = (event: any) => {
 		setContent(event.target.value);
 	};
 
-	const onSubmit = async (e) => {
-		e.preventDefault();
+	async function onSubmit() {
 		setSubmitting(true);
-		setServerError(null);
-		let authorName = "unknown";
-		if (auth !== undefined) {
-			authorName = auth?.user?.username;
-			if (auth[0] !== undefined) {
-				authorName = auth[0]?.user?.username;
-			}
-		}
 
 		const cookies = parseCookies();
 		const jwt = cookies?.jwt;
-		const request = new XMLHttpRequest();
-		const slugString = title?.replace(/\s+/g, "_");
-		setSlug(slugString);
 
-		const data = {
+		let data = {};
+
+		data = {
 			title: title,
-			slug: slug,
 			description: title,
+			slug: slug,
 			content: content,
 			category: category,
-			author: authorName,
 		};
-		const formData = JSON.stringify(data);
-		console.log("formData===>", JSON.stringify(data));
 
 		try {
-			const add = await fetch(`${API_MONGOOSE_URL}/articles`, {
-				method: "POST",
+			const add = await fetch(`${API_URL}/articles`, {
+				method: "PUT",
 				headers: {
 					Authorization: `Bearer ${jwt}`,
 					"Content-Type": "application/json",
@@ -108,7 +94,6 @@ export default function AddArticlePage({ props }: any) {
 			});
 
 			const addResponse = await add.json();
-			console.log("status response", add);
 			if (add.status === 200) {
 				alert("Success article uploaded");
 			}
@@ -117,7 +102,7 @@ export default function AddArticlePage({ props }: any) {
 		} finally {
 			setSubmitting(false);
 		}
-	};
+	}
 
 	return (
 		<>
@@ -148,7 +133,7 @@ export default function AddArticlePage({ props }: any) {
 									<label>Title</label>
 									<Input
 										{...register("title", { required: true })}
-										placeholder='Title e.g. local author publishes to a worldwi.....'
+										placeholder={`${single?.title}`}
 										className='formInput'
 										name='title'
 										onChange={handleTitle}
@@ -157,7 +142,7 @@ export default function AddArticlePage({ props }: any) {
 									<label>Content</label>
 									<textarea
 										{...register("content", { required: true })}
-										placeholder='Content e.g. This local author has secured a publisher.....'
+										placeholder={`${single?.content}`}
 										className='formInput__content'
 										style={{ width: 500, height: 90 }}
 										name='description'
@@ -165,26 +150,14 @@ export default function AddArticlePage({ props }: any) {
 									/>
 
 									<label>Category</label>
-									<div className='controller-dropdown'>
-										<Select
-											name='category'
-											options={[
-												{ value: "Science", label: "science" },
-												{ value: "Sport", label: "sport" },
-												{ value: "Culture", label: "culture" },
-												{ value: "Nature", label: "nature" },
-											]}
-											instanceId='category'
-											placeholder='Select news articles category'
-											isClearable
-											onChange={handleCategory}
-										/>
-										{/* 	<Controller
+									{/* 			<div className='controller-dropdown'>
+										<Controller
 											name='category'
 											control={control}
 											render={({ field: onChange }) => (
 												<ReactSelect
 													onChange={handleCategory}
+													isClearable
 													options={[
 														{ value: "science", label: "science" },
 														{ value: "sport", label: "sport" },
@@ -193,8 +166,8 @@ export default function AddArticlePage({ props }: any) {
 													]}
 												/>
 											)}
-										/> */}
-									</div>
+										/>
+									</div> */}
 								</Grid>
 							</Grid>
 
@@ -206,10 +179,39 @@ export default function AddArticlePage({ props }: any) {
 									{submitting ? "Submitting..." : "Submit"}
 								</Button>
 							</div>
+
+							<hr />
+							<DeletePostButton articleID={articleID} />
 						</fieldset>
 					</form>
 				</Container>
 			</Box>
 		</>
 	);
+}
+
+export async function getStaticPaths() {
+	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const articles = await res.json();
+	//const articles = ALL_ARTICLE_ENTRIES;
+	//const sportNews = articles.filter((item) => item.category === "sport");
+	const paths = articles.map((item) => ({
+		params: { slug: item.slug },
+	}));
+
+	return {
+		paths,
+		fallback: false,
+	};
+}
+
+export async function getStaticProps({ params }) {
+	const { slug } = params;
+	const res = await fetch(`${API_MONGOOSE_URL}/articles/${slug}`);
+	const singleArticle = await res.json();
+	return {
+		props: {
+			single: singleArticle,
+		},
+	};
 }

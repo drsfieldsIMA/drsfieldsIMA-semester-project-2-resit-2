@@ -1,5 +1,5 @@
 /** @format */
-@font-face {
+/* @font-face {
 	font-family: "ltc-bodoni-175", serif;
 	font-weight: 400;
 	font-style: normal;
@@ -16,6 +16,25 @@
 @font-face {
 	font-family: "Fira Sans Condensed", sans-serif;
 	src: url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap");
+} */
+@font-face {
+	font-family: "protipo", sans-serif;
+	src: url("https://use.typekit.net/yri7fbm.css");
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "demos-next";
+	src: url("https://use.typekit.net/af/7a4f71/00000000000000007735bbed/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3")
+			format("woff2"),
+		url("https://use.typekit.net/af/7a4f71/00000000000000007735bbed/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3")
+			format("woff"),
+		url("https://use.typekit.net/af/7a4f71/00000000000000007735bbed/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3")
+			format("opentype");
+	font-display: auto;
+	font-style: normal;
+	font-weight: 700;
 }
 
 $breakpoint_xs: 360px;
@@ -53,25 +72,76 @@ html,
 body {
 	padding: 0;
 	margin: 0;
-	font-family: "baskerville-urw", serif;
+	font-family: "protipo", sans-serif !important;
+	font-style: normal;
 	font-size: 12.5px;
+	width: 100%;
+	height: 100%;
 }
 
 h1,
 h2,
 h3,
 h4 {
-	font-family: "ltc-bodoni-175", serif;
-	font-style: italic;
+	font-family: "demos-next", sans-serif;
+	font-style: normal;
 }
 
 .std-size__font {
 	font-size: $font-size-xs;
 }
+section:nth-child(even) {
+	background: $secondary_blue;
+	color: #001d3b;
+}
+
+.index-sport,
+.index-headlines,
+.index-culture {
+	display: block;
+	position: relative;
+	min-width: 98%;
+	min-height: fit-content;
+	margin: 0 auto;
+}
+
+.index-sport {
+	background: rgba(0, 0, 128, 0.5);
+}
+
+.sport-card {
+	border-left: 3px solid #485faf;
+}
+
+.science-card {
+	border-left: 3px solid #04ceb4;
+}
+
+.culture-card {
+	border-left: 3px solid #fffc13;
+}
+
+.heading-block {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	min-width: 100%;
+	position: relative;
+	min-height: fit-content;
+	justify-content: center !important;
+	h1,
+	h2,
+	h3 {
+		display: block;
+		position: relative;
+		width: fit-content;
+	}
+}
 
 @media only screen and (max-width: $breakpoint_md) {
 	html,
 	body {
+		font-family: "protipo", sans-serif;
 		font-size: $font-size-md !important;
 	}
 
@@ -159,20 +229,19 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: #33069e;
+	background: $secondary_blue;
 	//background: linear-gradient(90deg, $primary_blue, #00a7e3);
 	//background: radial-gradient(circle at 50% -100%, #000080, #2391ff, #c6ffff);
 	color: $ii-dark;
-	height: 80px;
-	padding: 0 30px;
+	height: 110px;
+	padding: 0 4px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	z-index: 900;
 }
 
 .header a {
-	color: $primary_yellow;
+	color: #000080;
 	margin-right: 20px;
-	font-family: "Fira Sans Condensed", sans-serif;
 	font-size: 1.25rem;
 }
 
@@ -181,6 +250,14 @@ a {
 	color: #000002 !important;
 	&:hover {
 		background-color: #f2f0e4 !important;
+	}
+}
+
+.logout-btn {
+	background-color: $red !important;
+	color: #f2f0e4 !important;
+	&:hover {
+		background-color: $primary_yellow !important;
 	}
 }
 
@@ -199,6 +276,17 @@ a {
 	text-align: center;
 }
 
+.sport-background {
+	display: flex;
+	height: 90vh;
+	flex-direction: column;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background: #ffff url("/SportsBackground.svg") no-repeat left 120px;
+}
+
 .controller-dropdown {
 	display: block;
 	position: relative;
@@ -214,20 +302,56 @@ a {
 .single-image {
 	display: block !important;
 	position: relative !important;
-	height: 360px !important;
+	height: 300px !important;
 	width: auto !important;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	margin: 0 20% !important;
+	margin: 0 10% !important;
+}
+.author-image {
+	display: block !important;
+	position: relative !important;
+	height: 150px !important;
+	width: 150px !important;
+	border-radius: 40% !important;
+	margin: 0 12px !important;
+	span img {
+		border-radius: 50% !important;
+	}
+}
+
+.overrideImage {
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	flex-direction: row;
+	margin-top: 0;
+	width: calc(100%);
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	margin-left: 0px !important;
+}
+
+.single-title,
+.single-image__title {
+	color: #000080;
+	padding: 0 14px;
+	z-index: 60000;
+	text-align: justify !important;
+}
+
+.single-title h1 {
+	border-bottom: #04ceb4 2px solid;
 }
 
 .single-image__title {
 	display: block;
 	position: absolute;
-	color: $primary_yellow;
-	background-color: #000080;
+	background-color: $secondary_blue;
 	padding: 14px;
 	z-index: 60000;
 	margin: 0 27%;
@@ -236,8 +360,8 @@ a {
 }
 
 .singleNews-para {
-	width: 40%;
-	column-count: 2;
+	width: 60%;
+	column-count: 1;
 	column-gap: 5%;
 	text-align: justify;
 	margin: 0 auto;
@@ -308,7 +432,7 @@ input[type="file" i] {
 }
 
 .hero_banner {
-	height: 300px;
+	height: 190px;
 	width: 100%;
 	background-repeat: no-repeat !important;
 	background-position: center center !important;
@@ -338,7 +462,7 @@ input[type="file" i] {
 }
 
 .hero * {
-	z-index: 20;
+	z-index: 0;
 }
 
 .hero h1 {
@@ -364,12 +488,15 @@ input[type="file" i] {
 	justify-content: center;
 	list-style: none;
 }
-
+.listed-articles {
+	display: block;
+	height: fit-content;
+}
 .logo {
 	display: inline-block;
-	background-image: url(../public/level_logo.svg);
-	height: 70px !important;
-	width: 70px !important;
+	background-image: url(../public/new_logo_1.svg);
+	height: 105px !important;
+	width: 105px !important;
 	border: $primary_blue solid 1px;
 	color: $gold;
 	font-size: 1.75em;
@@ -381,7 +508,7 @@ li.items {
 }
 
 .items__link::after {
-	z-index: 5;
+	z-index: 0;
 	content: "";
 	position: absolute;
 	border-right: 2px solid $cream;
@@ -394,15 +521,16 @@ li.items {
 
 .tagline {
 	display: inline-flex;
-	color: $primary_blue;
-	background-color: $primary_yellow;
+	color: #000080;
+	background-color: #ffffff;
 	flex-direction: row;
 	text-align: center;
 	align-items: center;
 	vertical-align: middle;
 	margin-top: 0;
 	padding-top: 0;
-	font-family: "Fira Sans Condensed", sans-serif;
+	font-family: "demos-next";
+	font-style: normal;
 	font-size: 1.5rem;
 }
 
@@ -613,12 +741,12 @@ input[type="text"]:focus {
 }
 
 .articles-card {
-	border: 4px solid white;
+	border: 4px solid #f2f0e4;
 	border-radius: 16px;
 	display: flex;
 	padding: 8px;
 	text-align: center;
-	background-color: #e0d494;
+	background-color: #f2f0e4;
 	font-weight: 800;
 	color: #4f2424;
 	text-transform: capitalize;
@@ -626,11 +754,11 @@ input[type="text"]:focus {
 }
 
 .search-grid {
-	margin-top: 16px;
+	margin-top: 0px;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	width: 300px;
-	grid-gap: 8px;
+	grid-template-columns: repeat(4, 1fr);
+	width: 90%;
+	grid-gap: 4px;
 }
 
 .toogle-nav {
@@ -642,24 +770,22 @@ input[type="text"]:focus {
 		display: none;
 	}
 
+	main {
+		margin: 70px 16px !important;
+	}
 	.header {
 		display: block;
 		position: fixed;
 		top: 0;
 		width: 100%;
-		height: 50px;
-		background: linear-gradient(
-			90deg,
-			#000080,
-			#33069e,
-			#dc1cdb,
-			#dd808e,
-			#e9dbc9,
-			#f2f0e4
-		);
+		height: 70px;
 		padding: 0 5px;
 		ul {
 			margin-top: 30px;
+		}
+		.logo {
+			height: 70px;
+			width: 70px;
 		}
 	}
 
@@ -685,10 +811,35 @@ input[type="text"]:focus {
 		right: 10px;
 		top: 7px;
 		padding: 5px;
-		color: #000;
+		color: #f2f0e4;
 		font-size: 2rem;
+		border-radius: 0 !important;
+		background-color: $green !important;
 	}
 	.items__link::after {
 		display: none;
 	}
+}
+
+.single-asset {
+	padding: 2px 16px !important;
+	background: #fff !important;
+	color: #000080;
+	display: block;
+	margin: 20px 10px;
+	border-left: 8px solid $primary_blue !important;
+}
+.single-asset:hover {
+	border-left: 8px solid $primary_yellow !important;
+	color: $primary_yellow;
+}
+
+.delete {
+	display: block;
+	position: relative;
+	background: $red;
+	color: white;
+	border: none;
+	font-size: 1.25rem;
+	margin: 0 auto;
 }

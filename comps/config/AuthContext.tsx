@@ -6,18 +6,18 @@ import { useRouter } from "next/router";
 import React from "react";
 
 type authContextType = {
-	user: any;
+	user: { username: "" };
 	jwt: any;
 };
 
 const authContextDefaultValues: authContextType = {
-	user: null,
+	user: { username: "" },
 	jwt: "",
 };
 
-const AuthContext = React.createContext([null, () => {}]);
+export const AuthContext: any = React.createContext([null, () => {}]);
 
-export const useAuth = () => React.useContext(AuthContext);
+export const useAuth: any = () => React.useContext(AuthContext);
 
 type Props = {
 	children: ReactNode;
@@ -25,6 +25,7 @@ type Props = {
 
 export function AuthProvider({ children }: Props) {
 	const [auth, setAuth] = useLocalStorage("auth", null);
+	console.log("Auth Provider===>", auth);
 	return (
 		<>
 			<AuthContext.Provider value={[auth, setAuth]}>

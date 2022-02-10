@@ -14,35 +14,29 @@ import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 
-type ButtonLinkParams = {
-	className?: any;
-	href?: any;
-	hrefAs?: any;
-	label?: any;
-};
-
 type CardArticleParams = {
 	title?: string;
 	content?: string;
 	id?: string;
 	image?: any;
-	category?: Array<string>;
+	category?: string;
 	slug?: string;
 	author?: any;
 	createdAt?: any;
 	description?: string;
-	section_category?: string;
 };
 
 const NewsCard = ({ article }: { article: CardArticleParams }) => {
 	const cardArticle: CardArticleParams = article;
 
 	return (
-		<Card className='news-card' sx={{ width: 210, height: 400, marginLeft: 0 }}>
+		<Card
+			className={`${cardArticle.category}-card news-card`}
+			sx={{ width: 210, height: 400, marginLeft: 0 }}>
 			<CardContent>
 				<Link
-					key={cardArticle.id}
-					href={`/${cardArticle.section_category}/${cardArticle.slug}`}>
+					key={cardArticle.slug}
+					href={`/${cardArticle.category}/${cardArticle.slug}`}>
 					<a>
 						<Hero
 							title={cardArticle.title}
@@ -55,43 +49,39 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 							rowSpacing={1}
 							columnSpacing={{ xs: 1, sm: 1, md: 2, lg: 3 }}
 							marginTop={{ xs: 1, sm: 2, md: 3 }}>
-							<Grid key={cardArticle.id} item xs={6} sm={5} md={3}>
+							<Grid key={1} item xs={6} sm={6} md={3}>
 								<Typography
 									variant='h4'
 									color='text.primary'
-									className='std-size__font'>
+									className='std-size__font'
+									fontFamily='protipo, sans-serif'>
 									{dayjs(`${cardArticle.createdAt}`).format("DD/MM/YYYY")}
 								</Typography>
 							</Grid>
-							<Grid key={cardArticle.id} item xs={6} sm={7} md={9}>
-								<Link href={`/${cardArticle.author}`} key={cardArticle.id}>
-									<a key={cardArticle.slug}>
-										<Button
-											href={`/${cardArticle.author}`}
-											className='lun__btn-primary'>
-											{`${cardArticle.author?.name}`}
-										</Button>
-									</a>
-								</Link>
-							</Grid>
-							<Grid key={cardArticle.id} item xs={12} sm={4} md={3}>
-								<Link
-									href={`/${cardArticle.section_category}/${cardArticle.slug}`}
-									key={cardArticle.id}>
-									<a key={cardArticle.slug}>
-										<Button
-											href={`/${cardArticle.section_category}`}
-											className='lun__btn-secondary'>
-											{`${cardArticle.section_category}`}
-										</Button>
-									</a>
-								</Link>
-							</Grid>
-							<Grid key={cardArticle.id} item xs={12} sm={8} md={9}>
+							<Grid key={2} item xs={6} sm={6} md={3}>
 								<Typography
 									variant='body1'
 									color='text.primary'
-									className='std-size__font'>
+									className='lun__btn-primary'
+									fontFamily='protipo, sans-serif'>
+									{`${cardArticle.category}`}
+								</Typography>
+							</Grid>
+							<Grid key={3} item xs={12} sm={12} md={6}>
+								<Typography
+									variant='body1'
+									color='text.primary'
+									className='lun__btn-secondary'
+									fontFamily='protipo, sans-serif'>
+									{`${cardArticle.author}`}
+								</Typography>
+							</Grid>
+							<Grid key={4} item xs={12} sm={12} md={12}>
+								<Typography
+									variant='body1'
+									color='text.primary'
+									className='std-size__font'
+									fontFamily='protipo, sans-serif'>
 									{cardArticle.description}
 								</Typography>
 							</Grid>
@@ -106,11 +96,11 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 NewsCard.propTypes = {
 	props: PropTypes.node,
 	articles: PropTypes.node,
-	category: PropTypes.arrayOf(PropTypes.string),
 	image: PropTypes.arrayOf(PropTypes.string),
 	title: PropTypes.string,
-	section_category: PropTypes.string,
+	category: PropTypes.string,
 	content: PropTypes.string,
+	author: PropTypes.string,
 };
 
 export default NewsCard;

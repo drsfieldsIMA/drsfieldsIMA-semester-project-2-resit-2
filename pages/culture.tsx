@@ -12,19 +12,21 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export default function SciencePage({ news }) {
-	const scienceNews = news.filter((item) => item.category === "science");
-	//	console.log("science news==>", scienceNews);
+export default function CulturePage({ news }) {
+	const cultureNews = news.filter(
+		(item) => item.category === "culture" || item.category === "nature"
+	);
+
 	return (
 		<>
 			<Head>
-				<title>Science News</title>
+				<title>Culture News</title>
 				<meta name='description' content='Welcome to the Science news"'></meta>
 			</Head>
 
 			<Hero
 				title='Here is your science news'
-				imageSrc='/images/science_hero.png'
+				imageSrc='/waterfall.jpg'
 				classString='hero_banner'
 			/>
 
@@ -32,13 +34,13 @@ export default function SciencePage({ news }) {
 				<Button component='a' startIcon={<ArrowBackIcon fontSize='small' />}>
 					Home
 				</Button>
-				<h2>Science Page</h2>
+				<h2>Culture & Nature Page</h2>
 			</div>
 
 			<Grid container spacing={2} px={2} marginLeft={0}>
-				{scienceNews.map((item, index): any => (
-					<Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={4}>
-						<Link key={item.id} href={`/science/${item.slug}`}>
+				{cultureNews.map((item): any => (
+					<Grid item xs={6} key={item.id}>
+						<Link key={item.id} href={`/sport/${item.slug}`}>
 							<a>
 								<NewsCard key={item.id} article={item} />
 							</a>
@@ -61,7 +63,7 @@ export async function getStaticProps() {
 	};
 }
 
-SciencePage.propTypes = {
+CulturePage.propTypes = {
 	item: PropTypes.any,
 	news: PropTypes.array,
 	title: PropTypes.string,

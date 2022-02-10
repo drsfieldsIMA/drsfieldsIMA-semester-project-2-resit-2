@@ -14,7 +14,11 @@ const Hero = (props) => {
 				backgroundColor: `${props.bgColor}`,
 				backgroundSize: `${props.bgSize}`,
 			}}>
-			<Typography variant='h1' color='#fff' style={{ fontWeight: "bold" }}>
+			<Typography
+				variant='h1'
+				color='#fff'
+				style={{ fontWeight: "bold" }}
+				fontFamily='demos-next, sans-serif'>
 				{props.title}
 			</Typography>
 		</div>

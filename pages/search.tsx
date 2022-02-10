@@ -1,78 +1,55 @@
 /** @format */
 
-import type { NextPage } from "next";
-import { useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.scss";
-import Link from "next/link";
-import Layout from "../comps/Layout";
-import NewsCard from "../comps/common/NewsCard";
-import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
-import API_URL, { API_MONGOOSE_URL } from "../utils/index";
+import React from "react";
 import { useQuery } from "react-query";
-import SearchArticles from "../utils/SearchArticles";
+import { ReactQueryDevtools } from "react-query-devtools";
+import { API_MONGOOSE_URL } from "utils";
+import { ArticleParams } from "utils/typeLibrary";
+import useDebounce from "utils/useDebounce";
 import ArticlesSearchResult from "../comps/ArticlesSearchResults";
-import Dropdown from "../comps/navigation/Dropdown";
-import { MultiSelect } from "react-multi-select-component";
-import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
-import useDebounce from "../utils/useDebounce";
-import { boolean } from "yup/lib/locale";
+import Modal from "react-modal";
 
-export type ArticleParams = {
-	id: Array<string> | string;
-	title: Array<string> | string;
-	slug: Array<string> | string;
-	date: Array<string> | string;
-	time: Array<string> | string;
-	image: Array<string> | string;
-	content: Array<string> | string;
-	category: Array<string> | string;
-	author: Array<string> | string;
-};
-
-const searchCategories = (query: Array<string>): Promise<string[]> => {
+const searchArticles = (
+	query: string,
+	articles: Array<any>
+): Promise<number | void> => {
 	return new Promise((resolve) => {
-		const matchingCategories: string[] = ALL_ARTICLE_ENTRIES.filter(
-			({ title, content, category, author }) =>
-				category.toLowerCase().includes(title.toLowerCase())
-		).map(({ title }) => title);
+		let queryLength = query.length;
+		let truncString = query.substring(0, queryLength - 1);
+		const matchingArticles: any = articles
+			.filter(
+				({ title, content, author, category, slug }: Array<any> | any) =>
+					title.toLowerCase().includes(query.toLowerCase()) ||
+					title.toLowerCase().includes(truncString.toLowerCase())
+			)
+			.map((articles: Array<any>) => articles);
 		// Artificial timeout for demonstration purposes
 		setTimeout(() => {
-			resolve(matchingCategories);
-		}, 1000);
+			resolve(matchingArticles);
+		}, 700);
 	});
 };
 
-const Search: NextPage = ({ news }: any) => {
-	const options = [
-		{ label: "Science", value: "science" },
-		{ label: "Sport", value: "sport" },
-		{ label: "Culture", value: "culture" },
-		{ label: "Nature", value: "nature" },
-	];
+const Search = ({ articles }) => {
+	const [input, setInput] = React.useState<string>("");
+	const [searchTerm, setSearchTerm] = React.useState<string>("");
+	const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
 
-	const [selected, setSelected] = useState([]);
+	const debouncedSearchValue: string | Array<any> = useDebounce(
+		searchTerm,
+		500
+	);
+	console.log("searchTerm==>", searchTerm);
 
-	const [searchValue, setSearchValue] = useState([]);
-
-	const handleChange = (selected) => {
-		//console.log("selected==>", selected);
-		setSearchValue(selected);
-	};
-
-	const debounedSearchValue = useDebounce(searchValue, 900);
-
-	const { isLoading, isError, isSuccess, data } = useQuery(
-		["searchCategories", debounedSearchValue],
-		() => searchCategories(debounedSearchValue),
+	const { isLoading, isError, isSuccess, data, status } = useQuery(
+		searchTerm && ["searchArticles", debouncedSearchValue],
+		() => searchArticles(debouncedSearchValue, articles),
 		{
-			enabled: debounedSearchValue.length > 0,
+			enabled: debouncedSearchValue.length > 0,
 		}
 	);
 
-	const renderResult = (data) => {
+	const renderResult = () => {
 		if (isLoading) {
 			return <div className='search-message'> Loading... </div>;
 		}
@@ -89,25 +66,29 @@ const Search: NextPage = ({ news }: any) => {
 	};
 
 	return (
-		<div className='home'>
-			<h1>Search by keywords Select Categories or Authors </h1>
-			<pre>{JSON.stringify(selected)}</pre>
-			<MultiSelect
-				options={options}
-				value={selected}
-				onChange={handleChange}
-				labelledBy={"Select"}
-			/>
-			{renderResult(news)}
+		<div>
+			<ReactQueryDevtools />
+			<input onChange={(e) => setInput(e.target.value)} />
+			<button onClick={() => (setModalIsOpen(true), setSearchTerm(input))}>
+				Search
+			</button>
+			<Modal isOpen={modalIsOpen}>
+				<strong>Searching Articles for {searchTerm}</strong>
+				{renderResult()}
+				<button onClick={() => setModalIsOpen(false)}>Go Back</button>
+			</Modal>
 		</div>
 	);
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
-	const news = await res.json();
+	const articlesData = await res.json();
+
 	return {
-		props: { news },
+		props: {
+			articles: articlesData,
+		},
 	};
 }
 

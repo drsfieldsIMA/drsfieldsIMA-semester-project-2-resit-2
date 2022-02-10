@@ -1,0 +1,128 @@
+/** @format */
+
+import type { NextPage } from "next";
+import { useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.scss";
+import Link from "next/link";
+import Layout from "../comps/Layout";
+import NewsCard from "../comps/common/NewsCard";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import API_URL, { API_MONGOOSE_URL } from "../utils/index";
+import { useQuery } from "react-query";
+import SearchArticles from "../utils/SearchArticles";
+import ArticlesSearchResult from "../comps/ArticlesSearchResults";
+import Dropdown from "../comps/navigation/Dropdown";
+import { MultiSelect } from "react-multi-select-component";
+import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
+import useDebounce from "../utils/useDebounce";
+import { boolean } from "yup/lib/locale";
+import { ArticleParams } from "utils/typeLibrary";
+
+const searchCategories = (
+	query: string,
+	news: Array<string>
+): Promise<string[]> => {
+	console.log("promise==>", news[0]);
+	return new Promise((resolve) => {
+		const matchingCategories: string[] = news
+			.filter(
+				({ title, content, author, category }: ArticleParams) =>
+					//			console.log("promise inside query==>", query),
+					//			console.log("promise category inside query==>", category),
+					title.toLowerCase().includes(query.toLowerCase()) ||
+					content.toLowerCase().includes(query.toLowerCase()) ||
+					category?.toLowerCase().includes(query.toLowerCase())
+			)
+			.map(
+				({ title }: any) => (
+					console.log("mapped promise title==>", title), title
+				)
+			);
+		// Artificial timeout for demonstration purposes
+		setTimeout(() => {
+			resolve(matchingCategories);
+		}, 1000);
+	});
+};
+
+const Search: NextPage = ({ news }: any) => {
+	//console.log("Line 54==>", news);
+	const options = [
+		{ label: "Science", value: "science" },
+		{ label: "Sport", value: "sport" },
+		{ label: "Culture", value: "culture" },
+		{ label: "Nature", value: "nature" },
+	];
+
+	const [selected, setSelected] = useState([]);
+
+	const [searchValue, setSearchValue] = useState([]);
+
+	const handleChange = (selected) => {
+		console.log("selected==>", selected);
+		setSearchValue(selected);
+	};
+
+	const debouncedSearchValue = useDebounce(searchValue, 900);
+
+	const { isLoading, isError, isSuccess, data } = useQuery(
+		["searchCategories", debouncedSearchValue],
+		() => searchCategories(debouncedSearchValue, news),
+		{
+			enabled: debouncedSearchValue.length > 0,
+		}
+	);
+
+	const renderResult = () => {
+		console.log("render data==>", data);
+		if (isLoading) {
+			return <div className='search-message'> Loading... </div>;
+		}
+
+		if (isError) {
+			return <div className='search-message'>Something went wrong</div>;
+		}
+
+		if (isSuccess) {
+			return <ArticlesSearchResult articles={data} />;
+		}
+
+		return <></>;
+	};
+
+	return (
+		<div className='home'>
+			<h1>Search by keywords Select Categories or Authors </h1>
+			<pre>{JSON.stringify(searchValue)}</pre>
+			{/* 	<MultiSelect
+				options={options}
+				value={selected}
+				onChange={handleChange}
+				labelledBy={"Select"}
+			/> */}
+
+			<input
+				type='text'
+				value={searchValue}
+				onChange={({ target: { value } }) => {
+					setSearchValue(value);
+				}}
+				placeholder='Keyword'
+			/>
+			{renderResult()}
+		</div>
+	);
+};
+
+export async function getStaticProps() {
+	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const news = await res.json();
+	return {
+		props: { news },
+	};
+}
+
+export default Search;

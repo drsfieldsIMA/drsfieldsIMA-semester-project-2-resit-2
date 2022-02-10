@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import API_URL, { API_MONGOOSE_URL, EXT_LOGIN } from "../utils/index";
 import router from "next/router";
-import nookies from "nookies";
+import nookies, { parseCookies } from "nookies";
 import {
 	Box,
 	Button,
@@ -20,11 +20,14 @@ import {
 	Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import { useEffect } from "react";
 import AuthContext, { AuthProvider } from "../comps/config/AuthContext";
 import useLocalStorage from "../comps/config/useLocalStorage";
+import { LoginTwoTone } from "@mui/icons-material";
+import { parse } from "path/posix";
 
-const url = API_URL + EXT_LOGIN;
+const url = API_MONGOOSE_URL + EXT_LOGIN;
 
 const schema = yup.object().shape({
 	username: yup.string().required("Please enter your email"),
@@ -32,10 +35,9 @@ const schema = yup.object().shape({
 });
 
 export default function LoginForm() {
+	const cookies = parseCookies();
 	const [submitting, setSubmitting] = useState(false);
 	const [loginError, setLoginError] = useState(null);
-
-	//const history = useHistory();
 
 	const { register, handleSubmit } = useForm({
 		resolver: yupResolver(schema),
@@ -46,8 +48,6 @@ export default function LoginForm() {
 	const [loginisValid, setloginisValid] = useState(false);
 	const [focusLoginMessage, setFocusMessage] = useState("");
 	const [auth, setAuth] = useState("");
-	console.log("auth line 43", auth);
-
 	// const {user,jwt, login, logout}=useContext(AuthContext)
 	//const {user, login, logout}=useAuth()
 	const nameRegex = /\S/;
@@ -82,7 +82,6 @@ export default function LoginForm() {
 	};
 
 	async function onSubmit(data) {
-		console.log(" data ", data);
 		setSubmitting(true);
 		setLoginError(null);
 		setIsValid(false);
@@ -90,8 +89,6 @@ export default function LoginForm() {
 			identifier: data.username,
 			password: data.password,
 		};
-
-		console.log(" login info", loginInfo);
 
 		try {
 			const login = await fetch(`${API_MONGOOSE_URL}/auth/local`, {
@@ -106,24 +103,29 @@ export default function LoginForm() {
 			const loginResponse = await login.json();
 
 			console.log(" response", loginResponse);
-			setIsValid(true);
-			setloginisValid(true);
-			setFocusMessage("You will now log in in 2 seconds");
-			setMessage("");
-			setAuth(loginResponse);
-			// AuthProvider(loginResponse)
-			console.log("auth line 117", auth);
-			// useEffect(() => {
-			// storing input name
-			localStorage.setItem("auth", JSON.stringify(loginResponse));
-			//  }, [auth]);
+			const loginText = login;
+			if (login.statusText == "OK") {
+				setIsValid(true);
+				setloginisValid(true);
+				setFocusMessage("You will now log in in 2 seconds");
+				setMessage("");
+				setAuth(loginResponse);
+				// AuthProvider(loginResponse)
+				console.log("auth line 117", auth);
+				// useEffect(() => {
+				// storing input name
+				localStorage.setItem("auth", JSON.stringify(loginResponse));
+				//  }, [auth]);
 
-			nookies.set(null, "jwt", loginResponse.jwt, {
-				maxAge: 30 * 24 * 60 * 60,
-				path: "/",
-			});
-			//		AuthProvider(response.data)
-			router.push("/admin/articles/add");
+				nookies.set(null, "jwt", loginResponse.jwt, {
+					maxAge: 30 * 24 * 60 * 60,
+					path: "/",
+				});
+				//		AuthProvider(response.data)
+				setTimeout(() => {
+					router.push("/admin");
+				}, 500);
+			}
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error(error.message); // It's an Error instance.
@@ -131,9 +133,6 @@ export default function LoginForm() {
 				console.error("🤷‍♂️"); // Who knows?
 			}
 		} finally {
-			setTimeout(() => {
-				router.push("/admin/articles/add");
-			}, 2000);
 			setSubmitting(false);
 		}
 	}
@@ -157,6 +156,11 @@ export default function LoginForm() {
 						backgroundColor: "white",
 					}}
 					maxWidth='sm'>
+					<NextLink href='/' passHref>
+						<Button component='a' startIcon={<LoginTwoTone fontSize='small' />}>
+							login
+						</Button>
+					</NextLink>
 					<NextLink href='/' passHref>
 						<Button
 							component='a'

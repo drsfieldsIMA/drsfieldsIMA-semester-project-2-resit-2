@@ -16,27 +16,35 @@ import theme from "../theme/theme";
 import { ThemeProvider } from "@material-ui/core";
 import { AnyObject } from "yup/lib/object";
 import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+import { Console } from "console";
+import { Heading } from "../comps/Layout";
+import ArticlesSearchResult from "../comps/ArticlesSearchResults";
+import PublicIcon from "@material-ui/icons/Public";
+import CardList from "../comps/common/lists/CardList";
 
 type NewsParams = {
 	id: string;
 	title: string;
 	content: string;
-	section_category: string;
-	category: Array<string>;
-	author: Array<string>;
+	category: string;
+	author: string;
 	image: Array<string>;
 	createdAt: Array<string>;
 };
 
 const Home: NextPage = ({ news }: any) => {
-	const sportNews = news.filter((item) => item.section_category === "sport");
-	const scienceNews = news.filter((item) => item.section_category === "nature");
+	const sportNews = news.filter((item) => item.category === "sport");
+	const scienceNews = news.filter((item) => item.category === "science");
 	const cultureNews = news.filter(
-		(item) => item.section_category === "culture"
+		(item) => item.category === "culture" || item.category === "nature"
 	);
-	const natureNews = news.filter((item) => item.section_category === "nature");
+	const [toggleSport, setToggleSport] = useState<boolean>(false);
 
-	// sort by value
+	const toggleSportArticles = () => {
+		setToggleSport(!toggleSport);
+	};
+	// sort by date
 	scienceNews.sort(function (
 		a: { createdAt: string | number | Date; length: number },
 		b: { createdAt: string | number | Date; length: number }
@@ -48,55 +56,56 @@ const Home: NextPage = ({ news }: any) => {
 		if (a.length === 0 || b.length === 0) return -1;
 
 		// Compare the 2 dates
-		if (keyA < keyB) return 1;
-		if (keyA > keyB) return -1;
+		if (keyA < keyB) return 1; //returns key B
+		if (keyA > keyB) return -1; // returns key A
 		return 0;
 	});
 
-	const headlineNews = news.filter((item) => item.section_category === "news");
+	const headNews: Array<any | void> | Object = sportNews.slice(
+		4,
+		sportNews.length
+	);
 
 	const target = React.createRef();
 
 	return (
 		<ThemeProvider theme={theme}>
 			<main>
-				<h1>Headlines and Science</h1>
-				<Grid container spacing={2} px={2} marginLeft={0}>
-					{scienceNews.slice(0, 4).map((item: any) => (
-						<Grid key={item.id} item xs={12} sm={6} md={6} lg={6} xl={4}>
-							<NewsCard key={item.id} article={item} />
-						</Grid>
-					))}
-				</Grid>
+				<section className='index-headlines'>
+					<PublicIcon />
+					<Heading content='Breaking News' size='1' color='#33069e'></Heading>
+					<CardList News={scienceNews}></CardList>
+				</section>
 
-				<h2>Sport News</h2>
-				<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-					{sportNews.map((item: any) => (
-						<Grid key={item.id} item xs={6}>
-							<NewsCard key={item.id} article={item} />
-						</Grid>
-					))}
-				</Grid>
+				<section className='index-sport'>
+					<div className='heading-block'>
+						<h2>Sport News</h2>
+					</div>
+					<CardList News={sportNews}></CardList>
+					<button className='lun__btn-primary' onClick={toggleSportArticles}>
+						More Articles
+					</button>
+					{toggleSport &&
+						sportNews
+							.slice(5, sportNews.length)
+							.map((item: Array<any> | any, index: string) => (
+								<button key={item.id} className='lun__btn-primary'>
+									{item.title}
+								</button>
+							))}
+				</section>
 
-				<h3>Cultural and Musical Highlights</h3>
-				<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-					{cultureNews.map((item: any) => (
-						<Grid key={item.id} item xs={6}>
-							<NewsCard key={item.id} article={item} />
-						</Grid>
-					))}
-				</Grid>
+				<section id='culture and musical' className='index-culture'>
+					<div className='heading-block'>
+						<h3>Cultural and Musical Highlights</h3>
+					</div>
+					<CardList News={cultureNews}></CardList>
+				</section>
 
-				<h3>Nature and gardening news</h3>
-				<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-					{natureNews.map((item: any) => (
-						<Grid key={item.id} item xs={6}>
-							<NewsCard key={item.id} article={item} />
-						</Grid>
-					))}
-				</Grid>
+				<section className='index-nature'>
+					<h3>Nature and gardening news</h3>
+				</section>
 			</main>
-
 			<footer className={styles.footer}>
 				<a
 					href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
@@ -113,7 +122,6 @@ const Home: NextPage = ({ news }: any) => {
 };
 
 export async function getStaticProps() {
-	//const  res=await fetch(`${API_URL}/api/news`);
 	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
 	const news: NewsParams = await res.json();
 	return {
@@ -128,7 +136,7 @@ Home.propTypes = {
 	sportNews: PropTypes.arrayOf(PropTypes.string),
 	articles: PropTypes.arrayOf(PropTypes.string),
 	title: PropTypes.string,
-	section_category: PropTypes.string,
+	category: PropTypes.string,
 	children: PropTypes.string,
 };
 

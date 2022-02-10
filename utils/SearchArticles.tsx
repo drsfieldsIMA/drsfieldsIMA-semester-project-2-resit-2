@@ -1,7 +1,7 @@
 /** @format */
 
 import { ALL_ARTICLE_ENTRIES } from "../constants/articleEntries";
-import { ArticleParams } from "../pages/search";
+import { ArticleParams } from "../utils/typeLibrary";
 
 const SearchArticles = (query: Array<string>): Promise<string[]> => {
 	return new Promise((resolve) => {
