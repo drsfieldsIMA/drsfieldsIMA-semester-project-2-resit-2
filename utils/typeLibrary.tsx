@@ -23,3 +23,9 @@ export const HeadingDefaults: HeadingParams = {
 	size: "1",
 	content: "",
 };
+
+export const HeadingAdmin: HeadingParams = {
+	color: "#f15a29",
+	size: "1",
+	content: "",
+};

@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import dayjs from "dayjs";
 import Head from "next/head";
+import NextLink from "next/link";
 
 import React from "react";
 
@@ -21,27 +22,45 @@ export const SingleArticlePage = ({ single }) => {
 	return (
 		<Box>
 			<Grid container spacing={2} px={2} marginLeft={0}>
-				<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
-					<h1 className='single-title'>{single.title}</h1>
-					<h2 className='single-title'>
-						{" "}
-						Date:{dayjs(`${single.createdAt}`).format("DD/MM/YYYY")}
-						{"    "}Topic:{single?.category}
-					</h2>
-				</Grid>
-				<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
-					<div className='single-image'>
-						<Image
-							src={single.image?.url}
-							layout='fill'
-							alt={single.title}
-							className='overidImage'></Image>
-					</div>
-				</Grid>
-				<Grid item xs={12} sm={12} md={3} lg={3} xl={3}></Grid>
-				<Grid key={single.slug} item xs={12} sm={12} md={9} lg={9} xl={9}>
+				<Card>
+					<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
+						<h1 className='single-title'>{single.title}</h1>
+						<h2 className='single-title'>
+							Date:{dayjs(`${single.createdAt}`).format("DD/MM/YYYY")}
+						</h2>
+						<NextLink
+							key={single.id}
+							href={`/${single?.category}`}
+							passHref={false}>
+							<h3 className='single-title category-link'>
+								Topic:{"   "}
+								{single?.category}
+							</h3>
+						</NextLink>
+					</Grid>
+					<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
+						<div className='single-image'>
+							<Image
+								src={single.image?.url}
+								layout='fill'
+								alt={single.title}
+								className='overidImage'></Image>
+						</div>
+					</Grid>
+				</Card>
+				<Grid key={single.slug} item xs={12} sm={12} md={12} lg={12} xl={12}>
 					<Card className='singleNews'>
-						<h3 className='single-title'>Author:{single?.author}</h3>
+						<NextLink
+							key={single.id}
+							href={`/author/${single?.author
+								.toLowerCase()
+								.replace(/\s+/g, "")}`}
+							passHref={false}>
+							<h3 className='single-title author-link'>
+								Author:{"   "}
+								{single?.author}
+							</h3>
+						</NextLink>
 						<div className='singleNews-para'>
 							<span className='firstLetter'>{one}</span>
 							{two}

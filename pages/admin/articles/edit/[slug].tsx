@@ -107,12 +107,12 @@ export default function EditArticlePage({ single }: any) {
 	return (
 		<>
 			<Box
-				component='main'
 				sx={{
 					alignItems: "center",
 					display: "flex",
 					flexGrow: 1,
 					minHeight: "100%",
+					minWidth: "90%",
 				}}
 				className='height-75'>
 				<Container

@@ -11,6 +11,7 @@ import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CardList from "@/comps/common/lists/CardList";
 
 export default function SciencePage({ news }) {
 	const scienceNews = news.filter((item) => item.category === "science");
@@ -35,17 +36,7 @@ export default function SciencePage({ news }) {
 				<h2>Science Page</h2>
 			</div>
 
-			<Grid container spacing={2} px={2} marginLeft={0}>
-				{scienceNews.map((item, index): any => (
-					<Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={4}>
-						<Link key={item.id} href={`/science/${item.slug}`}>
-							<a>
-								<NewsCard key={item.id} article={item} />
-							</a>
-						</Link>
-					</Grid>
-				))}
-			</Grid>
+			<CardList News={scienceNews}></CardList>
 			<Button>Load More </Button>
 		</>
 	);

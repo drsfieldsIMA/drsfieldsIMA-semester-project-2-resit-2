@@ -10,15 +10,17 @@ import theme from "../theme/theme";
 import { styled } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { AuthProvider } from "@/comps/config/AuthContext";
+import ReadingProgress from "utils/readingProgress";
+import { useRef } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [queryClient] = React.useState(() => new QueryClient());
 	return (
 		<AuthProvider>
 			<QueryClientProvider client={queryClient}>
+				<ReactQueryDevtools initialIsOpen={false} />
 				<Layout>
 					<Component {...pageProps} />
-					<ReactQueryDevtools initialIsOpen={false} />
 				</Layout>
 			</QueryClientProvider>
 		</AuthProvider>

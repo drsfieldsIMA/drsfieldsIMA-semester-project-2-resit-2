@@ -122,12 +122,12 @@ export default function AddArticlePage({ props }: any) {
 	return (
 		<>
 			<Box
-				component='main'
 				sx={{
 					alignItems: "center",
 					display: "flex",
 					flexGrow: 1,
 					minHeight: "100%",
+					minWidth: "90%",
 				}}
 				className='height-75'>
 				<Container
@@ -202,7 +202,7 @@ export default function AddArticlePage({ props }: any) {
 								<Button
 									type='submit'
 									style={{ marginLeft: "30px" }}
-									className='btn-primary'>
+									className='lun-primary__btn'>
 									{submitting ? "Submitting..." : "Submit"}
 								</Button>
 							</div>

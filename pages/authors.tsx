@@ -27,7 +27,7 @@ export default function AuthorsPage({
 
 	//console.log("Authors Assets==>", firstAuthorAssets);
 	return (
-		<main>
+		<div>
 			<Button component='a' startIcon={<ArrowBackSharp fontSize='small' />}>
 				Home
 			</Button>
@@ -49,14 +49,19 @@ export default function AuthorsPage({
 										.includes(author.name?.toLowerCase())
 								)
 								.map((article, index) => (
-									<Link href={`/${article.slug}`} key={article.slug} passHref>
-										<BoxList key={index} article={article} />
+									<Link
+										href={`/${article.category.toLowerCase()}/${article.slug}`}
+										key={article.slug}
+										passHref={false}>
+										<a>
+											<BoxList key={index} article={article} />
+										</a>
 									</Link>
 								))}
 					</ul>
 				</section>
 			))}
-		</main>
+		</div>
 	);
 }
 

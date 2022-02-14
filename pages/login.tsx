@@ -128,9 +128,9 @@ export default function LoginForm() {
 			}
 		} catch (error: unknown) {
 			if (error instanceof Error) {
-				console.error(error.message); // It's an Error instance.
+				setFocusMessage(error.message); // It's an Error instance.
 			} else {
-				console.error("🤷‍♂️"); // Who knows?
+				setFocusMessage("🤷‍♂️"); // Who knows?
 			}
 		} finally {
 			setSubmitting(false);
@@ -156,12 +156,12 @@ export default function LoginForm() {
 						backgroundColor: "white",
 					}}
 					maxWidth='sm'>
-					<NextLink href='/' passHref>
+					<NextLink href='/' passHref={false}>
 						<Button component='a' startIcon={<LoginTwoTone fontSize='small' />}>
 							login
 						</Button>
 					</NextLink>
-					<NextLink href='/' passHref>
+					<NextLink href='/' passHref={false}>
 						<Button
 							component='a'
 							startIcon={<ArrowBackIcon fontSize='small' />}>

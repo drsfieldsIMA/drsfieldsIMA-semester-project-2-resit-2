@@ -13,13 +13,20 @@ import Hero from "./Hero";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+import { IconButton } from "@mui/material";
+import { Science, SportsFootball } from "@mui/icons-material";
+import {
+	CameraAltOutlined,
+	MusicNote,
+	MusicNoteSharp,
+} from "@material-ui/icons";
 
 type CardArticleParams = {
-	title?: string;
-	content?: string;
+	title: string;
+	content: string;
 	id?: string;
 	image?: any;
-	category?: string;
+	category: string;
 	slug?: string;
 	author?: any;
 	createdAt?: any;
@@ -36,12 +43,12 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 			<CardContent>
 				<Link
 					key={cardArticle.slug}
-					href={`/${cardArticle.category}/${cardArticle.slug}`}>
+					href={`/${cardArticle?.category.toLowerCase()}/${cardArticle.slug}`}>
 					<a>
 						<Hero
 							title={cardArticle.title}
 							imageSrc={`${cardArticle.image?.url}`}
-							bgColor='#000080'
+							bgColor='#f2f0e4'
 							bgSize='contain'
 						/>
 						<Grid
@@ -62,16 +69,29 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 								<Typography
 									variant='body1'
 									color='text.primary'
-									className='lun__btn-primary'
+									className='lun-primary'
 									fontFamily='protipo, sans-serif'>
 									{`${cardArticle.category}`}
 								</Typography>
+								{cardArticle.category == "sport" ? (
+									<IconButton>
+										<SportsFootball></SportsFootball>
+									</IconButton>
+								) : cardArticle.category == "culture" ? (
+									<IconButton>
+										<MusicNoteSharp></MusicNoteSharp>
+									</IconButton>
+								) : (
+									<IconButton>
+										<Science></Science>
+									</IconButton>
+								)}
 							</Grid>
 							<Grid key={3} item xs={12} sm={12} md={6}>
 								<Typography
 									variant='body1'
 									color='text.primary'
-									className='lun__btn-secondary'
+									className='lun-secondary'
 									fontFamily='protipo, sans-serif'>
 									{`${cardArticle.author}`}
 								</Typography>

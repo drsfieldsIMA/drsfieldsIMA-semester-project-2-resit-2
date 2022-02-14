@@ -11,6 +11,7 @@ import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CardList from "@/comps/common/lists/CardList";
 
 export default function CulturePage({ news }) {
 	const cultureNews = news.filter(
@@ -36,18 +37,7 @@ export default function CulturePage({ news }) {
 				</Button>
 				<h2>Culture & Nature Page</h2>
 			</div>
-
-			<Grid container spacing={2} px={2} marginLeft={0}>
-				{cultureNews.map((item): any => (
-					<Grid item xs={6} key={item.id}>
-						<Link key={item.id} href={`/sport/${item.slug}`}>
-							<a>
-								<NewsCard key={item.id} article={item} />
-							</a>
-						</Link>
-					</Grid>
-				))}
-			</Grid>
+			<CardList News={cultureNews}></CardList>
 			<Button>Load More </Button>
 		</>
 	);

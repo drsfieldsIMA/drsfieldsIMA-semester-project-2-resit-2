@@ -3,7 +3,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 841.9 841.9" style="enable-background:new 0 0 841.9 841.9;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#C6FFFF;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st0{fill:#EBFCFC;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
 	.st1{opacity:0.8;fill:#FFFFFF;stroke:#000000;stroke-width:2;stroke-miterlimit:10;enable-background:new    ;}
 	.st2{fill:#414042;}
 	.st3{fill:#F0FFDD;}
@@ -16,9 +16,10 @@
 	.st10{font-size:75.2853px;}
 	.st11{fill:none;stroke:#000000;stroke-miterlimit:10;}
 	.st12{fill:#1F097C;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-	.st13{fill:#1F066D;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-	.st14{fill:#160656;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-	.st15{fill:#FFFFFF;stroke:#000000;stroke-width:3;stroke-miterlimit:10;enable-background:new    ;}
+	.st13{fill:#C6FFFF;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st14{fill:#1F066D;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st15{fill:#160656;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st16{fill:#FFFFFF;stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
 </style>
 <image style="display:none;overflow:visible;enable-background:new    ;" width="450" height="950" xlink:href="../../../../../Downloads/254137875_571096570663065_1327983642435274809_n.jpg"  transform="matrix(1 0 0 1 267.25 -76.125)">
 </image>
@@ -38,24 +39,24 @@
 <path class="st4" d="M357.1,681.7"/>
 <path class="st4" d="M318.5,689.3"/>
 <path class="st4" d="M232.9,484.4"/>
-<text transform="matrix(0.9792 0 0 1 -0.8234 587.3506)" class="st5 st6 st7">LEVEL</text>
+<text transform="matrix(0.9792 0 0 1 -0.8232 587.3508)" class="st5 st6 st7">LEVEL</text>
 <path class="st4" d="M515,368"/>
 <path class="st4" d="M350.4,709.5"/>
 <polyline class="st8" points="510.3,714.5 378,767.8 380,388.3 511,342.4 380,303.7 243,350.4 379,387.4 511,342.4 "/>
 <polyline class="st8" points="244.2,352.3 380.2,389.3 379.2,769.7 243.7,723 "/>
-<text transform="matrix(1.1071 0 0 1 325.0151 371.0986)" class="st9 st6 st10">UP</text>
-<text transform="matrix(1.1071 0 0 1 325.0151 371.0986)" class="st11 st6 st10">UP</text>
+<text transform="matrix(1.1071 0 0 1 325.0151 371.0988)" class="st9 st6 st10">UP</text>
+<text transform="matrix(1.1071 0 0 1 325.0151 371.0988)" class="st11 st6 st10">UP</text>
 <polygon class="st12" points="17.4,799.4 17.4,633.3 123.9,661.4 123.9,843.1 "/>
-<path class="st0" d="M376.7,389.3"/>
-<polygon class="st13" points="231.9,794.5 232.1,624.9 123.9,661.4 123.9,843.1 "/>
-<polyline class="st14" points="509.3,714.7 379.7,767.6 381.4,388.8 510.8,342.5 510.8,697.8 "/>
-<polygon class="st15" points="644.7,154 764,128.8 646.1,108.6 530.1,133.8 "/>
-<text transform="matrix(0.9792 0 0 1 514.309 95.7898)" class="st5 st6 st7">NEWS</text>
+<path class="st13" d="M376.7,389.3"/>
+<polygon class="st14" points="231.9,794.5 232.1,624.9 123.9,661.4 123.9,843.1 "/>
+<polyline class="st15" points="509.3,714.7 379.7,767.6 381.4,388.8 510.8,342.5 510.8,697.8 "/>
+<polygon class="st16" points="644.7,154 764,128.8 646.1,108.6 530.1,133.8 "/>
+<text transform="matrix(0.9792 0 0 1 514.3086 95.7897)" class="st5 st6 st7">NEWS</text>
 <path class="st4" d="M757.7,341.8"/>
 <polyline class="st8" points="772,642.3 647.5,695.7 649.4,316.2 772.7,270.2 649.4,231.5 520.5,278.2 648.5,315.2 772.7,270.2 "/>
 <polyline class="st8" points="521.6,280.1 649.6,317.1 648.6,697.6 521.1,650.9 "/>
-<path class="st0" d="M646.3,317.1"/>
-<polyline class="st14" points="771.1,642.5 649.1,695.5 650.7,316.6 772.5,270.3 772.5,625.7 "/>
+<path class="st13" d="M646.3,317.1"/>
+<polyline class="st15" points="771.1,642.5 649.1,695.5 650.7,316.6 772.5,270.3 772.5,625.7 "/>
 <polygon class="st12" points="525,245.3 525,135.8 644.4,154.4 644.4,274.2 "/>
-<polygon class="st13" points="765.4,242.1 765.6,130.3 644.4,154.4 644.4,274.2 "/>
+<polygon class="st14" points="765.4,242.1 765.6,130.3 644.4,154.4 644.4,274.2 "/>
 </svg>

@@ -19,7 +19,11 @@ const searchArticles = (
 			.filter(
 				({ title, content, author, category, slug }: Array<any> | any) =>
 					title.toLowerCase().includes(query.toLowerCase()) ||
-					title.toLowerCase().includes(truncString.toLowerCase())
+					title.toLowerCase().includes(truncString.toLowerCase()) ||
+					category.toLowerCase().includes(query.toLowerCase()) ||
+					category.toLowerCase().includes(truncString.toLowerCase()) ||
+					content.toLowerCase().includes(query.toLowerCase()) ||
+					content.toLowerCase().includes(truncString.toLowerCase())
 			)
 			.map((articles: Array<any>) => articles);
 		// Artificial timeout for demonstration purposes

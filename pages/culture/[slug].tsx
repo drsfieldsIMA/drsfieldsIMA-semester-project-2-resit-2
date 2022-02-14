@@ -13,17 +13,13 @@ import { SingleArticlePage } from "@/comps/common/SingleArticlePage";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "../../theme/theme";
 
-export default function SingleScience({ single }) {
+export default function SingleCulture({ single }) {
 	return (
 		<>
 			<Head>
 				<title>{single.title}</title>
 			</Head>
-			<ThemeProvider theme={theme}>
-				<main>
-					<SingleArticlePage single={single}></SingleArticlePage>
-				</main>
-			</ThemeProvider>
+			<SingleArticlePage single={single}></SingleArticlePage>
 		</>
 	);
 }

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const ReadingProgress = ({ target }) => {
+const ReadingProgress: any = ({ target }) => {
 	const [readingProgress, setReadingProgress] = React.useState(0);
 	const scrollListener = () => {
 		if (!target.current) {

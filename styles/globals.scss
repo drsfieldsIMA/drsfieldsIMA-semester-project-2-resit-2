@@ -1,22 +1,4 @@
 /** @format */
-/* @font-face {
-	font-family: "ltc-bodoni-175", serif;
-	font-weight: 400;
-	font-style: normal;
-	src: url("https://use.typekit.net/yri7fbm.css");
-}
-
-@font-face {
-	font-family: "baskerville-urw", serif;
-	font-weight: 400;
-	font-style: normal;
-	src: url("https://use.typekit.net/yri7fbm.css");
-}
-
-@font-face {
-	font-family: "Fira Sans Condensed", sans-serif;
-	src: url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap");
-} */
 @font-face {
 	font-family: "protipo", sans-serif;
 	src: url("https://use.typekit.net/yri7fbm.css");
@@ -38,7 +20,7 @@
 }
 
 $breakpoint_xs: 360px;
-$breakpoint_sm: 768px;
+$breakpoint_sm: 780px;
 $breakpoint_md: 1024px;
 $breakpoint_lg: 1280px;
 $breakpoint_xl: 14400px;
@@ -54,7 +36,7 @@ $font-size-xxl: 16px;
 
 $primary_blue: #485faf;
 $secondary_blue: #c6ffff;
-$tertiary_blue: #00a7e3;
+$tertiary_blue: #000080;
 $green: #04ceb4;
 $gold: #bfa65a;
 $cream: #f2f0e4;
@@ -77,6 +59,7 @@ body {
 	font-size: 12.5px;
 	width: 100%;
 	height: 100%;
+	background: linear-gradient(45deg, $cream, white);
 }
 
 h1,
@@ -90,14 +73,21 @@ h4 {
 .std-size__font {
 	font-size: $font-size-xs;
 }
+
 section:nth-child(even) {
-	background: $secondary_blue;
+	background: linear-gradient(135deg, $cream, white);
+	color: #001d3b;
+}
+
+section:nth-child(odd) {
+	background: transparent;
 	color: #001d3b;
 }
 
 .index-sport,
 .index-headlines,
-.index-culture {
+.index-culture,
+.index-nature {
 	display: block;
 	position: relative;
 	min-width: 98%;
@@ -110,17 +100,20 @@ section:nth-child(even) {
 }
 
 .sport-card {
-	border-left: 3px solid #485faf;
+	border-left: 4.8px solid $gold;
 }
 
 .science-card {
-	border-left: 3px solid #04ceb4;
+	border-left: 4.8px solid $tertiary_blue;
 }
 
 .culture-card {
-	border-left: 3px solid #fffc13;
+	border-left: 4.8px solid $green;
 }
-
+.MuiGrid-root {
+	width: calc(100%) !important;
+	margin-left: 0px !important;
+}
 .heading-block {
 	display: flex;
 	flex-flow: row nowrap;
@@ -138,11 +131,65 @@ section:nth-child(even) {
 	}
 }
 
+.header-input {
+	height: 46px;
+	max-width: 180px;
+	min-width: 10%;
+	border-radius: 4px !important;
+	border: $tertiary_blue 2px solid !important;
+	font-size: 1em;
+	font-family: nexa;
+}
+
+.admin-add__text,
+.admin-add__icon {
+	font-size: 16px !important;
+	color: #000080;
+}
+.admin-add__icon {
+	font-size: 2.25rem !important;
+}
+
+button {
+	height: 50px;
+	width: fit-content;
+	color: white;
+	background-color: $tertiary_blue;
+	font-size: 1.25rem;
+}
+
+.header-input__btn {
+	height: 50px;
+	width: 50px;
+	min-width: 4%;
+	color: $green !important;
+	border-radius: 4px !important;
+	margin-right: 0 !important;
+	margin-left: 6px !important;
+	& svg {
+		background-size: cover !important;
+		height: 70px !important;
+		width: 70px !important;
+		color: $tertiary_blue !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		font-size: 2.5rem !important;
+		&:hover {
+			color: $green !important;
+		}
+	}
+}
+
 @media only screen and (max-width: $breakpoint_md) {
 	html,
 	body {
 		font-family: "protipo", sans-serif;
 		font-size: $font-size-md !important;
+	}
+
+	.header-input {
+		max-width: 180px;
+		min-width: 10%;
 	}
 
 	.std-size__font {
@@ -151,6 +198,11 @@ section:nth-child(even) {
 }
 
 @media only screen and (max-width: $breakpoint_lg) {
+	input[type="text"],
+	input[type="password"] {
+		max-width: 700px;
+	}
+
 	html,
 	body {
 		font-size: $font-size-lg !important;
@@ -223,13 +275,15 @@ a {
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
+	background-color: #fff;
+	box-shadow: 2px 2px 0 rgb(0 0 0 / 10%);
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: $secondary_blue;
+	background: $cream !important;
 	//background: linear-gradient(90deg, $primary_blue, #00a7e3);
 	//background: radial-gradient(circle at 50% -100%, #000080, #2391ff, #c6ffff);
 	color: $ii-dark;
@@ -249,7 +303,7 @@ a {
 	background-color: $green !important;
 	color: #000002 !important;
 	&:hover {
-		background-color: #f2f0e4 !important;
+		background-color: $red !important;
 	}
 }
 
@@ -257,7 +311,7 @@ a {
 	background-color: $red !important;
 	color: #f2f0e4 !important;
 	&:hover {
-		background-color: $primary_yellow !important;
+		background-color: $green !important;
 	}
 }
 
@@ -338,7 +392,7 @@ a {
 
 .single-title,
 .single-image__title {
-	color: #000080;
+	color: $tertiary_blue;
 	padding: 0 14px;
 	z-index: 60000;
 	text-align: justify !important;
@@ -359,12 +413,32 @@ a {
 	opacity: 0.7;
 }
 
+.category-link {
+	font-size: 1.2rem;
+	color: $gold !important;
+	text-decoration: underline;
+	&:hover {
+		color: $tertiary_blue !important;
+		cursor: pointer;
+	}
+}
+
+.author-link {
+	font-size: 1.4rem;
+	color: $orange !important;
+	text-decoration: underline;
+	&:hover {
+		color: $tertiary_blue !important;
+		cursor: pointer;
+	}
+}
 .singleNews-para {
 	width: 60%;
 	column-count: 1;
 	column-gap: 5%;
 	text-align: justify;
 	margin: 0 auto;
+	color: $tertiary_blue;
 }
 
 .reading-progress-bar__container {
@@ -381,7 +455,8 @@ a {
 	height: 14px;
 	top: 0;
 	margin-left: 0;
-	background-color: $activegreen;
+	background-color: $tertiary_blue;
+	border-radius: 0 4px 4px 0;
 }
 
 #filePicker {
@@ -480,7 +555,8 @@ input[type="file" i] {
 }
 
 .header a:hover {
-	color: $activegreen;
+	color: $red !important;
+	text-decoration: underline;
 }
 .header ul {
 	display: flex;
@@ -497,7 +573,7 @@ input[type="file" i] {
 	background-image: url(../public/new_logo_1.svg);
 	height: 105px !important;
 	width: 105px !important;
-	border: $primary_blue solid 1px;
+	border: transparent;
 	color: $gold;
 	font-size: 1.75em;
 	text-transform: uppercase;
@@ -511,7 +587,7 @@ li.items {
 	z-index: 0;
 	content: "";
 	position: absolute;
-	border-right: 2px solid $cream;
+	border-right: 2px solid $gold;
 	top: -30px;
 	left: -20px;
 	height: 70px;
@@ -537,23 +613,47 @@ li.items {
 main {
 	width: calc(100% - 32px);
 	margin: 0 16px;
-	background: linear-gradient(45deg, $cream, white);
+	//	background: linear-gradient(45deg, $cream, white);
+	background-color: white;
 }
 
-.lun__btn-primary {
-	background-color: $green !important;
-	border: $dark 2px solid !important;
+.lun-primary {
+	text-decoration: underline;
+	color: $gold;
+	text-transform: lowercase;
+}
+
+.lun-secondary::first-letter,
+.lun-primary::first-letter {
+	text-transform: uppercase;
+}
+.lun-secondary {
+	text-decoration: underline;
+	color: $green;
+	text-transform: lowercase;
+}
+
+.lun-primary__btn,
+.sport__btn-primary {
+	background-color: $tertiary_blue !important;
+	border: $dark 1px solid #f2f0e4 !important;
 	border-radius: 4px !important;
-	color: #001d3b !important;
+	color: #f2f0e4 !important;
 	padding: 9px 14px 9px 14px;
+	display: block;
+	margin: 0 auto 10px;
 	&:hover {
+		text-decoration: underline;
 		background-color: #f2f0e4 !important;
 		transform: scale(1.03);
 		box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
 			0 8px 32px -8px hsla(0, 0%, 0%, 0.14),
 			0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
-		color: #001d3b !important;
+		color: $tertiary_blue !important;
 	}
+}
+.sport__btn-primary {
+	background-color: $cream !important;
 }
 
 .lun__btn-secondary {
@@ -611,6 +711,8 @@ main {
 	flex-direction: column;
 	position: relative;
 	padding: 14px 14px;
+	background-color: transparent;
+	//	box-shadow: 2px 2px 0 rgb(0 0 0 / 10%);
 }
 
 .news-card:hover {
@@ -630,25 +732,23 @@ main {
 	font-size: 18px;
 }
 
-input[type="text"],
-input[type="password"] {
-	padding: 5px 12px;
-	font-size: 1.25em;
-	min-width: 73% !important;
-	max-width: 700px;
-	height: 40px;
-	border: 1px solid $i-dark;
-	border-radius: 7px;
-	display: block;
-	margin: 0 auto;
-	font-family: "Baskerville";
-	font-size: 13.5px;
-	background: white;
-}
-
 input[type="text"]::after,
 .formInput::after {
 	border-bottom: none !important;
+}
+input {
+	font-family: "protipo", sans-serif !important;
+}
+.error {
+	background-color: $orange;
+	color: #f2f0e4;
+	max-width: fit-content;
+	margin: 0 auto;
+}
+.success {
+	background-color: #04ceb4;
+	max-width: fit-content;
+	margin: 0 auto;
 }
 
 label {
@@ -670,7 +770,7 @@ label {
 	flex-direction: row;
 	justify-content: space-around;
 	margin-top: 22px !important;
-	font-family: "Baskerville";
+	font-family: "protipo", sans-serif !important;
 	font-size: 13.5px;
 }
 
@@ -683,7 +783,8 @@ label {
 .form-input {
 	display: block;
 	margin: 0 auto;
-	background: white;
+	padding: 14px;
+	background: transparent;
 	margin-top: 1.5rem;
 }
 
@@ -691,6 +792,9 @@ label {
 	display: block;
 	position: relative;
 	margin: 0 auto !important;
+	background-color: $tertiary_blue;
+	color: white;
+	padding: 20px;
 }
 
 .form-input__dropdown {
@@ -714,14 +818,16 @@ label {
 	border-radius: 7px;
 	display: block;
 	margin: 0 auto;
-	font-family: "Baskerville";
+	font-family: "protipo", sans-serif !important;
 	font-size: 13.5px;
 	background: white;
+	border: 1px solid $tertiary_blue;
 }
+textarea:focus,
 input[type="text"]:focus {
 	outline: none;
 	box-shadow: none;
-	border: $green 3px solid;
+	border: $green 3px solid !important;
 }
 
 .home {
@@ -764,35 +870,49 @@ input[type="text"]:focus {
 .toogle-nav {
 	display: none;
 }
+input[type="text"],
+input[type="password"] {
+	padding: 5px 12px;
+	min-width: 73% !important;
+	max-width: 75%;
+	height: 40px;
+	border: 1px solid $tertiary_blue;
+	border-radius: 7px;
+	display: block;
+	margin: 0 auto;
+	font-size: 13.5px;
+	background: white;
+}
 
 @media screen and (max-width: $breakpoint_sm) {
-	.tagline {
-		display: none;
+	text {
+		font-size: 14px !important;
 	}
 
 	main {
 		margin: 70px 16px !important;
 	}
 	.header {
-		display: block;
+		display: flex;
 		position: fixed;
+		justify-content: space-between;
 		top: 0;
 		width: 100%;
-		height: 70px;
 		padding: 0 5px;
 		ul {
-			margin-top: 30px;
+			display: block;
+			position: absolute;
+			margin-top: 512px;
+			width: 100%;
 		}
 		.logo {
-			height: 70px;
-			width: 70px;
 		}
 	}
 
 	.list {
 		flex-direction: column;
 		height: auto;
-		background: linear-gradient(45deg, $cream, $green);
+		background: linear-gradient(45deg, white, $secondary_blue);
 	}
 	.items:nth-child(1) {
 		border-top: 1px solid $gold;
@@ -806,40 +926,48 @@ input[type="text"]:focus {
 		padding: 20px 0;
 	}
 	.toogle-nav {
-		display: block;
-		position: absolute;
-		right: 10px;
-		top: 7px;
-		padding: 5px;
-		color: #f2f0e4;
-		font-size: 2rem;
+		display: flex;
+		position: relative;
+		right: 40px;
+		top: 4px;
+		padding: 15px;
+		color: $tertiary_blue;
+		font-size: 1rem;
 		border-radius: 0 !important;
-		background-color: $green !important;
+		//background: linear-gradient(45deg, $tertiary_blue, transparent);
+		background-color: white;
+		border-radius: 4px;
+		border: 2px solid $tertiary_blue !important;
 	}
 	.items__link::after {
 		display: none;
+	}
+	.reading-progress-bar__container {
+		top: 110px !important;
 	}
 }
 
 .single-asset {
 	padding: 2px 16px !important;
 	background: #fff !important;
-	color: #000080;
+	color: $tertiary_blue !important;
 	display: block;
 	margin: 20px 10px;
-	border-left: 8px solid $primary_blue !important;
+	border-left: 8px solid $tertiary_blue !important;
 }
 .single-asset:hover {
-	border-left: 8px solid $primary_yellow !important;
-	color: $primary_yellow;
+	border-left: 8px solid $orange !important;
+	color: $orange !important;
 }
 
 .delete {
 	display: block;
 	position: relative;
 	background: $red;
-	color: white;
+	color: #f2f0e4;
 	border: none;
 	font-size: 1.25rem;
-	margin: 0 auto;
+	text-transform: uppercase !important;
+	margin: 20px 10px !important;
+	border-radius: 4px;
 }

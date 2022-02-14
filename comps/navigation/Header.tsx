@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import useDeviceSize from "./DeviceSize";
 import Link from "next/link";
 import theme from "../../theme/theme";
@@ -24,8 +24,10 @@ import useSWR, { SWRConfig } from "swr";
 import { API_MONGOOSE_URL } from "utils";
 import ArticleSearchResult from "../ArticlesSearchResults";
 import { useQuery } from "react-query";
-import { useAuth } from "../config/AuthContext";
+import { AuthContext } from "../config/AuthContext";
 import useKeyPress from "../hooks/useKeyPress";
+import { Pageview } from "@material-ui/icons";
+
 Modal.setAppElement("#__next");
 
 function logOut() {
@@ -40,14 +42,8 @@ function logOut() {
 	}
 }
 
-const Header: any = ({
-	articles,
-	cookies,
-}: {
-	articles: any;
-	cookies: any;
-}) => {
-	const auth = useAuth();
+const Header: any = ({ articles }: { articles: any }) => {
+	const [auth, setAuth] = useContext(AuthContext);
 	let adminName: any = null;
 
 	console.log(" header articles==>", articles);
@@ -58,9 +54,6 @@ const Header: any = ({
 
 	if (typeof auth !== "undefined") {
 		adminName = auth?.user?.username;
-		if (typeof auth[0] !== "undefined") {
-			adminName = auth[0]?.user?.username;
-		}
 	}
 
 	const router = useRouter();
@@ -72,11 +65,21 @@ const Header: any = ({
 		setToggleMenu(!toggleMenu);
 	};
 
-	const eventToSearch: boolean = useKeyPress("Enter");
+	const toggleLogo = () => {
+		router.pathname === "/" ? toggleNav() : null;
+	};
 
+	const eventToSearch: boolean = useKeyPress("Enter");
+	const eventToClose: boolean = useKeyPress("Esc");
 	if (eventToSearch == true) {
 		if (inputValue.length > 0 && !modalIsOpen) {
 			setSearchTerm(inputValue);
+			setModalIsOpen(true);
+		}
+	}
+
+	if (eventToClose == true) {
+		if (modalIsOpen) {
 			setModalIsOpen(true);
 		}
 	}
@@ -89,24 +92,40 @@ const Header: any = ({
 		}
 	);
 
-	const renderResultList = (searchTerm, data) => {
+	const renderResultList = (searchTerm, data, setModalIsOpen) => {
 		if (data) {
-			return <ArticleSearchResult articles={data} />;
+			return (
+				<ArticleSearchResult
+					searchTerm={searchTerm}
+					articles={data}
+					setModalIsOpen={setModalIsOpen}
+				/>
+			);
 		}
 		return <></>;
 	};
+
 	return (
 		<div>
-			<ReactQueryDevtools />
 			<nav className='header'>
-				<div className='logo'></div>
+				<Link href='/'>
+					<a className='logo-link' onClick={() => toggleLogo()}>
+						<div className='logo'></div>
+					</a>
+				</Link>
 				{/* <div className='tagline'>Providing good news to a global market!</div> */}
 				<div className='tagline'>
-					<input onChange={(e) => setInputValue(e.target.value)} />
-					<button
-						onClick={() => (setModalIsOpen(true), setSearchTerm(inputValue))}>
-						Search
-					</button>
+					<input
+						className='header-input'
+						onChange={(e) => setInputValue(e.target.value)}></input>
+					<IconButton
+						onClick={() => (setModalIsOpen(true), setSearchTerm(inputValue))}
+						className='header-input__btn'
+						component='a'
+						size='large'
+						color='inherit'>
+						<Pageview />
+					</IconButton>
 				</div>
 
 				<IconButton
@@ -123,25 +142,31 @@ const Header: any = ({
 							lg: "none",
 						},
 					}}>
-					<MenuIcon />
+					<MenuIcon sx={{ fontSize: "3rem" }} />
 				</IconButton>
 				{(toggleMenu || width > 768) && (
 					<ul className='list'>
 						<li className='items'>
 							<Link href='/'>
-								<a className='items__link'>Home</a>
+								<a className='items__link' onClick={() => toggleNav()}>
+									Home
+								</a>
 							</Link>
 						</li>
 						{auth && auth?.jwt ? (
 							<>
 								<li className='items'>
-									<Link href='/filter'>
-										<a className='items__link'>Articles</a>
+									<Link href='/search'>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Articles
+										</a>
 									</Link>
 								</li>
 								<li className='items'>
 									<Link href='/admin'>
-										<a className='items__link'>Dashboard</a>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Dashboard
+										</a>
 									</Link>
 								</li>
 								<Button
@@ -156,22 +181,30 @@ const Header: any = ({
 							<>
 								<li className='items'>
 									<Link href='/sport'>
-										<a className='items__link'>Sport</a>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Sport
+										</a>
 									</Link>
 								</li>
 								<li className='items'>
 									<Link href='/science'>
-										<a className='items__link'>Science</a>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Science
+										</a>
 									</Link>
 								</li>
 								<li className='items'>
 									<Link href='/culture'>
-										<a className='items__link'>Culture & Nature</a>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Culture & Nature
+										</a>
 									</Link>
 								</li>
 								<li className='items'>
 									<Link href='/authors'>
-										<a className='items__link'>Authors</a>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Authors
+										</a>
 									</Link>
 								</li>
 								<Button
@@ -188,7 +221,9 @@ const Header: any = ({
 			</nav>
 			<Modal isOpen={modalIsOpen}>
 				<strong>Searching Articles for {searchTerm}</strong>
-				{searchTerm.length > 0 ? renderResultList(searchTerm, data) : null}
+				{searchTerm.length > 0
+					? renderResultList(searchTerm, data, setModalIsOpen)
+					: null}
 				<button onClick={() => setModalIsOpen(false)}>Go Back</button>
 			</Modal>
 		</div>
@@ -198,7 +233,6 @@ const Header: any = ({
 Header.propTypes = {
 	onSidebarOpen: PropTypes.func,
 	articles: PropTypes.any,
-	cookies: PropTypes.node,
 };
 
 export default Header;

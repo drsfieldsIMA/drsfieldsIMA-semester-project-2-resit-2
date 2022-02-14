@@ -22,6 +22,8 @@ import { Heading } from "../comps/Layout";
 import ArticlesSearchResult from "../comps/ArticlesSearchResults";
 import PublicIcon from "@material-ui/icons/Public";
 import CardList from "../comps/common/lists/CardList";
+import NextLink from "next/link";
+import { Box, Card, Stack, Divider } from "@mui/material";
 
 type NewsParams = {
 	id: string;
@@ -33,19 +35,9 @@ type NewsParams = {
 	createdAt: Array<string>;
 };
 
-const Home: NextPage = ({ news }: any) => {
-	const sportNews = news.filter((item) => item.category === "sport");
-	const scienceNews = news.filter((item) => item.category === "science");
-	const cultureNews = news.filter(
-		(item) => item.category === "culture" || item.category === "nature"
-	);
-	const [toggleSport, setToggleSport] = useState<boolean>(false);
-
-	const toggleSportArticles = () => {
-		setToggleSport(!toggleSport);
-	};
-	// sort by date
-	scienceNews.sort(function (
+function useSort(newsArray) {
+	const News = newsArray;
+	News.sort(function (
 		a: { createdAt: string | number | Date; length: number },
 		b: { createdAt: string | number | Date; length: number }
 	) {
@@ -60,64 +52,104 @@ const Home: NextPage = ({ news }: any) => {
 		if (keyA > keyB) return -1; // returns key A
 		return 0;
 	});
+}
 
-	const headNews: Array<any | void> | Object = sportNews.slice(
-		4,
-		sportNews.length
+const Home: NextPage = ({ news }: any) => {
+	/* split the articles according to category */
+	let sportNews = news.filter((item) => item.category === "sport");
+	let scienceNews = news.filter((item) => item.category === "science");
+	let cultureNews = news.filter(
+		(item) => item.category === "culture" || item.category === "nature"
 	);
+	let natureNews = news.filter((item) => item.category === "nature");
 
-	const target = React.createRef();
+	const [toggleSport, setToggleSport] = useState<boolean>(false);
+	const [toggleScience, setToggleScience] = useState<boolean>(false);
+
+	/* toggle button to access more articles*/
+	const toggleScienceArticles = () => {
+		setToggleScience(!toggleScience);
+	};
+
+	const toggleSportArticles = () => {
+		setToggleSport(!toggleSport);
+	};
+
+	/* re-order all news categories by createdAt date*/
+	/* 	sportNews = useSort(sportNews);
+	scienceNews = useSort(scienceNews);
+	console.log("scienceNews==>", scienceNews);
+	natureNews = useSort(natureNews);
+	cultureNews = useSort(cultureNews); */
 
 	return (
-		<ThemeProvider theme={theme}>
-			<main>
-				<section className='index-headlines'>
-					<PublicIcon />
-					<Heading content='Breaking News' size='1' color='#33069e'></Heading>
-					<CardList News={scienceNews}></CardList>
-				</section>
+		<>
+			<section className='index-headlines'>
+				<Heading content='Breaking News' size='1' color='#33069e'></Heading>
+				<PublicIcon />
+				<CardList News={scienceNews}></CardList>
+				<button className='lun-primary__btn' onClick={toggleScienceArticles}>
+					More Articles
+				</button>
+				<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+					{toggleScience &&
+						scienceNews.map((item: Array<any> | any, index: string) => (
+							<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={3}>
+								<NextLink
+									key={item.id}
+									href={`${item?.category}/${item?.slug}`}
+									passHref={false}>
+									<Card>
+										<Button key={index} className='single-asset' component='a'>
+											{item.title}{" "}
+										</Button>
+									</Card>
+								</NextLink>
+							</Grid>
+						))}
+				</Grid>
+			</section>
 
-				<section className='index-sport'>
-					<div className='heading-block'>
-						<h2>Sport News</h2>
-					</div>
-					<CardList News={sportNews}></CardList>
-					<button className='lun__btn-primary' onClick={toggleSportArticles}>
-						More Articles
-					</button>
+			<section className='index-sport'>
+				<Heading size='2' content='Sport News'></Heading>
+				<CardList News={sportNews}></CardList>
+				<button className='lun-primary__btn' onClick={toggleSportArticles}>
+					More Articles
+				</button>
+				<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
 					{toggleSport &&
 						sportNews
-							.slice(5, sportNews.length)
+							.slice(2, sportNews.length)
 							.map((item: Array<any> | any, index: string) => (
-								<button key={item.id} className='lun__btn-primary'>
-									{item.title}
-								</button>
+								<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={3}>
+									<NextLink
+										key={item.id}
+										href={`${item?.category}/${item?.slug}`}
+										passHref={false}>
+										<Card>
+											<Button
+												key={index}
+												className='single-asset'
+												component='a'>
+												{item.title}{" "}
+											</Button>
+										</Card>
+									</NextLink>
+								</Grid>
 							))}
-				</section>
+				</Grid>
+			</section>
 
-				<section id='culture and musical' className='index-culture'>
-					<div className='heading-block'>
-						<h3>Cultural and Musical Highlights</h3>
-					</div>
-					<CardList News={cultureNews}></CardList>
-				</section>
+			<section className='index-culture'>
+				<Heading size='3' content='Cultural and Musical Highlights'></Heading>
+				<CardList News={cultureNews}></CardList>
+			</section>
 
-				<section className='index-nature'>
-					<h3>Nature and gardening news</h3>
-				</section>
-			</main>
-			<footer className={styles.footer}>
-				<a
-					href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-					target='_blank'
-					rel='noopener noreferrer'>
-					Powered by{" "}
-					<span className={styles.logo}>
-						<Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-					</span>
-				</a>
-			</footer>
-		</ThemeProvider>
+			<section className='index-nature'>
+				<Heading size='3' content='Nature and Gardening News'></Heading>
+				<CardList News={natureNews}></CardList>
+			</section>
+		</>
 	);
 };
 
