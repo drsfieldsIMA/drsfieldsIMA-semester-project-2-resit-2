@@ -10,7 +10,7 @@ import Layout from "../comps/Layout";
 import NewsCard from "../comps/common/NewsCard";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
-import API_URL, { API_MONGOOSE_URL } from "../utils/index";
+import API_URL, { API_HEROKU_URL } from "../utils/env";
 import { useQuery } from "react-query";
 import theme from "../theme/theme";
 import { ThemeProvider } from "@material-ui/core";
@@ -78,7 +78,6 @@ const Home: NextPage = ({ news }: any) => {
 	/* re-order all news categories by createdAt date*/
 	/* 	sportNews = useSort(sportNews);
 	scienceNews = useSort(scienceNews);
-	console.log("scienceNews==>", scienceNews);
 	natureNews = useSort(natureNews);
 	cultureNews = useSort(cultureNews); */
 
@@ -154,7 +153,7 @@ const Home: NextPage = ({ news }: any) => {
 };
 
 export async function getStaticProps() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const news: NewsParams = await res.json();
 	return {
 		props: { news },

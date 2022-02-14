@@ -6,7 +6,7 @@ import Header from "./navigation/Header";
 import PropTypes from "prop-types";
 import { HeadingParams } from "../utils/typeLibrary";
 import useSWR, { SWRConfig } from "swr";
-import { API_MONGOOSE_URL } from "utils";
+import { API_HEROKU_URL } from "../utils/env";
 import { isError } from "react-query";
 import searchArticles from "./common/lists/renderResultList";
 import ArticleSearchResult from "../comps/ArticlesSearchResults";
@@ -32,7 +32,7 @@ type QueryParams = {
 };
 
 export default function Layout({ title, keywords, descrip, gsv, children }) {
-	const args: any = `${API_MONGOOSE_URL}/articles`;
+	const args: any = `${API_HEROKU_URL}/articles`;
 	const { data, error } = useSWR(args, fetcher, {
 		loadingTimeout: 2000,
 	});

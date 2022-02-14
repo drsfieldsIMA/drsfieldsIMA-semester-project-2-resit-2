@@ -1,7 +1,7 @@
 /** @format */
 
 import { useRouter } from "next/router";
-import API_URL, { API_MONGOOSE_URL } from "../../utils/index";
+import API_URL, { API_HEROKU_URL } from "../../utils/env";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, Card, Stack, Divider } from "@mui/material";
@@ -17,7 +17,10 @@ export default function SingleCulture({ single }) {
 	return (
 		<>
 			<Head>
-				<title>{single.title}</title>
+				<title>{single?.title}</title>
+				<meta
+					name='description'
+					content={single.descrip ? single.descrip : null}></meta>
 			</Head>
 			<SingleArticlePage single={single}></SingleArticlePage>
 		</>
@@ -25,7 +28,7 @@ export default function SingleCulture({ single }) {
 }
 
 export async function getStaticPaths() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles = await res.json();
 	//const articles = ALL_ARTICLE_ENTRIES;
 	const scienceNews = articles.filter((item) => item.category === "science");
@@ -41,7 +44,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const { slug } = params;
-	const res = await fetch(`${API_MONGOOSE_URL}/articles/${slug}`);
+	const res = await fetch(`${API_HEROKU_URL}/articles/${slug}`);
 	const singleNews = await res.json();
 	return {
 		props: {

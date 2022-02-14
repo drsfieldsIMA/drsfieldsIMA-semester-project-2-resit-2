@@ -20,14 +20,14 @@ import {
 	TextField,
 	Typography,
 	Input,
-	Select,
 } from "@mui/material";
-import API_URL, { API_MONGOOSE_URL } from "../../../../utils/index";
+import API_URL, { API_HEROKU_URL } from "../../../../utils/env";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import FormError from "../../../../comps/common/FormError";
 import ReactSelect from "react-select";
 import { Router } from "react-router";
 import DeletePostButton from "./DeletePostButton";
+import Select from "react-select";
 
 const schema = yup.object().shape({
 	title: yup.string().required("Title is required"),
@@ -36,7 +36,6 @@ const schema = yup.object().shape({
 });
 
 export default function EditArticlePage({ single }: any) {
-	//console.log("Single Edit==>", props);
 	const articleID = single.id;
 	const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState<any>();
@@ -96,6 +95,8 @@ export default function EditArticlePage({ single }: any) {
 			const addResponse = await add.json();
 			if (add.status === 200) {
 				alert("Success article uploaded");
+			} else {
+				alert(`Backend error ${add.statusText} `);
 			}
 		} catch (errors) {
 			setServerError("error");
@@ -150,24 +151,21 @@ export default function EditArticlePage({ single }: any) {
 									/>
 
 									<label>Category</label>
-									{/* 			<div className='controller-dropdown'>
-										<Controller
+									<div className='controller-dropdown'>
+										<Select
 											name='category'
-											control={control}
-											render={({ field: onChange }) => (
-												<ReactSelect
-													onChange={handleCategory}
-													isClearable
-													options={[
-														{ value: "science", label: "science" },
-														{ value: "sport", label: "sport" },
-														{ value: "culture", label: "culture" },
-														{ value: "nature", label: "nature" },
-													]}
-												/>
-											)}
+											options={[
+												{ value: "Science", label: "science" },
+												{ value: "Sport", label: "sport" },
+												{ value: "Culture", label: "culture" },
+												{ value: "Nature", label: "nature" },
+											]}
+											instanceId='category'
+											placeholder='Select this articles topic'
+											isClearable
+											onChange={handleCategory}
 										/>
-									</div> */}
+									</div>
 								</Grid>
 							</Grid>
 
@@ -191,7 +189,7 @@ export default function EditArticlePage({ single }: any) {
 }
 
 export async function getStaticPaths() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles = await res.json();
 	//const articles = ALL_ARTICLE_ENTRIES;
 	//const sportNews = articles.filter((item) => item.category === "sport");
@@ -207,7 +205,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const { slug } = params;
-	const res = await fetch(`${API_MONGOOSE_URL}/articles/${slug}`);
+	const res = await fetch(`${API_HEROKU_URL}/articles/${slug}`);
 	const singleArticle = await res.json();
 	return {
 		props: {

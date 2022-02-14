@@ -5,7 +5,7 @@ import Head from "next/head";
 import { Grid } from "@mui/material";
 import Link from "next/link";
 import NewsCard from "../comps/common/NewsCard";
-import API_URL, { API_MONGOOSE_URL } from "../utils/index";
+import API_URL, { API_HEROKU_URL } from "../utils/env";
 import Hero from "../comps/common/Hero";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import Button from "@mui/material/Button";
@@ -44,7 +44,7 @@ export default function CulturePage({ news }) {
 }
 
 export async function getStaticProps() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 
 	const articles: Array<string> = await res.json();
 	const news: Array<string> = articles;

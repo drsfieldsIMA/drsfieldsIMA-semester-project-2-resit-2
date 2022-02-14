@@ -1,5 +1,5 @@
 /** @format */
-import API_URL, { API_MONGOOSE_URL } from "utils";
+import API_URL, { API_HEROKU_URL } from "utils/env";
 import { Heading } from "comps/Layout";
 import { HeadingDefaults } from "utils/typeLibrary";
 import { ArticleParams } from "../utils/typeLibrary";
@@ -25,7 +25,6 @@ export default function AuthorsPage({
 		article?.author?.toLowerCase().includes(authors[0].name?.toLowerCase())
 	);
 
-	//console.log("Authors Assets==>", firstAuthorAssets);
 	return (
 		<div>
 			<Button component='a' startIcon={<ArrowBackSharp fontSize='small' />}>
@@ -66,9 +65,9 @@ export default function AuthorsPage({
 }
 
 export async function getStaticProps() {
-	const res = await fetch(`${API_MONGOOSE_URL}/writers`);
+	const res = await fetch(`${API_HEROKU_URL}/writers`);
 	const authors = await res.json();
-	const resArticles = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const resArticles = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles = await resArticles.json();
 	return {
 		props: { authors, articles },

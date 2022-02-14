@@ -4,7 +4,7 @@ import { Flex, Box } from "reflexbox";
 import Select from "react-select";
 import { useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
-import { API_MONGOOSE_URL } from "utils";
+import { API_HEROKU_URL } from "utils/env";
 import useDebounce from "utils/useDebounce";
 import BoxList from "@/comps/common/lists/BoxList";
 import { Grid } from "@mui/material";
@@ -40,18 +40,32 @@ const searchArticles = (
 };
 
 const getArticles = async (key) => {
-	const categoryId = key?.queryKey[1]?.category?.value;
-	//const authorId = key?.queryKey[1]?.author?.value;
-	let searchUrl = categoryId
-		? `${API_MONGOOSE_URL}/articles?category=${categoryId}`
-		: `${API_MONGOOSE_URL}/articles`;
+	let categoryId = key?.queryKey[1]?.category?.value;
+	let authorId = key?.queryKey[2]?.author?.value;
+	let searchUrl = `${API_HEROKU_URL}/articles`;
+	if (categoryId || authorId) {
+		if (categoryId) {
+			searchUrl = `${API_HEROKU_URL}/articles?category=${categoryId}`;
 
-	if (categoryId == "all") {
-		searchUrl = `${API_MONGOOSE_URL}/articles`;
+			if (categoryId == "all") {
+				searchUrl = `${API_HEROKU_URL}/articles`;
+			}
+		}
+
+		if (authorId) {
+			searchUrl = `${API_HEROKU_URL}/articles?author=${authorId}`;
+
+			if (authorId == "all") {
+				searchUrl = `${API_HEROKU_URL}/articles`;
+			}
+		}
+	}
+
+	if (categoryId && authorId) {
+		searchUrl = `${API_HEROKU_URL}/articles?category=${categoryId}&author=${authorId}`;
 	}
 
 	const res = await fetch(searchUrl);
-
 	return res.json();
 };
 
@@ -63,19 +77,40 @@ const Search = ({ articles }) => {
 		{ label: "Culture", value: "culture" },
 		{ label: "Nature", value: "nature" },
 	];
+
+	const optionAuthor: Array<any> | any = [
+		{ label: "All", value: "all" },
+		{ label: "David Doe", value: "David Doe" },
+		{ label: "Sarah Baker", value: "Sarah Baker" },
+		{ label: "Super Admin", value: "super admin" },
+		{ label: "Jannne Cathrin Lillenes", value: "jannne cathrin lillenes" },
+	];
+
 	const queryClient = useQueryClient();
 	const [category, setCategory] = useState(null);
 	const [author, setAuthor] = useState([]);
 	const [selected, setSelected] = useState([]);
+	const [selectedAuthor, setSelectedAuthor] = useState([]);
 
 	const handleChange = (selected) => {
 		setCategory(selected);
+		setSelected(selected);
+	};
+
+	const handleAuthor = (selectedAuthor) => {
+		setAuthor(selectedAuthor);
+		setSelectedAuthor(selectedAuthor);
 	};
 
 	const debouncedSearchValue = useDebounce(category, 300);
+	const debouncedAuthorValue = useDebounce(author, 300);
 
 	const { data, status } = useQuery(
-		["articles", { category: debouncedSearchValue }],
+		[
+			"articles",
+			{ category: debouncedSearchValue },
+			{ author: debouncedAuthorValue },
+		],
 		getArticles,
 		{ initialData: articles }
 	);
@@ -88,18 +123,21 @@ const Search = ({ articles }) => {
 						<Box width={200} as='h2' my={40}>
 							Filter Articles
 						</Box>
-						{/* 						<Select
-							getOptionLabel={(option) => `${optionAuthor.author}`}
-							getOptionValue={(option) => optionAuthor.id}
-							options={author}
-							instanceId='author'
-							isMulti
-							placeholder='Filter by Author'
-							onChange={(values) =>
-								setAuthor(values.map((author) => author.id))
-							}
-						/> */}
 						<Box width={200} mr={20}>
+							<Select
+								getOptionLabel={(optionAuthor: objectParams) =>
+									`${optionAuthor.label}`
+								}
+								getOptionValue={(optionAuthor: objectParams) =>
+									optionAuthor.value
+								}
+								options={optionAuthor}
+								instanceId='author'
+								value={selectedAuthor}
+								isClearable
+								placeholder='Filter by Author'
+								onChange={(value) => handleAuthor(value)}
+							/>
 							<br />
 							<Select
 								getOptionLabel={(option: objectParams) => `${option.label}`}
@@ -109,7 +147,7 @@ const Search = ({ articles }) => {
 								placeholder='Filter by category'
 								isClearable
 								value={selected}
-								onChange={handleChange}
+								onChange={(value) => handleChange(value)}
 							/>
 						</Box>
 					</Grid>
@@ -119,10 +157,15 @@ const Search = ({ articles }) => {
 						{status === "loading" && <div> I am loading your articles</div>}
 						{status === "error" && <div>Something went wrong</div>}
 
-						{status === "success" &&
+						{status === "success" && data.length > 0 ? (
 							data.map((article) => (
 								<BoxList key={article.slug} article={article}></BoxList>
-							))}
+							))
+						) : (
+							<Box p={10}>
+								<div>Sorry no articles found</div>
+							</Box>
+						)}
 					</Box>
 				</Grid>
 			</Grid>
@@ -131,7 +174,7 @@ const Search = ({ articles }) => {
 };
 
 export async function getServerSideProps() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articlesData = await res.json();
 
 	return {

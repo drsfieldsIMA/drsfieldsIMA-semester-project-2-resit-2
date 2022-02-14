@@ -7,7 +7,7 @@ import * as yup from "yup";
 import NextLink from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import API_URL, { API_MONGOOSE_URL, EXT_LOGIN } from "../utils/index";
+import API_URL, { API_HEROKU_URL, EXT_LOGIN } from "../utils/env";
 import router from "next/router";
 import nookies, { parseCookies } from "nookies";
 import {
@@ -27,7 +27,7 @@ import useLocalStorage from "../comps/config/useLocalStorage";
 import { LoginTwoTone } from "@mui/icons-material";
 import { parse } from "path/posix";
 
-const url = API_MONGOOSE_URL + EXT_LOGIN;
+const url = API_HEROKU_URL + EXT_LOGIN;
 
 const schema = yup.object().shape({
 	username: yup.string().required("Please enter your email"),
@@ -91,7 +91,7 @@ export default function LoginForm() {
 		};
 
 		try {
-			const login = await fetch(`${API_MONGOOSE_URL}/auth/local`, {
+			const login = await fetch(`${API_HEROKU_URL}/auth/local`, {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
@@ -99,23 +99,15 @@ export default function LoginForm() {
 				},
 				body: JSON.stringify(loginInfo),
 			});
-			console.log(" login", login);
 			const loginResponse = await login.json();
 
-			console.log(" response", loginResponse);
-			const loginText = login;
 			if (login.statusText == "OK") {
 				setIsValid(true);
 				setloginisValid(true);
 				setFocusMessage("You will now log in in 2 seconds");
 				setMessage("");
 				setAuth(loginResponse);
-				// AuthProvider(loginResponse)
-				console.log("auth line 117", auth);
-				// useEffect(() => {
-				// storing input name
 				localStorage.setItem("auth", JSON.stringify(loginResponse));
-				//  }, [auth]);
 
 				nookies.set(null, "jwt", loginResponse.jwt, {
 					maxAge: 30 * 24 * 60 * 60,
@@ -125,10 +117,14 @@ export default function LoginForm() {
 				setTimeout(() => {
 					router.push("/admin");
 				}, 500);
+			} else {
+				setFocusMessage(
+					`backend error message is  ${login.status} &  ${login.statusText}  `
+				); // It's an Error instance.
 			}
 		} catch (error: unknown) {
-			if (error instanceof Error) {
-				setFocusMessage(error.message); // It's an Error instance.
+			if (error) {
+				setFocusMessage(`front end error message is  ${error}  `); // It's an Error instance.
 			} else {
 				setFocusMessage("🤷‍♂️"); // Who knows?
 			}

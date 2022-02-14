@@ -8,7 +8,7 @@ import { AuthContext, useAuth } from "../../comps/config/AuthContext";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import API_URL, { API_MONGOOSE_URL } from "../../utils/index";
+import API_URL, { API_HEROKU_URL } from "../../utils/env";
 import { HeadingDefaults, HeadingAdmin } from "utils/typeLibrary";
 import useLocalStorage from "comps/config/useLocalStorage";
 import NextLink from "next/link";
@@ -17,8 +17,6 @@ import { AddBox, HistoryEdu, LoginTwoTone } from "@mui/icons-material";
 import DeletePostButton from "./articles/edit/DeletePostButton";
 
 const AuthorsAssets = ({ articles, auth }: { articles: any; auth: any }) => {
-	console.log("auth?.user?.username", auth?.user?.username);
-	console.log("article,author", articles[0]?.author);
 	return articles
 		.filter((article) =>
 			article?.author
@@ -59,8 +57,6 @@ export default function AdminIndex({
 	const [auth, setAuth] = useContext(AuthContext);
 	const [adminName, setAdminName] = React.useState(false);
 
-	console.log("adminNames==>", adminName);
-	console.log("authors assets==>", AuthorsAssets);
 	return (
 		<>
 			<Grid container spacing={2} px={2} marginLeft={0}>
@@ -118,7 +114,7 @@ export default function AdminIndex({
 }
 
 export async function getServerSideProps() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles: any = await res.json();
 	return {
 		props: { articles, HeadingDefaults }, // will be passed to the page component as props

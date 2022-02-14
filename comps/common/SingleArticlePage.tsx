@@ -1,7 +1,7 @@
 /** @format */
 
 import { useRouter } from "next/router";
-import API_URL, { API_MONGOOSE_URL } from "../../utils/index";
+import API_URL, { API_HEROKU_URL } from "../../utils/env";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, Card, Stack, Divider } from "@mui/material";
@@ -15,14 +15,12 @@ import React from "react";
 
 export const SingleArticlePage = ({ single }) => {
 	const maxL = single.content.length;
-	//	console.log("maxL", maxL);
 	const one = single.content.slice(0, 1);
-	//	console.log("maxL", one);
 	const two = single.content.slice(1, maxL);
 	return (
 		<Box>
-			<Grid container spacing={2} px={2} marginLeft={0}>
-				<Card>
+			<Card>
+				<Grid container spacing={2} px={2} marginLeft={0}>
 					<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
 						<h1 className='single-title'>{single.title}</h1>
 						<h2 className='single-title'>
@@ -47,26 +45,24 @@ export const SingleArticlePage = ({ single }) => {
 								className='overidImage'></Image>
 						</div>
 					</Grid>
-				</Card>
-				<Grid key={single.slug} item xs={12} sm={12} md={12} lg={12} xl={12}>
-					<Card className='singleNews'>
-						<NextLink
-							key={single.id}
-							href={`/author/${single?.author
-								.toLowerCase()
-								.replace(/\s+/g, "")}`}
-							passHref={false}>
-							<h3 className='single-title author-link'>
-								Author:{"   "}
-								{single?.author}
-							</h3>
-						</NextLink>
-						<div className='singleNews-para'>
-							<span className='firstLetter'>{one}</span>
-							{two}
-						</div>
-					</Card>
 				</Grid>
+			</Card>
+			<Grid key={single.slug} item xs={12} sm={12} md={12} lg={12} xl={12}>
+				<Card className='singleNews'>
+					<NextLink
+						key={single.id}
+						href={`/author/${single?.author.toLowerCase().replace(/\s+/g, "")}`}
+						passHref={false}>
+						<h3 className='single-title author-link'>
+							Author:{"   "}
+							{single?.author}
+						</h3>
+					</NextLink>
+					<div className='singleNews-para'>
+						<span className='firstLetter'>{one}</span>
+						{two}
+					</div>
+				</Card>
 			</Grid>
 		</Box>
 	);

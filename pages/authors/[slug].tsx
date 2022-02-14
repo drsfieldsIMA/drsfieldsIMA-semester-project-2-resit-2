@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import API_URL, { API_MONGOOSE_URL } from "utils";
+import API_URL, { API_HEROKU_URL } from "utils/env";
 import { Heading } from "comps/Layout";
 import { HeadingDefaults } from "utils/typeLibrary";
 import dayjs from "dayjs";
@@ -12,7 +12,6 @@ import Image from "next/image";
 import BoxList from "@/comps/common/lists/BoxList";
 
 function SingleAuthor({ articles, authors, slug }) {
-	console.log("Authors slug==>", slug);
 	const AuthorAssets: Array<any> = articles.filter((article) =>
 		article?.author?.toLowerCase().replace(/\s+/g, "").includes(slug)
 	);
@@ -20,7 +19,6 @@ function SingleAuthor({ articles, authors, slug }) {
 		author?.name.toLowerCase().replace(/\s+/g, "").includes(slug)
 	);
 	const AuthorProfile = AuthorProf[0];
-	console.log("Authors Assets==>", AuthorProfile);
 
 	return (
 		<main>
@@ -61,7 +59,7 @@ function SingleAuthor({ articles, authors, slug }) {
 }
 
 export async function getStaticPaths() {
-	const res = await fetch(`${API_MONGOOSE_URL}/writers`);
+	const res = await fetch(`${API_HEROKU_URL}/writers`);
 	//const articles = ALL_ARTICLE_ENTRIES;
 	const authors = await res.json();
 	let slugString = "404";
@@ -77,9 +75,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const { slug } = params;
-	const resNews = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const resNews = await fetch(`${API_HEROKU_URL}/articles`);
 	const singleNews = await resNews.json();
-	const resAuthors = await fetch(`${API_MONGOOSE_URL}/writers`);
+	const resAuthors = await fetch(`${API_HEROKU_URL}/writers`);
 	const authors = await resAuthors.json();
 	return {
 		props: {

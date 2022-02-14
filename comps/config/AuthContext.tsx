@@ -25,7 +25,6 @@ type Props = {
 
 export function AuthProvider({ children }: Props) {
 	const [auth, setAuth] = useLocalStorage("auth", null);
-	console.log("Auth Provider===>", auth);
 	return (
 		<>
 			<AuthContext.Provider value={[auth, setAuth]}>

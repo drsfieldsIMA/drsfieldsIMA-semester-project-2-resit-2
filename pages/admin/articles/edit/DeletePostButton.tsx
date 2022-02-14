@@ -1,6 +1,6 @@
 /** @format */
 
-import { API_MONGOOSE_URL } from "utils";
+import { API_HEROKU_URL } from "utils/env";
 import router from "next/router";
 import { useState } from "react";
 import { parseCookies } from "nookies";
@@ -8,14 +8,12 @@ import PropTypes from "prop-types";
 
 export default function DeletePostButton({ articleID }) {
 	const [errorMessage, setError] = useState("");
-	console.log("");
-	const url = `{${API_MONGOOSE_URL}/articles/${articleID}}`;
+	const url = `{${API_HEROKU_URL}/articles/${articleID}}`;
 
 	async function handleDelete() {
 		const cookies = parseCookies();
 		const jwt = cookies?.jwt;
 		const doDelete = confirm("Are you sure?");
-		console.log("url ===>", url);
 		if (doDelete) {
 			try {
 				const deleteArticle = await fetch(url, {
@@ -25,7 +23,6 @@ export default function DeletePostButton({ articleID }) {
 						"Content-Type": "application/json",
 					},
 				});
-				console.log("deleted articles ==>", deleteArticle);
 				alert("Success article deleted");
 				setTimeout(() => {
 					router.push("/admin");

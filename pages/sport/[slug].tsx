@@ -1,7 +1,7 @@
 /** @format */
 
 import { useRouter } from "next/router";
-import { API_MONGOOSE_URL } from "utils";
+import { API_HEROKU_URL } from "utils/env";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import Image from "next/image";
 import { Box, Card, Stack, Divider } from "@mui/material";
@@ -15,8 +15,12 @@ export default function SingleSport({ single }) {
 	return (
 		<>
 			<Head>
-				<title>{single.title}</title>
+				<title>{single?.title}</title>
+				<meta
+					name='description'
+					content={single.descrip ? single.descrip : null}></meta>
 			</Head>
+
 			<SportContainer>
 				<SingleArticlePage single={single}></SingleArticlePage>
 			</SportContainer>
@@ -25,9 +29,9 @@ export default function SingleSport({ single }) {
 }
 
 export async function getStaticPaths() {
-	const res = await fetch(`${API_MONGOOSE_URL}/articles`);
+	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles = await res.json();
-	//const articles = ALL_ARTICLE_ENTRIES;
+
 	const sportNews = articles.filter((item) => item.category === "sport");
 	const paths = sportNews.map((item) => ({
 		params: { slug: item.slug },
@@ -41,7 +45,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const { slug } = params;
-	const res = await fetch(`${API_MONGOOSE_URL}/articles/${slug}`);
+	const res = await fetch(`${API_HEROKU_URL}/articles/${slug}`);
 	const singleNews = await res.json();
 	return {
 		props: {

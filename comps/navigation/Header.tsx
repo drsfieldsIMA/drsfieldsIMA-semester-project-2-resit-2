@@ -15,18 +15,19 @@ import useLocalStorage from "comps/config/useLocalStorage";
 import router from "next/router";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { NextComponentType } from "next";
-import { LoginTwoTone } from "@mui/icons-material";
+import { Filter, LoginTwoTone, Tune } from "@mui/icons-material";
 import { PersonRounded } from "@mui/icons-material";
 import Modal from "react-modal";
 import { ReactQueryDevtools } from "react-query-devtools";
 import searchArticles from "../../comps/common/lists/renderResultList";
 import useSWR, { SWRConfig } from "swr";
-import { API_MONGOOSE_URL } from "utils";
+import { API_HEROKU_URL } from "utils/env";
 import ArticleSearchResult from "../ArticlesSearchResults";
 import { useQuery } from "react-query";
 import { AuthContext } from "../config/AuthContext";
 import useKeyPress from "../hooks/useKeyPress";
 import { Pageview } from "@material-ui/icons";
+import NextLink from "next/link";
 
 Modal.setAppElement("#__next");
 
@@ -45,8 +46,6 @@ function logOut() {
 const Header: any = ({ articles }: { articles: any }) => {
 	const [auth, setAuth] = useContext(AuthContext);
 	let adminName: any = null;
-
-	console.log(" header articles==>", articles);
 
 	const [inputValue, setInputValue] = React.useState("");
 	const [searchTerm, setSearchTerm] = React.useState("");
@@ -115,17 +114,27 @@ const Header: any = ({ articles }: { articles: any }) => {
 				</Link>
 				{/* <div className='tagline'>Providing good news to a global market!</div> */}
 				<div className='tagline'>
-					<input
-						className='header-input'
-						onChange={(e) => setInputValue(e.target.value)}></input>
-					<IconButton
-						onClick={() => (setModalIsOpen(true), setSearchTerm(inputValue))}
-						className='header-input__btn'
-						component='a'
-						size='large'
-						color='inherit'>
-						<Pageview />
-					</IconButton>
+					<NextLink href='/search' passHref={false}>
+						<Button
+							className='lun-primary__btn d-flex'
+							component='a'
+							startIcon={<Tune fontSize='small' />}>
+							Filtered Search
+						</Button>
+					</NextLink>
+					<div className='f-box'>
+						<input
+							className='header-input'
+							onChange={(e) => setInputValue(e.target.value)}></input>
+						<IconButton
+							onClick={() => (setModalIsOpen(true), setSearchTerm(inputValue))}
+							className='header-input__btn'
+							component='a'
+							size='large'
+							color='inherit'>
+							<Pageview />
+						</IconButton>
+					</div>
 				</div>
 
 				<IconButton
@@ -170,7 +179,7 @@ const Header: any = ({ articles }: { articles: any }) => {
 									</Link>
 								</li>
 								<Button
-									onClick={logOut}
+									onClick={() => (setToggleMenu(false), logOut())}
 									className='items logout-btn'
 									component='a'
 									startIcon={<PersonRounded fontSize='small' />}>
@@ -208,7 +217,7 @@ const Header: any = ({ articles }: { articles: any }) => {
 									</Link>
 								</li>
 								<Button
-									onClick={() => router.push("/login")}
+									onClick={() => (setToggleMenu(false), router.push("/login"))}
 									className='items login-btn'
 									component='a'
 									startIcon={<LoginTwoTone fontSize='small' />}>

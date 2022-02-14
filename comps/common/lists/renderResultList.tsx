@@ -4,7 +4,7 @@ import React from "react";
 import ArticlesSearchResult from "@/comps/ArticlesSearchResults";
 import useDebounce from "utils/useDebounce";
 import { useQuery } from "react-query";
-import { API_MONGOOSE_URL } from "utils";
+import { API_HEROKU_URL } from "utils/env";
 import { resolve } from "node:path/win32";
 import useSWR from "swr";
 

@@ -21,7 +21,7 @@ import {
 	Typography,
 	Input,
 } from "@mui/material";
-import API_URL, { API_MONGOOSE_URL } from "../../../../utils/index";
+import API_URL, { API_HEROKU_URL } from "../../../../utils/env";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import FormError from "../../../../comps/common/FormError";
 import ReactSelect from "react-select";
@@ -95,10 +95,9 @@ export default function AddArticlePage({ props }: any) {
 			author: authorName,
 		};
 		const formData = JSON.stringify(data);
-		console.log("formData===>", JSON.stringify(data));
 
 		try {
-			const add = await fetch(`${API_MONGOOSE_URL}/articles`, {
+			const add = await fetch(`${API_HEROKU_URL}/articles`, {
 				method: "POST",
 				headers: {
 					Authorization: `Bearer ${jwt}`,
@@ -108,9 +107,10 @@ export default function AddArticlePage({ props }: any) {
 			});
 
 			const addResponse = await add.json();
-			console.log("status response", add);
 			if (add.status === 200) {
 				alert("Success article uploaded");
+			} else {
+				alert(`Backend error ${add.statusText} `);
 			}
 		} catch (errors) {
 			setServerError("error");
@@ -175,25 +175,10 @@ export default function AddArticlePage({ props }: any) {
 												{ value: "Nature", label: "nature" },
 											]}
 											instanceId='category'
-											placeholder='Select news articles category'
+											placeholder='Select this articles topic'
 											isClearable
 											onChange={handleCategory}
 										/>
-										{/* 	<Controller
-											name='category'
-											control={control}
-											render={({ field: onChange }) => (
-												<ReactSelect
-													onChange={handleCategory}
-													options={[
-														{ value: "science", label: "science" },
-														{ value: "sport", label: "sport" },
-														{ value: "culture", label: "culture" },
-														{ value: "nature", label: "nature" },
-													]}
-												/>
-											)}
-										/> */}
 									</div>
 								</Grid>
 							</Grid>
