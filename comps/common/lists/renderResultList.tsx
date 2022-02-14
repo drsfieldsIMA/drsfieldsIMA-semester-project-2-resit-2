@@ -21,6 +21,7 @@ const searchArticles = (
 					title.toLowerCase().includes(query.toLowerCase()) ||
 					title.toLowerCase().includes(truncString.toLowerCase()) ||
 					category.toLowerCase().includes(query.toLowerCase()) ||
+					author.toLowerCase().includes(query.toLowerCase()) ||
 					category.toLowerCase().includes(truncString.toLowerCase()) ||
 					content.toLowerCase().includes(query.toLowerCase()) ||
 					content.toLowerCase().includes(truncString.toLowerCase())

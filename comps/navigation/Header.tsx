@@ -69,26 +69,26 @@ const Header: any = ({ articles }: { articles: any }) => {
 	};
 
 	const eventToSearch: boolean = useKeyPress("Enter");
-	const eventToClose: boolean = useKeyPress("Esc");
+	const eventToClose: boolean = useKeyPress("Escape");
 	if (eventToSearch == true) {
 		if (inputValue.length > 0 && !modalIsOpen) {
 			setSearchTerm(inputValue);
+			setToggleMenu(false);
 			setModalIsOpen(true);
 		}
 	}
 
 	if (eventToClose == true) {
+		console.log("escape pressed");
 		if (modalIsOpen) {
-			setModalIsOpen(true);
+			setModalIsOpen(false);
 		}
 	}
 
 	const { isLoading, isError, isSuccess, data, status } = useQuery(
 		searchTerm && ["searchArticles", searchTerm],
 		() => searchArticles(searchTerm, articles),
-		{
-			enabled: searchTerm.length > 0,
-		}
+		{ initialData: articles }
 	);
 
 	const renderResultList = (searchTerm, data, setModalIsOpen) => {
@@ -127,7 +127,9 @@ const Header: any = ({ articles }: { articles: any }) => {
 							className='header-input'
 							onChange={(e) => setInputValue(e.target.value)}></input>
 						<IconButton
-							onClick={() => (setModalIsOpen(true), setSearchTerm(inputValue))}
+							onClick={(e) => (
+								toggleNav(), setModalIsOpen(true), setSearchTerm(inputValue)
+							)}
 							className='header-input__btn'
 							component='a'
 							size='large'
@@ -155,6 +157,23 @@ const Header: any = ({ articles }: { articles: any }) => {
 				</IconButton>
 				{(toggleMenu || width > 768) && (
 					<ul className='list'>
+						{width < 768 ? (
+							<li className='items'>
+								<input
+									className='header-input'
+									onChange={(e) => setInputValue(e.target.value)}></input>
+								<IconButton
+									onClick={() => (
+										setModalIsOpen(true), setSearchTerm(inputValue)
+									)}
+									className='header-input__btn'
+									component='a'
+									size='large'
+									color='inherit'>
+									<Pageview />
+								</IconButton>
+							</li>
+						) : null}
 						<li className='items'>
 							<Link href='/'>
 								<a className='items__link' onClick={() => toggleNav()}>
@@ -165,9 +184,23 @@ const Header: any = ({ articles }: { articles: any }) => {
 						{auth && auth?.jwt ? (
 							<>
 								<li className='items'>
-									<Link href='/search'>
+									<Link href='/science'>
 										<a className='items__link' onClick={() => toggleNav()}>
-											Articles
+											Science
+										</a>
+									</Link>
+								</li>
+								<li className='items'>
+									<Link href='/sport'>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Sport
+										</a>
+									</Link>
+								</li>
+								<li className='items'>
+									<Link href='/culture'>
+										<a className='items__link' onClick={() => toggleNav()}>
+											Culture
 										</a>
 									</Link>
 								</li>
@@ -228,12 +261,16 @@ const Header: any = ({ articles }: { articles: any }) => {
 					</ul>
 				)}
 			</nav>
-			<Modal isOpen={modalIsOpen}>
-				<strong>Searching Articles for {searchTerm}</strong>
-				{searchTerm.length > 0
+			<Modal
+				isOpen={modalIsOpen}
+				onRequestClose={() => {}}
+				closeOnEscape={true}>
+				<button onClick={() => setModalIsOpen(false)}>Go Back</button>
+				<br></br>
+				<strong>Searching Articles for your search : {searchTerm}</strong>
+				{modalIsOpen
 					? renderResultList(searchTerm, data, setModalIsOpen)
 					: null}
-				<button onClick={() => setModalIsOpen(false)}>Go Back</button>
 			</Modal>
 		</div>
 	);

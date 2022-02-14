@@ -7,7 +7,7 @@ import NextLink from "next/link";
 const BoxList = ({ article }) => {
 	return (
 		<Box key={article.id} p={10}>
-			<NextLink href={`${article?.category}/${article?.slug}`} passHref>
+			<NextLink href={`${article?.category}/${article?.slug}`} passHref={false}>
 				{article.title}
 			</NextLink>
 			{"  "}

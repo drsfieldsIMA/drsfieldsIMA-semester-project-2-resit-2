@@ -118,9 +118,10 @@ export default function LoginForm() {
 					router.push("/admin");
 				}, 500);
 			} else {
-				setFocusMessage(
-					`backend error message is  ${login.status} &  ${login.statusText}  `
-				); // It's an Error instance.
+				let errorText =
+					`backend error message is   ${login.statusText} & ${login.status} \n` +
+					`check your login credentials are correct `;
+				setFocusMessage(errorText); // It's an Error instance.
 			}
 		} catch (error: unknown) {
 			if (error) {

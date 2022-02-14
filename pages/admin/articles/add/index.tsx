@@ -94,7 +94,6 @@ export default function AddArticlePage({ props }: any) {
 			category: category,
 			author: authorName,
 		};
-		const formData = JSON.stringify(data);
 
 		try {
 			const add = await fetch(`${API_HEROKU_URL}/articles`, {

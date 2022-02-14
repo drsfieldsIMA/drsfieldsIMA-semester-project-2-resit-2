@@ -19,6 +19,9 @@ import Image from "next/image";
 import styles from "../styles/Home.module.scss";
 import ReadingProgress from "utils/readingProgress";
 import { createRef } from "react";
+import NextLink from "next/link";
+import { Button } from "@mui/material";
+import { PermContactCalendar } from "@mui/icons-material";
 
 export const fetcher = (args) =>
 	fetch(args).then((response) => response.json());
@@ -57,15 +60,14 @@ export default function Layout({ title, keywords, descrip, gsv, children }) {
 						target='_blank'
 						rel='noopener noreferrer'>
 						Powered by{" "}
-						<span className={styles.logo}>
-							<Image
-								src='/vercel.svg'
-								alt='Vercel Logo'
-								width={72}
-								height={16}
-							/>
-						</span>
 					</a>
+					<NextLink href='/contact' passHref={false}>
+						<Button
+							component='a'
+							startIcon={<PermContactCalendar fontSize='small' />}>
+							Contact Page
+						</Button>
+					</NextLink>
 				</footer>
 			</div>
 		</ThemeProvider>

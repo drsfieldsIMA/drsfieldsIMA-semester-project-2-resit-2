@@ -8,6 +8,8 @@ import Link from "next/link";
 import ArrowBackSharp from "@material-ui/icons/ArrowBackSharp";
 import Image from "next/image";
 import BoxList from "@/comps/common/lists/BoxList";
+import NextLink from "next/link";
+import { Flex, Box } from "reflexbox";
 
 type AuthorParams = {
 	id: object | Array<string> | string;
@@ -27,12 +29,21 @@ export default function AuthorsPage({
 
 	return (
 		<div>
-			<Button component='a' startIcon={<ArrowBackSharp fontSize='small' />}>
-				Home
-			</Button>
-			{authors.map((author: Array<any> | any) => (
+			<NextLink href='/' passHref={false}>
+				<Button component='a' startIcon={<ArrowBackSharp fontSize='small' />}>
+					Home
+				</Button>
+			</NextLink>
+			{authors.map((author: Array<any> | any, index: any) => (
 				<section key={author.id} className={`section-${author.name}`}>
-					<h1 key={`${author.name}`}>{author.name}</h1>
+					<NextLink
+						key={index}
+						href={`/authors/${author.name.toLowerCase().replace(/\s+/g, "")}`}
+						passHref={false}>
+						<a>
+							<h1 key={`${author.name}`}>{author.name}</h1>
+						</a>
+					</NextLink>
 					<div className='author-image'>
 						<Image
 							src={author.picture?.url}
@@ -48,14 +59,16 @@ export default function AuthorsPage({
 										.includes(author.name?.toLowerCase())
 								)
 								.map((article, index) => (
-									<Link
-										href={`/${article.category.toLowerCase()}/${article.slug}`}
-										key={article.slug}
-										passHref={false}>
-										<a>
-											<BoxList key={index} article={article} />
-										</a>
-									</Link>
+									<Box key={article.id} p={10}>
+										<NextLink
+											href={`${article?.category}/${article?.slug}`}
+											passHref={false}>
+											<a>{article.title}</a>
+										</NextLink>
+										{"  "}
+										{article.category ? article.category : null}
+										<br />
+									</Box>
 								))}
 					</ul>
 				</section>

@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import Head from "next/head";
 import { SingleArticlePage } from "@/comps/common/SingleArticlePage";
 import { SportContainer } from "@/comps/common/SportContainer";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "../../theme/theme";
 
 export default function SingleSport({ single }) {
 	return (
@@ -20,10 +22,11 @@ export default function SingleSport({ single }) {
 					name='description'
 					content={single.descrip ? single.descrip : null}></meta>
 			</Head>
-
-			<SportContainer>
-				<SingleArticlePage single={single}></SingleArticlePage>
-			</SportContainer>
+			<ThemeProvider theme={theme}>
+				<main>
+					<SingleArticlePage single={single}></SingleArticlePage>
+				</main>
+			</ThemeProvider>
 		</>
 	);
 }
