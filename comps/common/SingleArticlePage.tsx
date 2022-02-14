@@ -18,8 +18,7 @@ import React from "react";
 export const SingleArticlePage = ({ single }) => {
 	const maxL = single.content.length;
 	const target: any = React.createRef();
-	const one = single.content.slice(0, 1);
-
+	const one = single.content.replace(/\s+/g, "").slice(0, 1);
 	const two = single.content.slice(1, maxL);
 	return (
 		<>
@@ -76,7 +75,7 @@ export const SingleArticlePage = ({ single }) => {
 						</NextLink>
 						<div className='singleNews-para'>
 							<span className='firstLetter'>{one}</span>
-							<div dangerouslySetInnerHTML={{ __html: two }}></div>
+							<p>{two}</p>
 						</div>
 					</Card>
 				</Grid>
