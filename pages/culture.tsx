@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CardList from "@/comps/common/lists/CardList";
+import NextLink from "next/link";
 
 export default function CulturePage({ news }) {
 	const cultureNews = news.filter(
@@ -32,10 +33,15 @@ export default function CulturePage({ news }) {
 			/>
 
 			<div>
-				<Button component='a' startIcon={<ArrowBackIcon fontSize='small' />}>
-					Home
-				</Button>
-				<h2>Culture & Nature Page</h2>
+				<NextLink href='/' passHref={false}>
+					<Button
+						style={{ display: "inline-flex", marginRight: "28px" }}
+						component='a'
+						startIcon={<ArrowBackIcon fontSize='small' />}>
+						Home
+					</Button>
+				</NextLink>
+				<h2 style={{ display: "inline-flex" }}>Culture & Nature Page</h2>
 			</div>
 			<CardList News={cultureNews}></CardList>
 			<Button>Load More </Button>

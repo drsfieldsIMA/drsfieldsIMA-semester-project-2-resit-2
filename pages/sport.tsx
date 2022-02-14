@@ -10,6 +10,8 @@ import Hero from "../comps/common/Hero";
 import PropTypes from "prop-types";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import NextLink from "next/link";
+import Button from "@mui/material/Button";
 
 export default function SportPage({ news }: any) {
 	return (
@@ -27,7 +29,15 @@ export default function SportPage({ news }: any) {
 			/>
 
 			<div>
-				<h2>Sport Index Page</h2>
+				<NextLink href='/' passHref={false}>
+					<Button
+						style={{ display: "inline-flex", marginRight: "28px" }}
+						component='a'
+						startIcon={<ArrowBackIcon fontSize='small' />}>
+						Home
+					</Button>
+				</NextLink>
+				<h2 style={{ display: "inline-flex" }}>Science Page</h2>
 			</div>
 
 			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

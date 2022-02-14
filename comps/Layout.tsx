@@ -17,7 +17,6 @@ import theme from "../theme/theme";
 import { ThemeProvider } from "@material-ui/core";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
-import ReadingProgress from "utils/readingProgress";
 import { createRef } from "react";
 import NextLink from "next/link";
 import { Button } from "@mui/material";
@@ -39,7 +38,7 @@ export default function Layout({ title, keywords, descrip, gsv, children }) {
 	const { data, error } = useSWR(args, fetcher, {
 		loadingTimeout: 2000,
 	});
-	const target: any = React.createRef();
+
 	return (
 		<ThemeProvider theme={theme}>
 			<div>
@@ -50,8 +49,7 @@ export default function Layout({ title, keywords, descrip, gsv, children }) {
 					<meta name='google-site-verification' content={gsv}></meta>
 				</Head>
 				<Header articles={data}></Header>
-				<ReadingProgress target={target} />
-				<main ref={target}>
+				<main>
 					<div className='container'>{children}</div>
 				</main>
 				<footer className={styles.footer}>

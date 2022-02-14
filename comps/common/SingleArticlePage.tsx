@@ -9,68 +9,76 @@ import Grid from "@mui/material/Grid";
 import { ALL_ARTICLE_ENTRIES } from "constants/articleEntries";
 import dayjs from "dayjs";
 import Head from "next/head";
+import { createRef } from "react";
 import NextLink from "next/link";
+import ReadingProgress from "utils/readingProgress";
 
 import React from "react";
 
 export const SingleArticlePage = ({ single }) => {
 	const maxL = single.content.length;
+	const target: any = React.createRef();
 	const one = single.content.slice(0, 1);
 
 	const two = single.content.slice(1, maxL);
 	return (
-		<Box>
-			<Card>
-				<Grid container spacing={2} px={2} marginLeft={0}>
-					<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
-						<h1 className='single-title'>{single.title}</h1>
-						<h2 className='single-title'>
-							Date:{dayjs(`${single.createdAt}`).format("DD/MM/YYYY")}
-						</h2>
+		<>
+			<ReadingProgress target={target} />
+			<Box ref={target}>
+				<Card>
+					<Grid container spacing={2} px={2} marginLeft={0}>
+						<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
+							<h1 className='single-title'>{single.title}</h1>
+							<h2 className='single-title'>
+								Date:{dayjs(`${single.createdAt}`).format("DD/MM/YYYY")}
+							</h2>
+							<NextLink
+								key={single.id}
+								href={`/${single?.category}`}
+								passHref={false}>
+								<h3 className='single-title category-link'>
+									Topic:{"   "}
+									{single?.category}
+								</h3>
+							</NextLink>
+						</Grid>
+						<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
+							<div className='single-image'>
+								<Image
+									src={single.image?.url}
+									layout='fill'
+									alt={single.title}
+									className='overidImage'></Image>
+							</div>
+							<caption>
+								Image:{" "}
+								{single.image?.caption
+									? single.image?.caption
+									: single.description}
+							</caption>
+						</Grid>
+					</Grid>
+				</Card>
+				<Grid key={single.slug} item xs={12} sm={12} md={12} lg={12} xl={12}>
+					<Card className='singleNews'>
 						<NextLink
 							key={single.id}
-							href={`/${single?.category}`}
+							href={`/author/${single?.author
+								.toLowerCase()
+								.replace(/\s+/g, "")}`}
 							passHref={false}>
-							<h3 className='single-title category-link'>
-								Topic:{"   "}
-								{single?.category}
+							<h3 className='single-title author-link'>
+								Author:{"   "}
+								{single?.author}
 							</h3>
 						</NextLink>
-					</Grid>
-					<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
-						<div className='single-image'>
-							<Image
-								src={single.image?.url}
-								layout='fill'
-								alt={single.title}
-								className='overidImage'></Image>
+						<div className='singleNews-para'>
+							<span className='firstLetter'>{one}</span>
+							{two}
 						</div>
-						<caption>
-							Image:{" "}
-							{single.image?.caption
-								? single.image?.caption
-								: single.description}
-						</caption>
-					</Grid>
+					</Card>
 				</Grid>
-			</Card>
-			<Grid key={single.slug} item xs={12} sm={12} md={12} lg={12} xl={12}>
-				<Card className='singleNews'>
-					<NextLink
-						key={single.id}
-						href={`/author/${single?.author.toLowerCase().replace(/\s+/g, "")}`}
-						passHref={false}>
-						<h3 className='single-title author-link'>
-							Author:{"   "}
-							{single?.author}
-						</h3>
-					</NextLink>
-					<div className='singleNews-para'>
-						<span className='firstLetter'>{one}</span>
-						{two}
-					</div>
-				</Card>
-			</Grid>
-		</Box>
+			</Box>
+		</>
 	);
 };

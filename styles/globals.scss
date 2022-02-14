@@ -125,6 +125,7 @@ section:nth-child(odd) {
 	position: relative;
 	min-height: fit-content;
 	justify-content: center !important;
+	margin-top: 2rem;
 	h1,
 	h2,
 	h3 {
@@ -172,14 +173,14 @@ button {
 	border-radius: 4px !important;
 	margin-right: 0 !important;
 	margin-left: 0 !important;
-	margin-top: -4px;
+	margin-top: -6px;
 	&:hover {
 		color: $green !important;
 	}
 	& svg {
 		background-size: cover !important;
-		height: 64px !important;
-		width: 64px !important;
+		height: 60px !important;
+		width: 60px !important;
 		color: $tertiary_blue !important;
 		padding: 0 !important;
 		margin: 0 !important;
@@ -389,6 +390,7 @@ a {
 	justify-content: center;
 	text-align: center;
 	margin: 0 10% 14px !important;
+	box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
 }
 .author-image {
 	display: block !important;
@@ -1020,7 +1022,7 @@ input[type="password"] {
 		border-radius: 0 !important;
 		//background: linear-gradient(45deg, $tertiary_blue, transparent);
 		background-color: white;
-		border-radius: 4px;
+		border-radius: 4px !important;
 		border: 2px solid $tertiary_blue !important;
 	}
 	.items__link::after {
