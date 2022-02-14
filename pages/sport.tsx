@@ -26,6 +26,7 @@ export default function SportPage({ news }: any) {
 				imageSrc='/images/hero.jpg'
 				classString='hero_banner'
 				desc='A picture of various sports equipment'
+				bgColor='#bfa65a'
 			/>
 
 			<div>

@@ -84,8 +84,16 @@ const Home: NextPage = ({ news }: any) => {
 
 	return (
 		<>
+			<Head>
+				<title> Level up news | Powered by Positivity</title>
+				<meta
+					name='description'
+					content={`${scienceNews[0].description}`}></meta>
+				<meta name='keywords' content={`${scienceNews[0].title}`}></meta>
+				Level up news | Powered by Positivity
+			</Head>
 			<section className='index-headlines'>
-				<Heading content='Breaking News' size='1' color='#33069e'></Heading>
+				<Heading content='Breaking News' size='1'></Heading>
 				<CardList News={scienceNews}></CardList>
 				<button className='lun-primary__btn' onClick={toggleScienceArticles}>
 					More Articles

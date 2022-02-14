@@ -23,13 +23,15 @@ export default function CulturePage({ news }) {
 		<>
 			<Head>
 				<title>Culture News</title>
-				<meta name='description' content='Welcome to the Science news"'></meta>
+				<meta name='description' content='Welcome to the Culture news"'></meta>
 			</Head>
 
 			<Hero
-				title='Here is your science news'
+				title='Here is your culture news'
 				imageSrc='/waterfall.jpg'
 				classString='hero_banner'
+				bgColor='#04ceb4'
+				desc='A picture of a waterfall'
 			/>
 
 			<div>

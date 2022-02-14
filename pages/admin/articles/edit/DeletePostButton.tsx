@@ -23,6 +23,8 @@ export default function DeletePostButton({ articleID }) {
 						"Content-Type": "application/json",
 					},
 				});
+				const deletedPost = await deleteArticle.json();
+
 				alert("Success article deleted");
 				setTimeout(() => {
 					router.push("/admin");

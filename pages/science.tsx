@@ -27,6 +27,8 @@ export default function SciencePage({ news }) {
 				title='Here is your science news'
 				imageSrc='/images/science_hero.png'
 				classString='hero_banner'
+				bgColor='#000080'
+				desc='A picture of a Tesla car over the earth'
 			/>
 
 			<div>

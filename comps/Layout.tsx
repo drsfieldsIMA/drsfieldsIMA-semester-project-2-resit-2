@@ -49,12 +49,14 @@ export default function Layout({ title, keywords, descrip, gsv, children }) {
 					<meta name='google-site-verification' content={gsv}></meta>
 				</Head>
 				<Header articles={data}></Header>
+
 				<main>
 					<div className='container'>{children}</div>
 				</main>
+
 				<footer className={styles.footer}>
 					<div style={{ marginLeft: "5rem" }}>
-						<h5>Powered by </h5>
+						<h5>Powered by Positivity </h5>
 					</div>
 					<NextLink href='/contact' passHref={false}>
 						<Button
@@ -74,6 +76,7 @@ export function Heading({ color, size, content }: HeadingParams): any {
 	return (
 		<div className='heading-block'>
 			<VariableHeading style={{ color }}>{content}</VariableHeading>
+			<p> [Powered by Positivity]</p>
 		</div>
 	);
 }
@@ -87,9 +90,10 @@ Heading.propTypes = {
 };
 
 Layout.defaultProps = {
-	title: " Level up news  | All thats Positive ",
+	title: " Level up news  | Powered by Positivity ",
 	descrip:
 		"Be informed about local news, leverage positive information and your increase your profile",
-	keywords: "Current affairs, Local News, Science, Sport, Politics, events ",
+	keywords:
+		"Breaking News, Current headlines, Local News, Science, Sport, Culture and Nature, musical events ",
 	gsv: "wenrVQYITXvXIH9sNnSmiBaOZ941XPPzAvnupQrq6RQ",
 };
