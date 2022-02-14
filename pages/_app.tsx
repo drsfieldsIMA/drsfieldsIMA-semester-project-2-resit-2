@@ -20,8 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<AuthProvider>
 			<QueryClientProvider client={queryClient}>
 				<ReactQueryDevtools initialIsOpen={false} />
-				<ReadingProgress target={target} />
-				<Layout ref={target}>
+				<Layout>
 					<Component {...pageProps} />
 				</Layout>
 			</QueryClientProvider>

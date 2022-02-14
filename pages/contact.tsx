@@ -71,7 +71,7 @@ export default function Contact() {
 		};
 
 		try {
-			const add = await fetch(`${API_HEROKU_URL}/correspondance`, {
+			const add = await fetch(`${API_HEROKU_URL}/correspondence`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

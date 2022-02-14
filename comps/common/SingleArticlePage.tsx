@@ -12,7 +12,6 @@ import Head from "next/head";
 import { createRef } from "react";
 import NextLink from "next/link";
 import ReadingProgress from "utils/readingProgress";
-
 import React from "react";
 
 export const SingleArticlePage = ({ single }) => {
