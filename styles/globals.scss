@@ -390,8 +390,15 @@ a {
 	justify-content: center;
 	text-align: center;
 	margin: 0 10% 14px !important;
-	box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
+.single-image__container {
+	border: 1px solid $tertiary_blue;
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
 .author-image {
 	display: block !important;
 	position: relative !important;
@@ -700,6 +707,7 @@ main {
 	display: inline-flex;
 	padding: 5px 10px 5px 10px;
 	margin: 10px auto 5px !important;
+	text-transform: capitalize !important;
 }
 
 .sport__btn-primary {
@@ -1063,6 +1071,8 @@ input[type="password"] {
 	display: block;
 	margin: 20px 10px;
 	border-left: 8px solid $tertiary_blue !important;
+	font-family: "protipo", sans-serif !important;
+	text-transform: capitalize;
 }
 .single-asset:hover {
 	border-left: 8px solid $green !important;

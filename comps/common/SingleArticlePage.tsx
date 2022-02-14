@@ -43,19 +43,21 @@ export const SingleArticlePage = ({ single }) => {
 							</NextLink>
 						</Grid>
 						<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
-							<div className='single-image'>
-								<Image
-									src={single.image?.url}
-									layout='fill'
-									alt={single.title}
-									className='overidImage'></Image>
+							<div className='single-image__container'>
+								<div className='single-image'>
+									<Image
+										src={single.image?.url}
+										layout='fill'
+										alt={single.title}
+										className='overidImage'></Image>
+								</div>
+								<caption>
+									Image:{" "}
+									{single.image?.caption
+										? single.image?.caption
+										: single.description}
+								</caption>
 							</div>
-							<caption>
-								Image:{" "}
-								{single.image?.caption
-									? single.image?.caption
-									: single.description}
-							</caption>
 						</Grid>
 					</Grid>
 				</Card>

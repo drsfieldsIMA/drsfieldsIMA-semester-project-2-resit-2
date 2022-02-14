@@ -31,8 +31,10 @@ export async function getStaticPaths() {
 	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles = await res.json();
 	//const articles = ALL_ARTICLE_ENTRIES;
-	const scienceNews = articles.filter((item) => item.category === "science");
-	const paths = scienceNews.map((item) => ({
+	const cultureNews = articles.filter(
+		(item) => item.category === "culture" || item.category === "nature"
+	);
+	const paths = cultureNews.map((item) => ({
 		params: { slug: item.slug },
 	}));
 
