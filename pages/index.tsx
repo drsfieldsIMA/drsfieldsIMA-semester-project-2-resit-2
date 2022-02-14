@@ -37,7 +37,6 @@ type NewsParams = {
 
 function SortNews(newsArray) {
 	const News = newsArray;
-	console.log("News==>", News);
 	News.sort(function (
 		a: { createdAt: string | number | Date; length: number },
 		b: { createdAt: string | number | Date; length: number }

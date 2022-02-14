@@ -76,7 +76,7 @@ export const SingleArticlePage = ({ single }) => {
 						</NextLink>
 						<div className='singleNews-para'>
 							<span className='firstLetter'>{one}</span>
-							{two}
+							<div dangerouslySetInnerHTML={{ __html: two }}></div>
 						</div>
 					</Card>
 				</Grid>

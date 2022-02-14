@@ -79,7 +79,6 @@ const Header: any = ({ articles }: { articles: any }) => {
 	}
 
 	if (eventToClose == true) {
-		console.log("escape pressed");
 		if (modalIsOpen) {
 			setModalIsOpen(false);
 		}
@@ -164,7 +163,7 @@ const Header: any = ({ articles }: { articles: any }) => {
 									onChange={(e) => setInputValue(e.target.value)}></input>
 								<IconButton
 									onClick={() => (
-										setModalIsOpen(true), setSearchTerm(inputValue)
+										toggleNav(), setModalIsOpen(true), setSearchTerm(inputValue)
 									)}
 									className='header-input__btn'
 									component='a'

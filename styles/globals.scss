@@ -609,10 +609,11 @@ input[type="file" i] {
 	background-image: url(../public/new_logo_1.svg);
 	height: 105px !important;
 	width: 105px !important;
-	border: transparent;
+	border: 1px solid $tertiary_blue;
 	color: $gold;
 	font-size: 1.75em;
 	text-transform: uppercase;
+	border-radius: 4px;
 }
 li.items {
 	display: block;
