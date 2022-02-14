@@ -55,12 +55,9 @@ export default function Layout({ title, keywords, descrip, gsv, children }) {
 					<div className='container'>{children}</div>
 				</main>
 				<footer className={styles.footer}>
-					<a
-						href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-						target='_blank'
-						rel='noopener noreferrer'>
-						Powered by{" "}
-					</a>
+					<div style={{ marginLeft: "5rem" }}>
+						<h5>Powered by </h5>
+					</div>
 					<NextLink href='/contact' passHref={false}>
 						<Button
 							component='a'
