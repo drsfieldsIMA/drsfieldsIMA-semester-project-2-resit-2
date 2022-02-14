@@ -15,11 +15,13 @@ import { useRef } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [queryClient] = React.useState(() => new QueryClient());
+	const target: any = React.createRef();
 	return (
 		<AuthProvider>
 			<QueryClientProvider client={queryClient}>
 				<ReactQueryDevtools initialIsOpen={false} />
-				<Layout>
+				<ReadingProgress target={target} />
+				<Layout ref={target}>
 					<Component {...pageProps} />
 				</Layout>
 			</QueryClientProvider>

@@ -82,7 +82,7 @@ section:nth-child(even) {
 
 section:nth-child(odd) {
 	background: transparent;
-	color: #001d3b;
+	color: $tertiary_blue;
 }
 
 .index-sport,
@@ -960,10 +960,10 @@ input[type="password"] {
 	}
 
 	h1 {
-		font-size: 1.5rem;
+		font-size: 1.05rem;
 	}
 	p {
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 	}
 	text {
 		font-size: 14px !important;
@@ -1069,10 +1069,10 @@ input[type="password"] {
 	}
 
 	h1 {
-		font-size: 1.85rem;
+		font-size: 1.5rem;
 	}
 	p {
-		font-size: 0.9rem;
+		font-size: 0.75rem;
 	}
 	.single-title {
 		font-size: 2rem;

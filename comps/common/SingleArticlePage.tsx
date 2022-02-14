@@ -17,13 +17,11 @@ import React from "react";
 
 export const SingleArticlePage = ({ single }) => {
 	const maxL = single.content.length;
-	const target: any = React.createRef();
 	const one = single.content.replace(/\s+/g, "").slice(0, 1);
 	const two = single.content.slice(1, maxL);
 	return (
 		<>
-			<ReadingProgress target={target} />
-			<Box ref={target}>
+			<Box>
 				<Card>
 					<Grid container spacing={2} px={2} marginLeft={0}>
 						<Grid key={single.slug} item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -48,7 +46,7 @@ export const SingleArticlePage = ({ single }) => {
 										src={single.image?.url}
 										layout='fill'
 										alt={single.title}
-										className='overidImage'></Image>
+										className='overrideImage'></Image>
 								</div>
 								<caption>
 									Image:{" "}

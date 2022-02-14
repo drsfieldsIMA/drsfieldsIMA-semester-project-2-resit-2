@@ -73,9 +73,9 @@ export default function AddArticlePage({ props }: any) {
 		setSubmitting(true);
 		setServerError(null);
 		let authorName = "unknown";
-		if (auth !== undefined) {
+		if (typeof auth !== "undefined") {
 			authorName = auth?.user?.username;
-			if (auth[0] !== undefined) {
+			if (typeof auth[0] !== "undefined") {
 				authorName = auth[0]?.user?.username;
 			}
 		}
