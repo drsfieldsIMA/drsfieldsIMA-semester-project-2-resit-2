@@ -35,8 +35,9 @@ type NewsParams = {
 	createdAt: Array<string>;
 };
 
-function useSort(newsArray) {
+function SortNews(newsArray) {
 	const News = newsArray;
+	console.log("News==>", News);
 	News.sort(function (
 		a: { createdAt: string | number | Date; length: number },
 		b: { createdAt: string | number | Date; length: number }
@@ -52,6 +53,7 @@ function useSort(newsArray) {
 		if (keyA > keyB) return -1; // returns key A
 		return 0;
 	});
+	return News;
 }
 
 const Home: NextPage = ({ news }: any) => {
@@ -76,16 +78,15 @@ const Home: NextPage = ({ news }: any) => {
 	};
 
 	/* re-order all news categories by createdAt date*/
-	/* 	sportNews = useSort(sportNews);
-	scienceNews = useSort(scienceNews);
-	natureNews = useSort(natureNews);
-	cultureNews = useSort(cultureNews); */
+	sportNews = SortNews(sportNews);
+	scienceNews = SortNews(scienceNews);
+	natureNews = SortNews(natureNews);
+	cultureNews = SortNews(cultureNews);
 
 	return (
 		<>
 			<section className='index-headlines'>
 				<Heading content='Breaking News' size='1' color='#33069e'></Heading>
-				<PublicIcon />
 				<CardList News={scienceNews}></CardList>
 				<button className='lun-primary__btn' onClick={toggleScienceArticles}>
 					More Articles

@@ -22,6 +22,7 @@ $ii-dark: #000002;
 	border-top: 1px solid #eaeaea;
 	justify-content: center;
 	align-items: center;
+	color: $cream !important;
 	background-color: $tertiary_blue;
 }
 
@@ -30,10 +31,10 @@ $ii-dark: #000002;
 	justify-content: center;
 	align-items: center;
 	flex-grow: 1;
-	color: $cream;
+	color: $cream !important;
 	&:hover {
 		text-decoration: underline;
-		color: $red;
+		color: $red !important;
 	}
 }
 
