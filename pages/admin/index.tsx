@@ -15,6 +15,7 @@ import NextLink from "next/link";
 import { Button, Grid, ListItem } from "@mui/material";
 import { AddBox, HistoryEdu, LoginTwoTone } from "@mui/icons-material";
 import DeletePostButton from "./articles/edit/DeletePostButton";
+import { parse } from "path/posix";
 
 const AuthorsAssets = ({ articles, auth }: { articles: any; auth: any }) => {
 	return articles
@@ -50,11 +51,10 @@ const renderCurrentAuthorAssets = (articles, auth) => {
 	return <AuthorsAssets articles={articles} auth={auth}></AuthorsAssets>;
 };
 
-export default function AdminIndex({
-	articles,
-	HeadingDefaults,
-}: any): ReactElement {
-	const [auth, setAuth] = useContext(AuthContext);
+export default function AdminIndex({ articles }: any): ReactElement {
+	//const [auth, setAuth] = useContext(AuthContext);
+	let oldAuth: String | any = localStorage.getItem("auth");
+	let auth = JSON.parse(oldAuth);
 	const [adminName, setAdminName] = React.useState(false);
 
 	return (
@@ -117,7 +117,7 @@ export async function getServerSideProps() {
 	const res = await fetch(`${API_HEROKU_URL}/articles`);
 	const articles: any = await res.json();
 	return {
-		props: { articles, HeadingDefaults }, // will be passed to the page component as props
+		props: { articles }, // will be passed to the page component as props
 	};
 }
 

@@ -15,9 +15,11 @@ import CardList from "@/comps/common/lists/CardList";
 import NextLink from "next/link";
 
 export default function CulturePage({ news }) {
-	const cultureNews = news.filter(
-		(item) => item.category === "culture" || item.category === "nature"
-	);
+	if (news) {
+		const cultureNews = news.filter(
+			(item) => item.category === "culture" || item.category === "nature"
+		);
+	}
 
 	return (
 		<>

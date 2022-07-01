@@ -28,6 +28,8 @@ import ReactSelect from "react-select";
 import { Router } from "react-router";
 import Select from "react-select";
 import { useAuth } from "@/comps/config/AuthContext";
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const schema = yup.object().shape({
 	title: yup.string().required("Title is required"),
@@ -43,6 +45,8 @@ export default function AddArticlePage({ props }: any) {
 	const [title, setTitle] = useState<string>();
 	const [slug, setSlug] = useState<string>();
 	const [content, setContent] = useState<string>();
+	const [image, setImage] = useState([]);
+	let history = useHistory();
 
 	const {
 		register,
@@ -66,6 +70,27 @@ export default function AddArticlePage({ props }: any) {
 
 	const handleContent = (event: any) => {
 		setContent(event.target.value);
+	};
+
+	const upload = () => {
+		const formData = new FormData();
+		formData.append("file", image[0]);
+		formData.append("upload_preset", "vgmulp38");
+		Axios.post(
+			`https://api.cloudinary.com/v1_1/pedro-machado-inc/image/upload`,
+			formData
+		).then((response) => {
+			const fileName = response.data.public_id;
+
+			Axios.post("http://localhost:3001/upload", {
+				title: title,
+				description: description,
+				image: fileName,
+				author: localStorage.getItem("username"),
+			}).then(() => {
+				history.push("/");
+			});
+		});
 	};
 
 	const onSubmit = async (e) => {
@@ -182,6 +207,10 @@ export default function AddArticlePage({ props }: any) {
 								</Grid>
 							</Grid>
 
+							<label>Images</label>
+							<input type='file' onChange={(e) => setImage(e.target.files)} />
+							<button onClick={upload}>Upload</button>
+
 							<div className='form-input'>
 								<Button
 									type='submit'
@@ -196,4 +225,7 @@ export default function AddArticlePage({ props }: any) {
 			</Box>
 		</>
 	);
+}
+function useHistory() {
+	throw new Error("Function not implemented.");
 }

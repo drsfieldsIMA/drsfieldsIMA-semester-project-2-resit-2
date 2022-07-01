@@ -50,6 +50,7 @@ $secondary_yellow: #fcee21;
 $i-dark: #001d3b;
 $ii-dark: #000002;
 
+
 html,
 body {
 	padding: 0;
@@ -307,9 +308,9 @@ a {
 
 .header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: start;
 	align-items: center;
-	background: $cream !important;
+	background:navy !important;
 	//background: linear-gradient(90deg, $primary_blue, #00a7e3);
 	//background: radial-gradient(circle at 50% -100%, #000080, #2391ff, #c6ffff);
 	color: $ii-dark;
@@ -320,7 +321,7 @@ a {
 }
 
 .header a {
-	color: #000080;
+	color: $cream!important;
 	margin-right: 20px;
 	font-size: 1.25rem;
 }
@@ -586,7 +587,7 @@ input[type="file" i] {
 
 .hero_banner h1 {
 	position: relative;
-	background-color: transparent;
+	background-color: black;
 	margin-bottom: 0;
 	font-size: 2.5rem !important;
 }
@@ -665,7 +666,8 @@ main {
 	width: calc(100% - 32px);
 	margin: 0 16px;
 	//	background: linear-gradient(45deg, $cream, white);
-	background-color: white;
+	background-color: transparent;
+	min-height:70vh
 }
 
 .lun-primary {
@@ -730,6 +732,10 @@ main {
 			0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
 		color: #001d3b !important;
 	}
+}
+
+form{
+	min-width: 500px;
 }
 
 .form__fieldset {

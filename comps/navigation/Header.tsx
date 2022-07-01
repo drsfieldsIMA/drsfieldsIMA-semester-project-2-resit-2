@@ -34,7 +34,7 @@ Modal.setAppElement("#__next");
 function logOut() {
 	const doLogout = confirm("Are you sure?");
 	if (doLogout) {
-		window.localStorage.clear();
+		localStorage.clear();
 		// Destroy
 		destroyCookie(null, "jwt");
 		setTimeout(() => {

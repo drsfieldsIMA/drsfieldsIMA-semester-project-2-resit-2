@@ -48,7 +48,6 @@ export const SingleArticlePage = ({ single }) => {
 										className='overrideImage'></Image>
 								</div>
 								<caption>
-									Image:{" "}
 									{single.image?.caption
 										? single.image?.caption
 										: single.description}

@@ -140,7 +140,6 @@ export default function LoginForm() {
 				<title>Login | Level Up News</title>
 			</Head>
 			<Box
-				component='main'
 				sx={{
 					alignItems: "center",
 					display: "flex",
@@ -150,7 +149,7 @@ export default function LoginForm() {
 				className='height-75'>
 				<Container
 					sx={{
-						backgroundColor: "white",
+						backgroundColor: "transparent",
 					}}
 					maxWidth='sm'>
 					<NextLink href='/' passHref={false}>

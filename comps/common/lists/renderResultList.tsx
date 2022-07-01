@@ -15,22 +15,24 @@ const searchArticles = (
 	return new Promise((resolve) => {
 		let queryLength = query.length;
 		let truncString = query.substring(0, queryLength - 1);
-		const matchingArticles: any = articles
-			.filter(
-				({ title, content, author, category, slug }: Array<any> | any) =>
-					title.toLowerCase().includes(query.toLowerCase()) ||
-					title.toLowerCase().includes(truncString.toLowerCase()) ||
-					category.toLowerCase().includes(query.toLowerCase()) ||
-					author.toLowerCase().includes(query.toLowerCase()) ||
-					category.toLowerCase().includes(truncString.toLowerCase()) ||
-					content.toLowerCase().includes(query.toLowerCase()) ||
-					content.toLowerCase().includes(truncString.toLowerCase())
-			)
-			.map((articles: Array<any>) => articles);
-		// Artificial timeout for demonstration purposes
-		setTimeout(() => {
-			resolve(matchingArticles);
-		}, 700);
+		if (articles.length > 0) {
+			const matchingArticles: any = articles
+				.filter(
+					({ title, content, author, category, slug }: Array<any> | any) =>
+						title.toLowerCase().includes(query.toLowerCase()) ||
+						title.toLowerCase().includes(truncString.toLowerCase()) ||
+						category.toLowerCase().includes(query.toLowerCase()) ||
+						author.toLowerCase().includes(query.toLowerCase()) ||
+						category.toLowerCase().includes(truncString.toLowerCase()) ||
+						content.toLowerCase().includes(query.toLowerCase()) ||
+						content.toLowerCase().includes(truncString.toLowerCase())
+				)
+				.map((articles: Array<any>) => articles);
+			// Artificial timeout for demonstration purposes
+			setTimeout(() => {
+				resolve(matchingArticles);
+			}, 700);
+		}
 	});
 };
 

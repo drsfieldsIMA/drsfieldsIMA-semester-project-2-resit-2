@@ -40,7 +40,7 @@ export default function SciencePage({ news }) {
 						Home
 					</Button>
 				</NextLink>
-				<h2 style={{ display: "inline-flex" }}>Science</h2>
+				<h2 style={{ display: "inline-flex" }}>Sport</h2>
 			</div>
 
 			<CardList News={scienceNews}></CardList>
