@@ -232,37 +232,35 @@ const Header: any = ({ articles }: { articles: any }) => {
 									startIcon={<LoginTwoTone fontSize='small' />}>
 									Login
 								</Button>
-								<div className='tagline'>
-									<NextLink href='/search' passHref={false}>
-										<Button
-											className='lun-primary__btn d-flex'
-											component='a'
-											startIcon={<Tune fontSize='small' />}>
-											Filtered Search
-										</Button>
-									</NextLink>
-									<div className='f-box'>
-										<input
-											className='header-input'
-											onChange={(e) => setInputValue(e.target.value)}></input>
-										<IconButton
-											onClick={(e) => (
-												toggleNav(),
-												setModalIsOpen(true),
-												setSearchTerm(inputValue)
-											)}
-											className='header-input__btn'
-											component='a'
-											size='large'
-											color='inherit'>
-											<Pageview />
-										</IconButton>
-									</div>
-								</div>
 							</>
 						)}
 					</ul>
 				)}
+				<div className='tagline'>
+					<NextLink href='/search' passHref={false}>
+						<Button
+							className='lun-primary__btn d-flex'
+							component='a'
+							startIcon={<Tune fontSize='small' />}>
+							Filtered Search
+						</Button>
+					</NextLink>
+					<div className='f-box'>
+						<input
+							className='header-input'
+							onChange={(e) => setInputValue(e.target.value)}></input>
+						<IconButton
+							onClick={(e) => (
+								toggleNav(), setModalIsOpen(true), setSearchTerm(inputValue)
+							)}
+							className='header-input__btn'
+							component='a'
+							size='large'
+							color='inherit'>
+							<Pageview />
+						</IconButton>
+					</div>
+				</div>
 			</nav>
 			<Modal
 				isOpen={modalIsOpen}
