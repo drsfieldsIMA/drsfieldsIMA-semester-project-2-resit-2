@@ -114,31 +114,6 @@ const Header: any = ({ articles }: { articles: any }) => {
 					</a>
 				</Link>
 				{/* <div className='tagline'>Providing good news to a global market!</div> */}
-				<div className='tagline'>
-					<NextLink href='/search' passHref={false}>
-						<Button
-							className='lun-primary__btn d-flex'
-							component='a'
-							startIcon={<Tune fontSize='small' />}>
-							Filtered Search
-						</Button>
-					</NextLink>
-					<div className='f-box'>
-						<input
-							className='header-input'
-							onChange={(e) => setInputValue(e.target.value)}></input>
-						<IconButton
-							onClick={(e) => (
-								toggleNav(), setModalIsOpen(true), setSearchTerm(inputValue)
-							)}
-							className='header-input__btn'
-							component='a'
-							size='large'
-							color='inherit'>
-							<Pageview />
-						</IconButton>
-					</div>
-				</div>
 
 				<IconButton
 					size='large'
@@ -257,6 +232,33 @@ const Header: any = ({ articles }: { articles: any }) => {
 									startIcon={<LoginTwoTone fontSize='small' />}>
 									Login
 								</Button>
+								<div className='tagline'>
+									<NextLink href='/search' passHref={false}>
+										<Button
+											className='lun-primary__btn d-flex'
+											component='a'
+											startIcon={<Tune fontSize='small' />}>
+											Filtered Search
+										</Button>
+									</NextLink>
+									<div className='f-box'>
+										<input
+											className='header-input'
+											onChange={(e) => setInputValue(e.target.value)}></input>
+										<IconButton
+											onClick={(e) => (
+												toggleNav(),
+												setModalIsOpen(true),
+												setSearchTerm(inputValue)
+											)}
+											className='header-input__btn'
+											component='a'
+											size='large'
+											color='inherit'>
+											<Pageview />
+										</IconButton>
+									</div>
+								</div>
 							</>
 						)}
 					</ul>
