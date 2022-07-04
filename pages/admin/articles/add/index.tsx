@@ -29,7 +29,7 @@ import { Router } from "react-router";
 import Select from "react-select";
 import { useAuth } from "@/comps/config/AuthContext";
 import Axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
 	title: yup.string().required("Title is required"),
@@ -46,7 +46,7 @@ export default function AddArticlePage({ props }: any) {
 	const [slug, setSlug] = useState<string>();
 	const [content, setContent] = useState<string>();
 	const [image, setImage] = useState([]);
-	let history = useHistory();
+	let navigate = useNavigate();
 
 	const {
 		register,
@@ -88,7 +88,7 @@ export default function AddArticlePage({ props }: any) {
 				image: fileName,
 				author: localStorage.getItem("username"),
 			}).then(() => {
-				history.push("/");
+				navigate("/");
 			});
 		});
 	};
@@ -226,6 +226,6 @@ export default function AddArticlePage({ props }: any) {
 		</>
 	);
 }
-function useHistory() {
+function useNavigate() {
 	throw new Error("Function not implemented.");
 }

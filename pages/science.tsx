@@ -32,14 +32,6 @@ export default function SciencePage({ news }) {
 			/>
 
 			<div>
-				<NextLink href='/' passHref={false}>
-					<Button
-						style={{ display: "inline-flex", marginRight: "28px" }}
-						component='a'
-						startIcon={<ArrowBackIcon fontSize='small' />}>
-						Home
-					</Button>
-				</NextLink>
 				<h2 style={{ display: "inline-flex" }}>Sport</h2>
 			</div>
 

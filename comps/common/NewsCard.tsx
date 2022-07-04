@@ -49,7 +49,7 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 							title={cardArticle.title}
 							imageSrc={`${cardArticle.image?.url}`}
 							bgColor='#f2f0e4'
-							bgSize='contain'
+							bgSize='cover'
 						/>
 						<Grid
 							container
