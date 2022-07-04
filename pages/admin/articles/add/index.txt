@@ -3,7 +3,7 @@
  *
  * @format
  */
-
+// @ts-nocheck
 import React from "react";
 import { useState } from "react";
 import * as yup from "yup";
@@ -13,8 +13,6 @@ import {
 	Box,
 	Button,
 	Container,
-	MenuItem,
-	InputLabel,
 	Grid,
 	Link,
 	TextField,
@@ -84,7 +82,7 @@ export default function AddArticlePage({ props }: any) {
 
 			Axios.post("http://localhost:3001/upload", {
 				title: title,
-				description: description,
+				description: content,
 				image: fileName,
 				author: localStorage.getItem("username"),
 			}).then(() => {
@@ -208,7 +206,7 @@ export default function AddArticlePage({ props }: any) {
 							</Grid>
 
 							<label>Images</label>
-							<input type='file' onChange={(e) => setImage(e.target.files)} />
+							<input type='file' />
 							<button onClick={upload}>Upload</button>
 
 							<div className='form-input'>
@@ -225,7 +223,4 @@ export default function AddArticlePage({ props }: any) {
 			</Box>
 		</>
 	);
-}
-function useNavigate() {
-	throw new Error("Function not implemented.");
 }

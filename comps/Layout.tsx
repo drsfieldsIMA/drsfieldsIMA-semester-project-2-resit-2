@@ -20,7 +20,7 @@ import styles from "../styles/Home.module.scss";
 import { createRef } from "react";
 import NextLink from "next/link";
 import { Button } from "@mui/material";
-import { PermContactCalendar } from "@mui/icons-material";
+import PermContactCalendar from "@mui/icons-material/PermContactCalendar";
 
 export const fetcher = (args) =>
 	fetch(args).then((response) => response.json());

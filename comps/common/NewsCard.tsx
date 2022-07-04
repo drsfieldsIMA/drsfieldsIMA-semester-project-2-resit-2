@@ -14,7 +14,8 @@ import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { IconButton } from "@mui/material";
-import { Science, SportsFootball } from "@mui/icons-material";
+import Science from "@mui/icons-material/Science";
+import SportsFootball from "@mui/icons-material/SportsFootball";
 import {
 	CameraAltOutlined,
 	MusicNote,

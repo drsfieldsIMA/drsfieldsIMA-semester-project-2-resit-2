@@ -13,8 +13,10 @@ import { HeadingDefaults, HeadingAdmin } from "utils/typeLibrary";
 import useLocalStorage from "comps/config/useLocalStorage";
 import NextLink from "next/link";
 import { Button, Grid, ListItem } from "@mui/material";
-import { AddBox, HistoryEdu, LoginTwoTone } from "@mui/icons-material";
+import LoginTwoTone from "@mui/icons-material/LoginTwoTone";
+import HistoryEdu from "@mui/icons-material/HistoryEdu";
 import DeletePostButton from "./articles/edit/DeletePostButton";
+import AddBox from "@mui/icons-material/AddBox";
 import { parse } from "path/posix";
 
 const AuthorsAssets = ({ articles, auth }: { articles: any; auth: any }) => {

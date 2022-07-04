@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState, useRef, useContext } from "react";
-import { NextPlan } from "@mui/icons-material";
+import NextPlan from "@mui/icons-material/NextPlan";
 import NextLink from "next/link";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";

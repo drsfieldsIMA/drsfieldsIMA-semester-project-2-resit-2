@@ -24,7 +24,7 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import { useEffect } from "react";
 import AuthContext, { AuthProvider } from "../comps/config/AuthContext";
 import useLocalStorage from "../comps/config/useLocalStorage";
-import { LoginTwoTone } from "@mui/icons-material";
+import LoginTwoTone from "@mui/icons-material/LoginTwoTone";
 import { parse } from "path/posix";
 
 const url = API_HEROKU_URL + EXT_LOGIN;
