@@ -117,7 +117,7 @@ section:nth-child(odd) {
 	margin-left: 0px !important;
 	height: fit-content !important;
 	padding-bottom: 14px;
-	margin-top: 14px;
+	margin-top: 0;
 }
 .heading-block {
 	display: flex;
@@ -127,7 +127,7 @@ section:nth-child(odd) {
 	position: relative;
 	min-height: fit-content;
 	justify-content: center !important;
-	margin-top: 2rem;
+	margin-top: 0;
 	h1,
 	h2,
 	h3 {
@@ -251,7 +251,7 @@ button {
 }
 
 h1 {
-	font-size: 2.5rem;
+	font-size: 3rem;
 	text-transform: capitalize;
 }
 
@@ -260,7 +260,7 @@ h2 {
 }
 
 h3 {
-	font-size: 1.75rem;
+	font-size: 1.5rem;
 }
 
 h3 {
@@ -348,7 +348,7 @@ a {
 /** @format */
 
 .hero {
-	height: 410px;
+	height: 340px;
 	width: auto;
 	background: #ffff url("/images/hero.jpg") no-repeat center center;
 	color: #fff !important;
@@ -783,6 +783,7 @@ form{
 	display: block;
 	margin-top: 0;
 	min-height:128px;
+	margin-bottom: 14px;
 }
 
 .singleNews {
