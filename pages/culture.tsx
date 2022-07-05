@@ -31,7 +31,7 @@ export default function CulturePage({ news }) {
 				imageSrc='/waterfall.jpg'
 				classString='hero_banner'
 				bgColor='#04ceb4'
-				desc='A picture of a waterfall'
+				desc=''
 			/>
 
 			<div>

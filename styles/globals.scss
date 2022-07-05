@@ -252,6 +252,7 @@ button {
 
 h1 {
 	font-size: 2.5rem;
+	text-transform: capitalize;
 }
 
 h2 {
@@ -347,7 +348,7 @@ a {
 /** @format */
 
 .hero {
-	height: 210px;
+	height: 410px;
 	width: auto;
 	background: #ffff url("/images/hero.jpg") no-repeat center center;
 	color: #fff !important;
@@ -470,14 +471,21 @@ a {
 	}
 }
 .singleNews-para {
-	width: 60%;
-	column-count: 1;
-	column-gap: 5%;
-	text-align: justify;
-	margin: 0 auto;
-	color: $tertiary_blue;
-	line-height: 1.75rem;
+	max-width: 565px;
+	min-width: 50%;
+    -moz-column-count: 1;
+    column-count: 1;
+    grid-column-gap: 5%;
+    -moz-column-gap: 5%;
+    column-gap: 5%;
+    text-align: justify;
+    margin: 0 auto;
+    color: #000080;
+    line-height: 1.75rem;
+    font-size: 16px!important;
 }
+
+
 
 .reading-progress-bar__container {
 	position: sticky;
@@ -608,7 +616,7 @@ input[type="file" i] {
 }
 .logo {
 	display: inline-block;
-	background-image: url(../public/new_logo_1.svg);
+	background-image: url(../public/new_lun_logo.svg);
 	height: 105px !important;
 	width: 105px !important;
 	border: 1px solid $tertiary_blue;
@@ -769,6 +777,12 @@ form{
 	height: auto !important;
 	margin-left: 0px;
 	margin-bottom: 50px !important;
+}
+
+.card-title{
+	display: block;
+	margin-top: 0;
+	min-height:128px;
 }
 
 .singleNews {

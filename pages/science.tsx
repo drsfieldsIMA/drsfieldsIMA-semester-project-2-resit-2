@@ -28,11 +28,11 @@ export default function SciencePage({ news }) {
 				imageSrc='/images/science_hero.png'
 				classString='hero_banner'
 				bgColor='#000080'
-				desc='A picture of a Tesla car over the earth'
+				desc=''
 			/>
 
 			<div>
-				<h2 style={{ display: "inline-flex" }}>Sport</h2>
+				<h2 style={{ display: "inline-flex" }}>Science</h2>
 			</div>
 
 			<CardList News={scienceNews}></CardList>

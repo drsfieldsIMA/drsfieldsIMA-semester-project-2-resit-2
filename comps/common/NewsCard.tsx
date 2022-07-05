@@ -46,8 +46,8 @@ const NewsCard = ({ article }: { article: CardArticleParams }) => {
 					key={cardArticle.slug}
 					href={`/${cardArticle?.category.toLowerCase()}/${cardArticle.slug}`}>
 					<a>
+						<h2 className='card-title'>{cardArticle.title}</h2>
 						<Hero
-							title={cardArticle.title}
 							imageSrc={`${cardArticle.image?.url}`}
 							bgColor='#f2f0e4'
 							bgSize='cover'

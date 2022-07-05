@@ -25,19 +25,11 @@ export default function SportPage({ news }: any) {
 				title='Here is your sport news'
 				imageSrc='/images/hero.jpg'
 				classString='hero_banner'
-				desc='A picture of various sports equipment'
+				desc=''
 				bgColor='#bfa65a'
 			/>
 
 			<div>
-				<NextLink href='/' passHref={false}>
-					<Button
-						style={{ display: "inline-flex", marginRight: "28px" }}
-						component='a'
-						startIcon={<ArrowBackIcon fontSize='small' />}>
-						Home
-					</Button>
-				</NextLink>
 				<h2 style={{ display: "inline-flex" }}>Science Page</h2>
 			</div>
 
