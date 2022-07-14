@@ -66,7 +66,9 @@ export default function AuthorsPage({
 											<a>{article.title}</a>
 										</NextLink>
 										{"  "}
-										{article.category ? article.category : null}
+										<p className='category-text'>
+											{article.category ? article.category : null}
+										</p>
 										<br />
 									</Box>
 								))}
