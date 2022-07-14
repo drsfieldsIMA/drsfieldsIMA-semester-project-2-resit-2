@@ -30,7 +30,7 @@ export default function SportPage({ news }: any) {
 			/>
 
 			<div>
-				<h2 style={{ display: "inline-flex" }}>Sport News</h2>
+				<h2 style={{ display: "inline-flex" }}>Sport</h2>
 			</div>
 
 			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
