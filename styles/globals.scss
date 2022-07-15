@@ -696,7 +696,7 @@ main {
 .lun-secondary {
 	text-decoration: underline;
 	color: $green;
-	text-transform: lowercase;
+	text-transform: capitalize;
 }
 
 .lun-primary__btn,
