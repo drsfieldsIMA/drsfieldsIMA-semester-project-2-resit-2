@@ -1,5 +1,7 @@
 https://drsfields-ima-semester-project-2-resit-2.vercel.app/
 
+![](https://github.com/drsfieldsIMA/portfolio/blob/main/public/lun_desktop.png)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
