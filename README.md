@@ -32,8 +32,6 @@ npm install
 npm run dev
 ```
 
-You can host the static files to your webdomain of choice however it is prefreable to use Vercel to host the final app.
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
@@ -47,6 +45,9 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 ```
 npm run build 
 ```
+
+You can host the static files to your webdomain of choice however it is prefreable to use Vercel to host the final app.
+
 
 ## Contact
 
