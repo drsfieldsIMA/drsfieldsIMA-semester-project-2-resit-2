@@ -4,15 +4,35 @@ Final URL https://drsfields-ima-semester-project-2-resit-2.vercel.app/
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Description
+
+Powered by positivity this news site offers features on Buisness, Sport, Economy and Culture.
+
+## Built With
+
+- [Next.js] (https://nextjs.org/)
+- [SCSS] (https://sass-lang.com/)
+- [Visual Studio Code] (https://code.visualstudio.com/)
+
 ## Getting Started
 
-First, run the development server:
+To get started 
+
+1. Clone the repo:
 
 ```bash
-npm run dev
-# or
-yarn dev
+git clone git@github.com/drsfieldsIMA/greencycle.git
 ```
+
+2. Open with a processor of your choice e.g. Visual Studio Code:
+
+```
+code .
+npm install
+npm run dev
+```
+
+You can host the static files to your webdomain of choice however it is prefreable to use Vercel to host the final app.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -21,6 +41,19 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+3. Build the static files.
+
+```
+npm run build 
+```
+
+## Contact
+
+This is where you can contact me.
+
+[My LinkedIn page](https://www.linkedin.com/in/shaun-fields-8293b7a2/)
+[Email](drsfieldsIMA@gmail.com)
 
 ## Learn More
 
